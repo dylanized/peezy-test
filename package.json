@@ -1,7 +1,7 @@
 {
   "name": "peezy-test-helper",
-  "version": "0.0.4",
-  "description": "A simple testing wrapper for Unit.js",
+  "version": "0.0.5",
+  "description": "Simple test helpers for Mocha and Unit.js",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec"
