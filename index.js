@@ -8,7 +8,7 @@
 	
 		describe(label, function() {
 		  
-			it(desc, function() {
+			it(desc, function(done) {
 			
 				return testFunc(testObj, done);
 			
