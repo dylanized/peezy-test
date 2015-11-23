@@ -1,7 +1,7 @@
 {
-  "name": "peezy-test",
-  "version": "0.0.2",
-  "description": "A simple testing wrapper",
+  "name": "peezy-test-helper",
+  "version": "0.0.3",
+  "description": "A simple testing wrapper for Unit.js",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
