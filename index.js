@@ -14,8 +14,8 @@
 				for (var key in tests) {
 				
 					// test test async or sync
-					if (tests[key].async) test.async(tests[key].desc, tests[key].assert, data);
-					else test.setup(tests[key].desc, tests[key].assert, data);
+					if (tests[key].assert.length > 0) test.async(tests[key].desc, tests[key].assert, data);
+					else test.sync(tests[key].desc, tests[key].assert, data);
 				
 				}
 			
@@ -23,58 +23,39 @@
 		
 		}
 
-	// run suite with single sync test
+	// run suite with single test
 	
 		test.single = function(label, desc, assert, data) {
 		
 			describe(label, function() {
-			  
-				it(desc, function(done) {
-	
-					if (typeof data == "object") return assert(data, done);
-					else return assert(done);
-								
-				});
 			
-			});
-		
-		}
-
-	// run suite with single async test
-		
-		test.singleAsync = function(label, desc, assert, data) {
-		
-			describe(label, function() {
-			  
-				it(desc, function(done) {
-	
-					if (typeof data == "object") return assert(data, done);
-					else return assert(done);
-								
-				});
+				// if async
+				if (assert.length > 0) test.async(desc, assert, data);
+				// else sync				
+				else test.sync(desc, assert, data);
 			
 			});
 		
 		}
 	
-	// sync test	
+	// sync test case
 	
-		test.setup = function(desc, assert, data) {
+		test.sync = function(desc, assert, data) {
 			
 			it(desc, function() {
 				return assert(data);
-			}	
+			});
 		
 		}
 
-	// async test
+	// async test case
 	
 		test.async = function(desc, assert, data) {
 		
 			it(desc, function(done) {	
-		
-				if (typeof data == "object") return assert(data, done);
-				else return assert(done);	
+			
+				if (typeof data == "object") assert(data, done);
+				else assert(done);	
 			
 			});		
 		
