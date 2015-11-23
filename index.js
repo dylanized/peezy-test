@@ -2,15 +2,15 @@
 
 	var test = require("unit.js");
 
-// setup method
+// setup mocha test
 
-	test.set = function(name, desc, assert) {
+	test.setup = function(label, desc, testFunc, testObj) {
 	
-		describe(name, function() {
+		describe(label, function() {
 		  
 			it(desc, function() {
 			
-				assert();
+				return testFunc(testObj, done);
 			
 			});
 		
@@ -18,3 +18,6 @@
 	
 	}
 	
+// module exports	
+	
+	module.exports = test;
