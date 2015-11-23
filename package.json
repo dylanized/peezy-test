@@ -1,6 +1,6 @@
 {
   "name": "peezy-test-helper",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A simple testing wrapper for Unit.js",
   "main": "index.js",
   "scripts": {

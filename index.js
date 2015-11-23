@@ -9,9 +9,10 @@
 		describe(label, function() {
 		  
 			it(desc, function(done) {
-			
-				return testFunc(testObj, done);
-			
+
+				if (typeof testObj == "object") return testFunc(testObj, done);
+				else return testFunc(done);
+							
 			});
 		
 		});
