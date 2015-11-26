@@ -2,9 +2,9 @@
 
 	var test = require("unit.js");
 
-// setup mocha test			
+// setup mocha test	
 
-	// build test suite with tests obj
+	// build test suite with array of tests or suites
 		
 		test.suite = function(label, tests, data) {
 		
@@ -13,9 +13,16 @@
 				// for each test
 				for (var key in tests) {
 				
-					// test test async or sync
-					if (tests[key].assert.length > 0) test.async(tests[key].desc, tests[key].assert, data);
-					else test.sync(tests[key].desc, tests[key].assert, data);
+					// if this is a nested suite
+					if (tests[key].label) test.suite(tests[key].label, tests[key].tests, data);
+				
+					// else its a test
+					else {
+						// if async
+						if (tests[key].assert.length > 0) test.async(tests[key].desc, tests[key].assert, data);
+						// else sync
+						else test.sync(tests[key].desc, tests[key].assert, data);
+					}
 				
 				}
 			
@@ -60,6 +67,74 @@
 			});		
 		
 		}
+		
+	// supertest wrapper
+	
+		/* example of config obj */
+		var config = {
+			host: "http://localhost:3005",
+			path: "/api/path/",
+			user: "dhassinger@revolutionmessaging.com",
+			pass: "cherokee11",
+			set: [
+				{ "X-Auth-Token": "d9aff2ca0603aef4c2df46a9b3effe69" }
+			],
+			status: 200,
+			expect: [
+				{ "Content-Type": /json/ }
+			]
+		};
+	
+		test.http = function(options, assert, done) {
+		
+			var httpString = "test.httpAgent(options.host)";
+			
+			// path
+			httpString += ".get(options.path)";
+			
+			// auth
+			if (options.user && options.pass) httpString += ".auth(options.user, options.pass)";
+			
+			// headers
+			if (options.set && options.set.length > 0) {
+				for (var key in options.set) {
+					httpString += ".set(options.set[" + key + "])";
+				}
+			}
+			
+			// accept
+			if (options.accept) httpString += ".set('Accept', options.accept)";		
+			
+			// status
+			if (options.status) httpString += ".expect(options.status)";
+			
+			// type
+			if (options.type) httpString += ".expect('Content-Type', options.type)";
+	
+			// body
+			if (options.body) httpString += ".expect(options.body)";
+			
+			// expect
+			if (options.expect && options.expect.length > 0) {
+				for (var key in options.expect) {
+					var obj = options.expect[key];
+					var field = Object.keys(obj)[0];
+					var val = obj[field];
+					if (typeof val == "string") val = "'" + val + "'";
+					httpString += ".expect('" + field + "', " + val + ")";
+				}
+			}
+			
+			// assert
+			if (assert) httpString += ".expect(assert)";
+			
+			// end
+			httpString += ".end(done);";
+			
+			// run httpString
+			eval(httpString);
+								
+		}		
 	
 // module exports	
 	
