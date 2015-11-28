@@ -10,6 +10,8 @@
 		
 			describe(label, function() {
 			
+				var options;
+			
 				// for each test
 				for (var key in tests) {
 				
@@ -18,8 +20,13 @@
 				
 					// else its a test
 					else {
+						// if http
+						if (tests[key].path) {
+							options = _.extend(tests[key], data);
+							test.http(options, tests[key].assert);
+						}
 						// if async
-						if (tests[key].assert.length > 0) test.async(tests[key].desc, tests[key].assert, data);
+						else if (tests[key].assert.length > 0) test.async(tests[key].desc, tests[key].assert, data);
 						// else sync
 						else test.sync(tests[key].desc, tests[key].assert, data);
 					}
@@ -70,12 +77,12 @@
 		
 	// supertest wrapper
 	
-		/* example of config obj */
-		var config = {
-			host: "http://localhost:3005",
+		/* example of options obj */
+		var options_example = {
+			host: "http://localhost:9000",
 			path: "/api/path/",
-			user: "dhassinger@revolutionmessaging.com",
-			pass: "cherokee11",
+			user: "email@domain.com",
+			pass: "123456",
 			set: [
 				{ "X-Auth-Token": "d9aff2ca0603aef4c2df46a9b3effe69" }
 			],
