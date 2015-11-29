@@ -7,9 +7,9 @@
 
 	// build test suite with array of tests or suites
 		
-		test.suite = function(label, tests, data) {
+		test.suite = function(desc, tests, data) {
 		
-			describe(label, function() {
+			describe(desc, function() {
 			
 				var options;
 			
@@ -17,7 +17,7 @@
 				for (var key in tests) {
 				
 					// if this is a nested suite
-					if (tests[key].label && tests[key].tests) test.suite(tests[key].label, tests[key].tests, data);
+					if (tests[key].desc && tests[key].tests) test.suite(tests[key].desc, tests[key].tests, data);
 				
 					// else its a test
 					else {
