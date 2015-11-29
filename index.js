@@ -76,7 +76,7 @@
 		
 		}
 		
-	// supertest wrapper
+	// http tester
 	
 		/* example of options obj */
 		var options_example = {
