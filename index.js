@@ -87,10 +87,10 @@
 			headers: [
 				{ "": "" }
 			],
-			status: 200,						// if no status, 200 is default
+			status: 200,
 			expect: [
 				{ "Content-Type": /json/ }
-			]
+			],
 		};
 	
 		test.http = function(options, assert, done) {
