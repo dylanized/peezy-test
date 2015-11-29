@@ -1,6 +1,7 @@
 // module setup
 
-	var test = require("unit.js");
+	var test = require("unit.js"),
+		_ = require("underscore");
 
 // setup mocha test	
 
@@ -16,7 +17,7 @@
 				for (var key in tests) {
 				
 					// if this is a nested suite
-					if (tests[key].label) test.suite(tests[key].label, tests[key].tests, data);
+					if (tests[key].label && tests[key].tests) test.suite(tests[key].label, tests[key].tests, data);
 				
 					// else its a test
 					else {
