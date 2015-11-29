@@ -3,15 +3,20 @@
 	var test = require("unit.js"),
 		_ = require("underscore");
 
-// setup mocha test	
-
+// setup mocha test
+	
 	// build test suite with array of tests or suites
 		
 		test.suite = function(desc, tests, data) {
 		
+			// if no description
+			if (typeof desc == "object") {
+				data = tests;
+				tests = desc;
+				desc = "Testing suite";
+			}
+		
 			describe(desc, function() {
-			
-				var options;
 			
 				// for each test
 				for (var key in tests) {
@@ -21,15 +26,19 @@
 				
 					// else its a test
 					else {
+					
+						// merge data
+						if (data) _.extend(tests[key], data);
+					
 						// if http
-						if (tests[key].path) {
-							options = _.extend(tests[key], data);
-							test.http(options, tests[key].assert);
-						}
+						if (tests[key].host || tests[key].path) test.http(tests[key].desc, tests[key], tests[key].assert);
+
 						// if async
 						else if (tests[key].assert.length > 0) test.async(tests[key].desc, tests[key].assert, data);
+
 						// else sync
 						else test.sync(tests[key].desc, tests[key].assert, data);
+						
 					}
 				
 				}

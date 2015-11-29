@@ -27,25 +27,24 @@
 	});
 
 	test.single("Single HTTP Test", "test.http(http_options)", http_options, function(res) {
-		//console.log(res);
 		test.object(res).hasProperty("body");
 	});
 	
 // suite test
 
-	var nested_tests = [
+	var suites = [
 		{
 			desc: "Sync and Async",
 			tests: [
 				{
 					desc: "Sync test",
-					assert: function(data) {
+					assert: function() {
 						test.object(data).hasProperty("secret", "hello world");					
 					}
 				},
 				{
 					desc: "Async test",
-					assert: function(data, done) {
+					assert: function(done) {
 						test.object(data).hasProperty("secret", "hello world");
 						done();
 					}	
@@ -53,26 +52,47 @@
 			]		
 		},
 		{
-			desc: "Sync and Async",
+			desc: "HTTP",
 			tests: [
 				{
-					desc: "Sync test",
-					assert: function() {
-					
-					}
-				},
-				{
-					desc: "Async test",
-					assert: function(data, done) {
-						done();
-					}	
+					desc: "HTTP test",
+					host: "http://google.com",
+					status: 301,
+					expect: [
+						{ "Content-Type": /html/ }
+					],					
+					assert: function(res) {
+						test.object(res).hasProperty("body");
+					}					
 				}
 			]		
 		}		
 	];
 	
-	//test.suite("Testing suite", nested_tests, dummy_data);	
+	test.suite("Suite test", suites);
 	
-	// test for data
-	// http tester
-	// default if only arrat is provided
+// alt suite test
+
+	var suites2 = [
+		{
+			desc: "HTTP",
+			tests: [
+				{
+					desc: "HTTP test",
+					assert: function(res) {
+						test.object(res).hasProperty("body");
+					}					
+				}
+			]		
+		}		
+	];
+	
+	var http_options = {
+		host: "http://google.com",
+		status: 301,
+		expect: [
+			{ "Content-Type": /html/ }
+		]
+	}	
+	
+	test.suite(suites2, http_options);	
