@@ -84,10 +84,10 @@
 			path: "/api/path/",
 			user: "email@domain.com",
 			pass: "123456",
-			set: [
-				{ "X-Auth-Token": "d9aff2ca0603aef4c2df46a9b3effe69" }
+			headers: [
+				{ "": "" }
 			],
-			status: 200,
+			status: 200,						// if no status, 200 is default
 			expect: [
 				{ "Content-Type": /json/ }
 			]
@@ -104,8 +104,8 @@
 			if (options.user && options.pass) httpString += ".auth(options.user, options.pass)";
 			
 			// headers
-			if (options.set && options.set.length > 0) {
-				for (var key in options.set) {
+			if (options.headers && options.headers.length > 0) {
+				for (var key in options.headers) {
 					httpString += ".set(options.set[" + key + "])";
 				}
 			}
