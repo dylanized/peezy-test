@@ -1,2 +1,2 @@
-# peezy-test
-A simple testing wrapper using unit.js + mocha
+# peezy-test-helper
+Test suite helpers wrapped around Mocha and Unit.js
