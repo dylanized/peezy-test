@@ -66,7 +66,24 @@
 					}					
 				}
 			]		
-		}		
+		},
+		{
+			desc: "Exists",
+			tests: [
+				{
+					desc: "Single file exists",
+					assert: function() {
+						test.exists(filepath);
+					}					
+				},
+				{
+					desc: "Single file does not exists",
+					assert: function() {
+						test.doesNotExist(filepath);
+					}					
+				}										
+			]		
+		}				
 	];
 	
 	test.suite("Suite test", suites);

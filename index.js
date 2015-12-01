@@ -1,7 +1,8 @@
 // module setup
 
 	var test = require("unit.js"),
-		_ = require("underscore");
+		_ = require("underscore"),
+		file = require("peezy-file-helper");
 
 // setup mocha test
 	
@@ -158,8 +159,22 @@
 			
 			});	
 								
-		}		
+		}
+		
+	// helpers
 	
+		test.exists = function(filepath) {
+			
+			test.assert(file.exists(filepath));
+			
+		}		
+
+		test.doesNotExist = function(filepath) {
+			
+			test.assert(!file.exists(filepath));
+			
+		}
+			
 // module exports	
 	
 	module.exports = test;
