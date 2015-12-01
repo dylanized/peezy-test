@@ -24,7 +24,7 @@
 	test.single("Single Async Test", "test.async()", function(done) {
 		test.object(data).hasProperty("secret", "hello world");
 		done();	
-	});
+	})
 
 	test.single("Single HTTP Test", "test.http(http_options)", http_options, function(res) {
 		test.object(res).hasProperty("body");
@@ -73,13 +73,13 @@
 				{
 					desc: "Single file exists",
 					assert: function() {
-						test.exists(filepath);
+						test.exists("./package.json");
 					}					
 				},
 				{
 					desc: "Single file does not exists",
 					assert: function() {
-						test.doesNotExist(filepath);
+						test.doesNotExist("./package2.json");
 					}					
 				}										
 			]		
@@ -88,9 +88,9 @@
 	
 	test.suite("Suite test", suites);
 	
-// alt suite test
+// unnamed suite
 
-	var suites2 = [
+	var unnamed_suite = [
 		{
 			desc: "HTTP",
 			tests: [
@@ -104,12 +104,4 @@
 		}		
 	];
 	
-	var http_options = {
-		host: "http://google.com",
-		status: 301,
-		expect: [
-			{ "Content-Type": /html/ }
-		]
-	}	
-	
-	test.suite(suites2, http_options);	
+	test.suite(unnamed_suite, http_options);	
