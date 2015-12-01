@@ -45,6 +45,8 @@
 				}
 			
 			});
+			
+			return this;
 		
 		}
 
@@ -64,6 +66,8 @@
 				else test.sync(desc, assert);
 			
 			});
+			
+			return this;
 		
 		}
 	
@@ -74,6 +78,8 @@
 			it(desc, function() {
 				assert();
 			});
+			
+			return this;
 		
 		}
 
@@ -84,6 +90,8 @@
 			it(desc, function(done) {				
 				assert(done);				
 			});		
+			
+			return this;			
 		
 		}
 		
@@ -157,7 +165,9 @@
 				// run httpString
 				eval(httpString);				
 			
-			});	
+			});
+			
+			return this;	
 								
 		}
 		
@@ -167,11 +177,15 @@
 			
 			test.assert(file.exists(filepath));
 			
+			return this;
+			
 		}		
 
 		test.doesNotExist = function(filepath) {
 			
 			test.assert(!file.exists(filepath));
+			
+			return this;
 			
 		}
 			

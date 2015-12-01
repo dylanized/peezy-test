@@ -19,18 +19,18 @@
 
 	test.single("Single Sync Test", "test.sync()", function() {
 		test.object(data).hasProperty("secret", "hello world");
-	});
+	})
 
-	test.single("Single Async Test", "test.async()", function(done) {
+	.single("Single Async Test", "test.async()", function(done) {
 		test.object(data).hasProperty("secret", "hello world");
 		done();	
 	})
 
-	test.single("Single HTTP Test", "test.http(http_options)", http_options, function(res) {
+	.single("Single HTTP Test", "test.http(http_options)", http_options, function(res) {
 		test.object(res).hasProperty("body");
 	});
 	
-// suite test
+// suite tests
 
 	var suites = [
 		{
@@ -86,10 +86,6 @@
 		}				
 	];
 	
-	test.suite("Suite test", suites);
-	
-// unnamed suite
-
 	var unnamed_suite = [
 		{
 			desc: "HTTP",
@@ -102,6 +98,9 @@
 				}
 			]		
 		}		
-	];
+	];	
 	
-	test.suite(unnamed_suite, http_options);	
+	test.suite("Suite test", suites)
+	
+	// chained unnamed suite with suiteObj
+	.suite(unnamed_suite, http_options);	
