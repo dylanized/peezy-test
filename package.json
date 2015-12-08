@@ -1,6 +1,6 @@
 {
   "name": "peezy-test-helper",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Test suite helpers wrapped around Mocha and Unit.js",
   "main": "index.js",
   "scripts": {
