@@ -104,3 +104,41 @@
 	
 	// chained unnamed suite with suiteObj
 	.suite(unnamed_suite, http_options);	
+
+// before and after
+
+	var before = null;
+	var after = null;
+
+	test.suite("Before and After Sync Tests", [
+		{
+			desc: "Run .before function",
+			assert: function() {
+				
+			},
+			before: function() {
+				before = true;
+			}
+		},
+		{
+			desc: "Check .before function",
+			assert: function() {
+				test.assert(before == true);	
+			}
+		},
+		{
+			desc: "Run .after function",
+			assert: function() {
+				
+			},
+			after: function() {
+				after = true;				
+			}
+		},
+		{
+			desc: "Check .after function",
+			assert: function() {
+				test.assert(after == true);								
+			}
+		}
+	]);

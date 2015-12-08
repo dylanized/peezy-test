@@ -30,15 +30,27 @@
 					
 						// merge data
 						if (data) _.extend(tests[key], data);
+
+						// run before func						
+						if (typeof tests[key].before == 'function') tests[key].before();
 					
 						// if http
+						// TODO - run .after
 						if (tests[key].host || tests[key].path) test.http(tests[key].desc, tests[key], tests[key].assert);
 
 						// if async
+						// TODO - run .after
 						else if (tests[key].assert.length > 0) test.async(tests[key].desc, tests[key].assert, data);
 
 						// else sync
-						else test.sync(tests[key].desc, tests[key].assert, data);
+						else {
+															
+							test.sync(tests[key].desc, tests[key].assert, data);
+							
+							// run after func
+							if (typeof tests[key].after == 'function') tests[key].after();
+							
+						}
 						
 					}
 				
