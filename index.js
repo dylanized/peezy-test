@@ -35,8 +35,7 @@
 						if (typeof tests[key].before == 'function') tests[key].before();
 					
 						// if http
-						// TODO - run .after
-						if (tests[key].host || tests[key].path) test.http(tests[key].desc, tests[key], tests[key].assert);
+						if (tests[key].host || tests[key].path) test.http(tests[key].desc, tests[key], tests[key].assert, tests[key].after);
 
 						// if async
 						else if (tests[key].assert.length > 0) {
@@ -87,13 +86,13 @@
 	
 	// sync test case
 	
-		test.sync = function(desc, assert, cb) {
+		test.sync = function(desc, assert, after) {
 			
 			it(desc, function() {
 				assert();
 			});
 			
-			if (cb) cb();
+			if (after) after();
 
 			return this;
 		
@@ -135,7 +134,7 @@
 			]
 		};
 	
-		test.http = function(desc, options, assert) {
+		test.http = function(desc, options, assert, after) {
 		
 			it(desc, function(done) {
 		
@@ -182,8 +181,17 @@
 				// assert
 				if (assert) httpString += ".expect(assert)";
 				
+				// determine cb				
+				if (after) {
+					function cb() {
+						done();
+						after();
+					}
+				}
+				else cb = done;	
+				
 				// end
-				httpString += ".end(done);";
+				httpString += ".end(cb);";
 				
 				// run httpString
 				eval(httpString);				

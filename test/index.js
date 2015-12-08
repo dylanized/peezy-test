@@ -147,10 +147,11 @@
 // after async
 	
 	var after_async = false;
+	var after_http = false;
 
 	test.suite("After Async Tests", [
 		{
-			desc: "Run .after function",
+			desc: "Async with .after",
 			assert: function(done) {
 				done();	
 			},
@@ -159,9 +160,29 @@
 			}
 		},
 		{
-			desc: "Check .after function",
+			desc: "Check async .after function",
 			assert: function() {
 				test.assert(after_async === true);								
 			}
-		}
+		},
+		{
+			desc: "HTTP with .after",
+			host: "http://google.com",
+			status: 301,
+			expect: [
+				{ "Content-Type": /html/ }
+			],					
+			assert: function(res) {
+				test.object(res).hasProperty("body");
+			},
+			after: function() {
+				after_http = true;				
+			}							
+		},
+		{
+			desc: "Check http .after function",
+			assert: function() {
+				test.assert(after_http === true);								
+			}
+		}		
 	]);	
