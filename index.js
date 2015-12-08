@@ -39,16 +39,18 @@
 						if (tests[key].host || tests[key].path) test.http(tests[key].desc, tests[key], tests[key].assert);
 
 						// if async
-						// TODO - run .after
-						else if (tests[key].assert.length > 0) test.async(tests[key].desc, tests[key].assert, data);
+						else if (tests[key].assert.length > 0) {
+						
+							if (tests[key].after) test.async(tests[key].desc, tests[key].assert, tests[key].after);
+							test.async(tests[key].desc, tests[key].assert);
 
+						}
+						
 						// else sync
 						else {
-															
-							test.sync(tests[key].desc, tests[key].assert, data);
-							
-							// run after func
-							if (typeof tests[key].after == 'function') tests[key].after();
+						
+							if (tests[key].after) test.sync(tests[key].desc, tests[key].assert, tests[key].after);
+							else test.sync(tests[key].desc, tests[key].assert);
 							
 						}
 						
@@ -85,22 +87,31 @@
 	
 	// sync test case
 	
-		test.sync = function(desc, assert) {
+		test.sync = function(desc, assert, cb) {
 			
 			it(desc, function() {
 				assert();
 			});
 			
+			if (cb) cb();
+
 			return this;
 		
 		}
 
 	// async test case
 	
-		test.async = function(desc, assert) {
+		test.async = function(desc, assert, after) {
 		
-			it(desc, function(done) {				
-				assert(done);				
+			it(desc, function(done) {
+				if (after) {
+					function cb() {
+						done();
+						after();
+					}
+				}
+				else cb = done;		
+				assert(cb);				
 			});		
 			
 			return this;			

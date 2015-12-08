@@ -105,10 +105,10 @@
 	// chained unnamed suite with suiteObj
 	.suite(unnamed_suite, http_options);	
 
-// before and after
+// before and after (sync)
 
-	var before = null;
-	var after = null;
+	var before = false;
+	var after = false;
 
 	test.suite("Before and After Sync Tests", [
 		{
@@ -123,7 +123,7 @@
 		{
 			desc: "Check .before function",
 			assert: function() {
-				test.assert(before == true);	
+				test.assert(before === true);	
 			}
 		},
 		{
@@ -132,13 +132,36 @@
 				
 			},
 			after: function() {
+				console.log("hello world");
 				after = true;				
 			}
 		},
 		{
 			desc: "Check .after function",
 			assert: function() {
-				test.assert(after == true);								
+				test.assert(after === true);								
 			}
 		}
 	]);
+	
+// after async
+	
+	var after_async = false;
+
+	test.suite("After Async Tests", [
+		{
+			desc: "Run .after function",
+			assert: function(done) {
+				done();	
+			},
+			after: function() {
+				after_async = true;				
+			}
+		},
+		{
+			desc: "Check .after function",
+			assert: function() {
+				test.assert(after_async === true);								
+			}
+		}
+	]);	
