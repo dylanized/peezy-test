@@ -1,13 +1,13 @@
 {
-  "name": "peezy-test-helper",
-  "version": "0.0.11",
-  "description": "Test suite helpers wrapped around Mocha and Unit.js",
+  "name": "suite-tooth",
+  "version": "0.0.12",
+  "description": "A wrapper for Unit.js and Mocha that allows you to write your tests declaratively",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "peezy-file-helper": "^0.0.2",
     "underscore": "^1.8.3",
