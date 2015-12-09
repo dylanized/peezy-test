@@ -1,2 +1,2 @@
-# peezy-test-helper
-Test suite helpers wrapped around Mocha and Unit.js
+# suite-tooth
+A wrapper for Unit.js and Mocha that allows you to write your tests declaratively
