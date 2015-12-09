@@ -149,7 +149,7 @@
 				if (options.verb) verb = options.verb;
 				if (options.path) path = options.path;
 				if (options.send) send = options.send;
-				if (options.status) send = options.send;
+				if (options.status) status = options.status;
 				
 				// shortcuts								
 				
@@ -169,7 +169,7 @@
 				}			
 				
 				// verb and path
-				httpString += "." + verb + "(" + path + ")";
+				httpString += "." + verb + "('" + path + "')";
 				
 				// auth
 				if (options.user && options.pass) httpString += ".auth(options.user, options.pass)";
