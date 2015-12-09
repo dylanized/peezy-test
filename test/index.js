@@ -186,3 +186,43 @@
 			}
 		}		
 	]);	
+	
+// put and delete
+
+	/*
+	test.suite("Post, Put and Delete", [
+		{
+			desc: "Post with .verb",
+			verb: "post",
+			send: {},
+			status: 201
+		},	
+		{
+			desc: "Post with .post property",
+			post: {},
+			status: 201
+		},	
+		{
+			desc: "Put with .verb property",
+			verb: "put",
+			send: {},
+			status: 204
+		},	
+		{
+			desc: "Put with .put property",
+			put: {},
+			status: 204
+		},
+		{
+			desc: "Del with .del property",
+			verb: "del",
+			send: {},
+			status: 204
+		},	
+		{
+			desc: "Delete with .delete property",
+			put: {},
+			status: 204
+		}					
+	]);	
+	*/

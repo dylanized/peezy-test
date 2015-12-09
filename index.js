@@ -140,9 +140,36 @@
 		
 				var httpString = "test.httpAgent(options.host)";
 				
-				// path
-				if (!options.path) httpString += ".get('/')";
-				else httpString += ".get(options.path)";
+				// defaults
+				var verb = "get";
+				var path = "/";
+				var send;
+				var status = 200;
+				
+				if (options.verb) verb = options.verb;
+				if (options.path) path = options.path;
+				if (options.send) send = options.send;
+				if (options.status) send = options.send;
+				
+				// shortcuts								
+				
+				if (options.post) {
+					verb = "post";
+					send = options.post;
+				}
+
+				else if (options.put) {
+					verb = "put";
+					send = options.put;
+				}
+				
+				else if (options.del) {
+					verb = "delete";
+					send = options.del;
+				}			
+				
+				// verb and path
+				httpString += "." + verb + "(" + path + ")";
 				
 				// auth
 				if (options.user && options.pass) httpString += ".auth(options.user, options.pass)";
@@ -154,12 +181,14 @@
 					}
 				}
 				
+				// send
+				if (send) httpString += ".send(send)";
+				
 				// accept
 				if (options.accept) httpString += ".set('Accept', options.accept)";		
 				
 				// status
-				if (options.status) httpString += ".expect(options.status)";
-				else httpString += ".expect(200)";
+				httpString += ".expect(status)";
 				
 				// type
 				if (options.type) httpString += ".expect('Content-Type', options.type)";
@@ -184,8 +213,8 @@
 				// determine cb				
 				if (after) {
 					function cb() {
-						done();
 						after();
+						done();
 					}
 				}
 				else cb = done;	
@@ -219,6 +248,8 @@
 			return this;
 			
 		}
+		
+		test.noExist = test.doesNotExist;
 			
 // module exports	
 	
