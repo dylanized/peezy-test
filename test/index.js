@@ -1,7 +1,6 @@
 // setup
 
-	var test = require("../index.js"),
-		_ = require("underscore");
+	var test = require("../index.js");
 
 // dummy data
 
@@ -13,24 +12,9 @@
 			{ "Content-Type": /html/ }
 		],
 		status: 301
-	};		
+	};
 	
-// single tests
-
-	test.single("Single Sync Test", "test.sync()", function() {
-		test.object(data).hasProperty("secret", "hello world");
-	})
-
-	.single("Single Async Test", "test.async()", function(done) {
-		test.object(data).hasProperty("secret", "hello world");
-		done();	
-	})
-
-	.single("Single HTTP Test", "test.http(http_options)", http_options, function(res) {
-		test.object(res).hasProperty("body");
-	});
-	
-// suite tests
+// basic suite tests
 
 	var suites = [
 		{
@@ -117,6 +101,7 @@
 				
 			},
 			before: function() {
+				console.log("Hello world");
 				before = true;
 			}
 		},
@@ -132,7 +117,7 @@
 				
 			},
 			after: function() {
-				console.log("hello world");
+				console.log("Hello world2");			
 				after = true;				
 			}
 		},
@@ -185,8 +170,79 @@
 				test.assert(after_http === true);								
 			}
 		}		
-	]);	
+	]);
 	
+// beforeAll and afterAll
+	
+	var allTest = 0;
+
+	test.suite("beforeAll and afterAll", [
+		{
+			desc: "Dummy test",
+			assert: function() {
+				//console.log(allTest);
+				test.assert(allTest == 1);								
+				//console.log(allTest);				
+			}
+		},
+		{
+			desc: "Increment",
+			assert: function() {
+				allTest++;
+				test.assert(allTest == 2);
+			}
+		}		
+	], {
+		beforeAll: function() {
+			allTest++;
+		},
+		afterAll: function() {
+			allTest++;	
+		}
+	});	
+	
+	test.suite("Checking afterAll", [
+		{
+			desc: "Checking afterAll",
+			assert: function() {
+				test.assert(allTest == 3);				
+			}
+		}
+	]);
+	
+// beforeEach and afterEach
+	
+	var beforeTest = 0;
+	var afterTest = 10;
+
+	test.suite("beforeEach, afterEach", [
+		{
+			desc: "Dummy test",
+			assert: function() {
+				test.assert(beforeTest == 1);								
+				test.assert(afterTest == 10);									
+			}
+		},
+		{
+			desc: "Increment",
+			assert: function() {
+				test.assert(beforeTest == 2);	
+				test.assert(afterTest == 11);																		
+			}
+		}				
+	], {
+		beforeEach: function() {
+			beforeTest++;
+		},
+		afterEach: function() {
+			afterTest++;
+		},
+		afterAll: function() {
+			test.assert(beforeTest == 2);			
+			test.assert(afterTest == 12);	
+		}
+	});
+		
 // put and delete
 
 	/*
