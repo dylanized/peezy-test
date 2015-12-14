@@ -1,9 +1,7 @@
 // module setup
 
 	var test = require("unit.js"),
-		_ = require("lodash"),
-		file = require("peezy-file-helper"),
-		Seq = require('seq');
+		_ = require("lodash");
 
 // setup mocha test
 	
@@ -231,26 +229,6 @@
 			return this;	
 								
 		}
-		
-	// helpers
-	
-		test.exists = function(filepath) {
-			
-			test.assert(file.exists(filepath));
-			
-			return this;
-			
-		}		
-
-		test.doesNotExist = function(filepath) {
-			
-			test.assert(!file.exists(filepath));
-			
-			return this;
-			
-		}
-		
-		test.noExist = test.doesNotExist;
 			
 // module exports	
 	

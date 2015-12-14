@@ -50,23 +50,6 @@
 					}					
 				}
 			]		
-		},
-		{
-			desc: "Exists",
-			tests: [
-				{
-					desc: "Single file exists",
-					assert: function() {
-						test.exists("./package.json");
-					}					
-				},
-				{
-					desc: "Single file does not exists",
-					assert: function() {
-						test.doesNotExist("./package2.json");
-					}					
-				}										
-			]		
 		}				
 	];
 	
@@ -101,7 +84,6 @@
 				
 			},
 			before: function() {
-				console.log("Hello world");
 				before = true;
 			}
 		},
@@ -117,7 +99,6 @@
 				
 			},
 			after: function() {
-				console.log("Hello world2");			
 				after = true;				
 			}
 		},
