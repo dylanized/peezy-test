@@ -153,11 +153,11 @@
 		}		
 	]);
 	
-// beforeAll and afterAll
+// beforeAll and afterAll (sync)
 	
 	var allTest = 0;
 
-	test.suite("beforeAll and afterAll", [
+	test.suite("beforeAll and afterAll (sync)", [
 		{
 			desc: "Dummy test",
 			assert: function() {
@@ -182,21 +182,69 @@
 		}
 	});	
 	
-	test.suite("Checking afterAll", [
+	test.suite("Confirming afterAll", [
 		{
-			desc: "Checking afterAll",
+			desc: "Confirming afterAll",
 			assert: function() {
 				test.assert(allTest == 3);				
 			}
 		}
 	]);
 	
-// beforeEach and afterEach
+// beforeAll and afterAll (async)
+	
+	var allAsyncTest = 0;
+
+	test.suite("beforeAll and afterAll (async)", [
+		{
+			desc: "Dummy test",
+			assert: function(done) {
+				setTimeout(function() {
+					test.assert(allAsyncTest == 1);
+					done();							
+				}, 1500);
+			}
+		},
+		{
+			desc: "Increment",
+			assert: function(done) {
+				setTimeout(function() {
+					allAsyncTest++;
+					done();
+				}, 1500);
+			}
+		}		
+	], {
+		beforeAll: function(done) {
+			setTimeout(function() {
+				allAsyncTest++;
+				done();
+			}, 1500);
+		},
+		afterAll: function(done) {
+			setTimeout(function() {
+				test.assert(allAsyncTest == 2);
+				allAsyncTest++;				
+				done();
+			}, 1500);
+		}
+	});
+	
+	test.suite("beforeAll and afterAll (async - cont'd)", [
+		{
+			desc: "confirming afterAll",
+			assert: function() {
+				test.assert(allAsyncTest == 3);								
+			}
+		}
+	]);
+		
+// beforeEach and afterEach (sync)
 	
 	var beforeTest = 0;
 	var afterTest = 10;
 
-	test.suite("beforeEach, afterEach", [
+	test.suite("beforeEach, afterEach (sync)", [
 		{
 			desc: "Dummy test",
 			assert: function() {
@@ -223,6 +271,71 @@
 			test.assert(afterTest == 12);	
 		}
 	});
+	
+	test.suite("beforeEach, afterEach (sync - cont'd)", [
+		{
+			desc: "confirming afterAll",
+			assert: function() {
+				test.assert(beforeTest == 2);			
+				test.assert(afterTest == 12);									
+			}
+		}
+	]);	
+	
+// beforeEach and afterEach (async)
+	
+	var beforeAsyncTest = 0;
+	var afterAsyncTest = 10;
+
+	test.suite("beforeEach, afterEach (async)", [
+		{
+			desc: "Dummy test",
+			assert: function(done) {
+				setTimeout(function() {
+					test.assert(beforeAsyncTest == 1);								
+					test.assert(afterAsyncTest == 10);	
+					done();													
+				}, 1500);
+			}
+		},
+		{
+			desc: "Increment",
+			assert: function(done) {
+				setTimeout(function() {
+					test.assert(beforeAsyncTest == 2);	
+					test.assert(afterAsyncTest == 11);		
+					done();														
+				}, 1500);		
+			}
+		}				
+	], {
+		beforeEach: function(done) {
+			setTimeout(function() {
+				beforeAsyncTest++;	
+				done();				
+			}, 1500);	
+		},
+		afterEach: function(done) {
+			setTimeout(function() {	
+				afterAsyncTest++;
+				done();
+			}, 1500);
+		},
+		afterAll: function() {
+			test.assert(beforeAsyncTest == 2);			
+			test.assert(afterAsyncTest == 12);	
+		}
+	});	
+		
+	test.suite("beforeEach, afterEach (async - cont'd)", [
+		{
+			desc: "confirming afterAll",
+			assert: function() {
+				test.assert(beforeAsyncTest == 2);			
+				test.assert(afterAsyncTest == 12);									
+			}
+		}
+	]);		
 		
 // put and delete
 
