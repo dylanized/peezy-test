@@ -30,7 +30,7 @@
 				for (var key in tests) {
 				
 					// if this is a nested suite
-					if (tests[key].desc && tests[key].tests) test.suite(tests[key].desc, tests[key].tests, data);
+					if (tests[key].label && tests[key].tests) test.suite(tests[key].label, tests[key].tests, data);
 				
 					// else its a test
 					else {
@@ -39,7 +39,7 @@
 						if (data) _.extend(tests[key], data);
 						
 						// if pending test case
-						if (tests[key].pending || tests[key].skip) it(tests[key].desc);
+						if (tests[key].pending || tests[key].skip) it(tests[key].label);
 
 						// else execute test case						
 						else {
@@ -69,7 +69,7 @@
 	
 		test.sync = function(testObj) {
 		
-			it(testObj.desc, function() {
+			it(testObj.label, function() {
 				
 				// before
 				if (testObj.before) testObj.before();
@@ -90,7 +90,7 @@
 	
 		test.async = function(testObj) {
 
-			it(testObj.desc, function(done) {
+			it(testObj.label, function(done) {
 		
 				// before
 				if (testObj.before) testObj.before();
@@ -134,7 +134,7 @@
 	
 		test.http = function(testObj) {
 		
-			it(testObj.desc, function(done) {
+			it(testObj.label, function(done) {
 			
 				// before
 		

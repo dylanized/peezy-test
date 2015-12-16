@@ -18,16 +18,16 @@
 
 	var suites = [
 		{
-			desc: "Sync and Async",
+			label: "Sync and Async",
 			tests: [
 				{
-					desc: "Sync test",
+					label: "Sync test",
 					assert: function() {
 						test.object(data).hasProperty("secret", "hello world");					
 					}
 				},
 				{
-					desc: "Async test",
+					label: "Async test",
 					assert: function(done) {
 						test.object(data).hasProperty("secret", "hello world");
 						done();
@@ -36,10 +36,10 @@
 			]		
 		},
 		{
-			desc: "HTTP",
+			label: "HTTP",
 			tests: [
 				{
-					desc: "HTTP test",
+					label: "HTTP test",
 					host: "http://google.com",
 					status: 301,
 					expect: [
@@ -55,10 +55,10 @@
 	
 	var unnamed_suite = [
 		{
-			desc: "HTTP",
+			label: "HTTP",
 			tests: [
 				{
-					desc: "HTTP test",
+					label: "HTTP test",
 					assert: function(res) {
 						test.object(res).hasProperty("body");
 					}					
@@ -79,7 +79,7 @@
 
 	test.suite("Before and After Sync Tests", [
 		{
-			desc: "Run .before function",
+			label: "Run .before function",
 			assert: function() {
 				
 			},
@@ -88,13 +88,13 @@
 			}
 		},
 		{
-			desc: "Check .before function",
+			label: "Check .before function",
 			assert: function() {
 				test.assert(before === true);	
 			}
 		},
 		{
-			desc: "Run .after function",
+			label: "Run .after function",
 			assert: function() {
 				
 			},
@@ -103,7 +103,7 @@
 			}
 		},
 		{
-			desc: "Check .after function",
+			label: "Check .after function",
 			assert: function() {
 				test.assert(after === true);								
 			}
@@ -117,7 +117,7 @@
 
 	test.suite("After Async Tests", [
 		{
-			desc: "Async with .after",
+			label: "Async with .after",
 			assert: function(done) {
 				done();	
 			},
@@ -126,13 +126,13 @@
 			}
 		},
 		{
-			desc: "Check async .after function",
+			label: "Check async .after function",
 			assert: function() {
 				test.assert(after_async === true);								
 			}
 		},
 		{
-			desc: "HTTP with .after",
+			label: "HTTP with .after",
 			host: "http://google.com",
 			status: 301,
 			expect: [
@@ -146,7 +146,7 @@
 			}							
 		},
 		{
-			desc: "Check http .after function",
+			label: "Check http .after function",
 			assert: function() {
 				test.assert(after_http === true);								
 			}
@@ -159,7 +159,7 @@
 
 	test.suite("beforeAll and afterAll (sync)", [
 		{
-			desc: "Dummy test",
+			label: "Dummy test",
 			assert: function() {
 				//console.log(allTest);
 				test.assert(allTest == 1);								
@@ -167,7 +167,7 @@
 			}
 		},
 		{
-			desc: "Increment",
+			label: "Increment",
 			assert: function() {
 				allTest++;
 				test.assert(allTest == 2);
@@ -184,7 +184,7 @@
 	
 	test.suite("Confirming afterAll", [
 		{
-			desc: "Confirming afterAll",
+			label: "Confirming afterAll",
 			assert: function() {
 				test.assert(allTest == 3);				
 			}
@@ -197,7 +197,7 @@
 
 	test.suite("beforeAll and afterAll (async)", [
 		{
-			desc: "Dummy test",
+			label: "Dummy test",
 			assert: function(done) {
 				setTimeout(function() {
 					test.assert(allAsyncTest == 1);
@@ -206,7 +206,7 @@
 			}
 		},
 		{
-			desc: "Increment",
+			label: "Increment",
 			assert: function(done) {
 				setTimeout(function() {
 					allAsyncTest++;
@@ -232,7 +232,7 @@
 	
 	test.suite("beforeAll and afterAll (async - cont'd)", [
 		{
-			desc: "confirming afterAll",
+			label: "confirming afterAll",
 			assert: function() {
 				test.assert(allAsyncTest == 3);								
 			}
@@ -246,14 +246,14 @@
 
 	test.suite("beforeEach, afterEach (sync)", [
 		{
-			desc: "Dummy test",
+			label: "Dummy test",
 			assert: function() {
 				test.assert(beforeTest == 1);								
 				test.assert(afterTest == 10);									
 			}
 		},
 		{
-			desc: "Increment",
+			label: "Increment",
 			assert: function() {
 				test.assert(beforeTest == 2);	
 				test.assert(afterTest == 11);																		
@@ -274,7 +274,7 @@
 	
 	test.suite("beforeEach, afterEach (sync - cont'd)", [
 		{
-			desc: "confirming afterAll",
+			label: "confirming afterAll",
 			assert: function() {
 				test.assert(beforeTest == 2);			
 				test.assert(afterTest == 12);									
@@ -289,7 +289,7 @@
 
 	test.suite("beforeEach, afterEach (async)", [
 		{
-			desc: "Dummy test",
+			label: "Dummy test",
 			assert: function(done) {
 				setTimeout(function() {
 					test.assert(beforeAsyncTest == 1);								
@@ -299,7 +299,7 @@
 			}
 		},
 		{
-			desc: "Increment",
+			label: "Increment",
 			assert: function(done) {
 				setTimeout(function() {
 					test.assert(beforeAsyncTest == 2);	
@@ -329,7 +329,7 @@
 		
 	test.suite("beforeEach, afterEach (async - cont'd)", [
 		{
-			desc: "confirming afterAll",
+			label: "confirming afterAll",
 			assert: function() {
 				test.assert(beforeAsyncTest == 2);			
 				test.assert(afterAsyncTest == 12);									
@@ -344,27 +344,27 @@
 
 	test.suite("Pending and Skipping", [
 		{
-			desc: "This should be pending",
+			label: "This should be pending",
 			assert: function() {
 				pending = true;	
 			},
 			pending : true
 		},
 		{
-			desc: "Checking pending",
+			label: "Checking pending",
 			assert: function() {
 				test.assert(pending === false);	
 			}
 		},
 		{
-			desc: "This should be skipped",
+			label: "This should be skipped",
 			assert: function() {
 				skipping = true;	
 			},
 			skip : true
 		},
 		{
-			desc: "Checking skipped",
+			label: "Checking skipped",
 			assert: function() {
 				test.assert(skipping === false);	
 			}
@@ -376,35 +376,35 @@
 	/*
 	test.suite("Post, Put and Delete", [
 		{
-			desc: "Post with .verb",
+			label: "Post with .verb",
 			verb: "post",
 			send: {},
 			status: 201
 		},	
 		{
-			desc: "Post with .post property",
+			label: "Post with .post property",
 			post: {},
 			status: 201
 		},	
 		{
-			desc: "Put with .verb property",
+			label: "Put with .verb property",
 			verb: "put",
 			send: {},
 			status: 204
 		},	
 		{
-			desc: "Put with .put property",
+			label: "Put with .put property",
 			put: {},
 			status: 204
 		},
 		{
-			desc: "Del with .del property",
+			label: "Del with .del property",
 			verb: "del",
 			send: {},
 			status: 204
 		},	
 		{
-			desc: "Delete with .delete property",
+			label: "Delete with .delete property",
 			put: {},
 			status: 204
 		}					
