@@ -37,15 +37,23 @@
 					
 						// merge data
 						if (data) _.extend(tests[key], data);
-					
-						// if http
-						if (tests[key].host || tests[key].path) test.http(tests[key]);
-
-						// if async
-						else if (tests[key].assert.length > 0) test.async(tests[key]);
 						
-						// else sync
-						else test.sync(tests[key]);
+						// if pending test case
+						if (tests[key].pending || tests[key].skip) it(tests[key].desc);
+
+						// else execute test case						
+						else {
+					
+							// if http
+							if (tests[key].host || tests[key].path) test.http(tests[key]);
+	
+							// if async
+							else if (tests[key].assert.length > 0) test.async(tests[key]);
+							
+							// else sync
+							else test.sync(tests[key]);
+							
+						}
 						
 					}
 				

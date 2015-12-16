@@ -336,6 +336,40 @@
 			}
 		}
 	]);		
+	
+// pending and skipping
+
+	var pending = false;
+	var skipping = false;
+
+	test.suite("Pending and Skipping", [
+		{
+			desc: "This should be pending",
+			assert: function() {
+				pending = true;	
+			},
+			pending : true
+		},
+		{
+			desc: "Checking pending",
+			assert: function() {
+				test.assert(pending === false);	
+			}
+		},
+		{
+			desc: "This should be skipped",
+			assert: function() {
+				skipping = true;	
+			},
+			skip : true
+		},
+		{
+			desc: "Checking skipped",
+			assert: function() {
+				test.assert(skipping === false);	
+			}
+		}		
+	]);
 		
 // put and delete
 
