@@ -7,11 +7,11 @@
 	
 	// build test suite with array of tests or suites
 		
-		test.suite = function(label, tests, options) {
+		test.suite = function(label, tests, data) {
 		
 			// if no description
 			if (typeof label == "object") {
-				label = tests;
+				data = tests;
 				tests = label;
 				label = "Testing suite";
 			}
@@ -19,24 +19,24 @@
 			describe(label, function() {
 			
 				// .beforeAll and .afterAll					
-				if (options && typeof options.beforeAll == 'function') before(options.beforeAll);
-				if (options && typeof options.afterAll == 'function') after(options.afterAll);			
+				if (data && typeof data.beforeAll == 'function') before(data.beforeAll);
+				if (data && typeof data.afterAll == 'function') after(data.afterAll);			
 
 				// .beforeEach and .afterEach						
-				if (options && typeof options.beforeEach == 'function') beforeEach(options.beforeEach);
-				if (options && typeof options.afterEach == 'function') afterEach(options.afterEach);		
+				if (data && typeof data.beforeEach == 'function') beforeEach(data.beforeEach);
+				if (data && typeof data.afterEach == 'function') afterEach(data.afterEach);		
 			
 				// for each test
 				for (var key in tests) {
 				
 					// if this is a nested suite
-					if (tests[key].label && tests[key].tests) test.suite(tests[key].label, tests[key].tests, options);
+					if (tests[key].label && tests[key].tests) test.suite(tests[key].label, tests[key].tests, data);
 				
 					// else its a test
 					else {
 					
-						// merge options
-						if (options) _.extend(tests[key], options);
+						// merge data
+						if (data) _.extend(tests[key], data);
 						
 						// if pending test case
 						if (tests[key].pending || tests[key].skip) it(tests[key].label);
