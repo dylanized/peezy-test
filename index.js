@@ -35,7 +35,7 @@
 					// for each testObj
 					for (var key in tests) {
 					
-						handleTestObj(tests[key]);
+						handleTestObj(tests[key], options);
 					
 					}
 				
@@ -47,7 +47,7 @@
 		
 		}
 		
-		function handleTestObj(testObj) {
+		function handleTestObj(testObj, options) {
 					
 			// if this is a nested suite
 			if (testObj.label && testObj.tests) test.suite(testObj.label, testObj.tests, options);
