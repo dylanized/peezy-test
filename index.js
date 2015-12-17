@@ -9,6 +9,8 @@
 		
 		test.suite = function(label, tests, options) {
 		
+			var testObj = {};
+		
 			// if no label
 			if (typeof label == "object") {
 				options = tests;
@@ -33,29 +35,31 @@
 					// for each testObj
 					for (var key in tests) {
 					
+						testObj = tests[key];
+					
 						// if this is a nested suite
-						if (tests[key].label && tests[key].tests) test.suite(tests[key].label, tests[key].tests, options);
+						if (testObj.label && testObj.tests) test.suite(testObj.label, testObj.tests, options);
 					
 						// else its a test case
 						else {
 						
-							// merge options
-							if (options) _.extend(tests[key], options);
+							// merge options into the testObj
+							if (options) _.extend(testObj, options);
 							
 							// if pending test case
-							if (tests[key].pending || tests[key].skip) it(tests[key].label);
+							if (testObj.pending || testObj.skip) it(testObj.label);
 	
 							// else execute test case						
 							else {
 						
 								// if http
-								if (tests[key].host || tests[key].path) test.http(tests[key]);
+								if (testObj.host || testObj.path) test.http(testObj);
 		
 								// if async
-								else if (tests[key].assert.length > 0) test.async(tests[key]);
+								else if (testObj.assert.length > 0) test.async(testObj);
 								
 								// else sync
-								else test.sync(tests[key]);
+								else test.sync(testObj);
 								
 							}
 							
