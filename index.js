@@ -24,6 +24,9 @@
 				// set up mocha suite
 				describe(label, function() {
 				
+					// set timeout
+					if (options && options.timeout) this.timeout(options.timeout);
+				
 					// set .beforeAll and .afterAll					
 					if (options && typeof options.beforeAll == 'function') before(options.beforeAll);
 					if (options && typeof options.afterAll == 'function') after(options.afterAll);			
@@ -84,14 +87,17 @@
 		test.sync = function(testObj) {
 		
 			it(testObj.label, function() {
-				
-				// before
+			
+				// set timeout
+				if (testObj.timeout) this.timeout(testObj.timeout);
+		
+				// run before
 				if (testObj.before) testObj.before();
 						
-				// assert					
+				// run assert					
 				if (testObj.assert) testObj.assert();
 				
-				// finish
+				// run finish
 				if (testObj.after) testObj.after();				
 				
 			});
@@ -105,8 +111,11 @@
 		test.async = function(testObj) {
 
 			it(testObj.label, function(done) {
+			
+				// set timeout
+				if (testObj.timeout) this.timeout(testObj.timeout);
 		
-				// before
+				// run before
 				if (testObj.before) testObj.before();
 				
 				// set finish
@@ -150,7 +159,11 @@
 		
 			it(testObj.label, function(done) {
 			
-				// before
+				// set timeout
+				
+					if (testObj.timeout) this.timeout(testObj.timeout);
+		
+				// run before
 		
 					if (testObj.before) testObj.before();
 					

@@ -396,9 +396,11 @@
 		}		
 	], {
 		skip: true
-	});		
+	});	
+	
+// TODO: timeout tests	
 		
-// put and delete
+// TODO: put and delete
 
 	/*
 	test.suite("Post, Put and Delete", [
