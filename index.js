@@ -179,82 +179,9 @@
 					} else finish = done;					
 		    
 		    	// build http eval
-			    	
-					var httpString = "test.httpAgent(testObj.host)";
+		    	
+					var httpString = buildHttpString(testObj);
 					
-					// defaults
-					var verb = "get";
-					var path = "/";
-					var send;
-					var status = 200;
-					
-					if (testObj.verb) verb = testObj.verb;
-					if (testObj.path) path = testObj.path;
-					if (testObj.send) send = testObj.send;
-					if (testObj.status) status = testObj.status;
-					
-					// shortcuts								
-					
-					if (testObj.post) {
-						verb = "post";
-						send = testObj.post;
-					}
-	
-					else if (testObj.put) {
-						verb = "put";
-						send = testObj.put;
-					}
-					
-					else if (testObj.del) {
-						verb = "delete";
-						send = testObj.del;
-					}			
-					
-					// verb and path
-					httpString += "." + verb + "('" + path + "')";
-					
-					// auth
-					if (testObj.user && testObj.pass) httpString += ".auth(testObj.user, testObj.pass)";
-					
-					// headers
-					if (testObj.headers && testObj.headers.length > 0) {
-						for (var key in testObj.headers) {
-							httpString += ".set(testObj.set[" + key + "])";
-						}
-					}
-					
-					// send
-					if (send) httpString += ".send(send)";
-					
-					// accept
-					if (testObj.accept) httpString += ".set('Accept', testObj.accept)";		
-					
-					// status
-					httpString += ".expect(status)";
-					
-					// type
-					if (testObj.type) httpString += ".expect('Content-Type', testObj.type)";
-			
-					// body
-					if (testObj.body) httpString += ".expect(testObj.body)";
-					
-					// expect
-					if (testObj.expect && testObj.expect.length > 0) {
-						for (var key in testObj.expect) {
-							var obj = testObj.expect[key];
-							var field = Object.keys(obj)[0];
-							var val = obj[field];
-							if (typeof val == "string") val = "'" + val + "'";
-							httpString += ".expect('" + field + "', " + val + ")";
-						}
-					}
-					
-					// assert
-					if (testObj.assert) httpString += ".expect(testObj.assert)";
-					
-					// end
-					httpString += ".end(finish);";
-				
 				// run http eval
 				
 					eval(httpString);
@@ -263,6 +190,87 @@
 			
 			return this;	
 								
+		}
+		
+		function buildHttpString(testObj) {
+		
+			var httpString = "test.httpAgent(testObj.host)";
+					
+			// defaults
+			var verb = "get";
+			var path = "/";
+			var send;
+			var status = 200;
+			
+			if (testObj.verb) verb = testObj.verb;
+			if (testObj.path) path = testObj.path;
+			if (testObj.send) send = testObj.send;
+			if (testObj.status) status = testObj.status;
+			
+			// shortcuts								
+			
+			if (testObj.post) {
+				verb = "post";
+				send = testObj.post;
+			}
+
+			else if (testObj.put) {
+				verb = "put";
+				send = testObj.put;
+			}
+			
+			else if (testObj.del) {
+				verb = "delete";
+				send = testObj.del;
+			}			
+			
+			// verb and path
+			httpString += "." + verb + "('" + path + "')";
+			
+			// auth
+			if (testObj.user && testObj.pass) httpString += ".auth(testObj.user, testObj.pass)";
+			
+			// headers
+			if (testObj.headers && testObj.headers.length > 0) {
+				for (var key in testObj.headers) {
+					httpString += ".set(testObj.set[" + key + "])";
+				}
+			}
+			
+			// send
+			if (send) httpString += ".send(" + send + ")";
+			
+			// accept
+			if (testObj.accept) httpString += ".set('Accept', testObj.accept)";		
+			
+			// status
+			httpString += ".expect(" + status + ")";
+			
+			// type
+			if (testObj.type) httpString += ".expect('Content-Type', testObj.type)";
+	
+			// body
+			if (testObj.body) httpString += ".expect(testObj.body)";
+			
+			// expect
+			if (testObj.expect && testObj.expect.length > 0) {
+				for (var key in testObj.expect) {
+					var obj = testObj.expect[key];
+					var field = Object.keys(obj)[0];
+					var val = obj[field];
+					if (typeof val == "string") val = "'" + val + "'";
+					httpString += ".expect('" + field + "', " + val + ")";
+				}
+			}
+			
+			// assert
+			if (testObj.assert) httpString += ".expect(testObj.assert)";
+			
+			// end
+			httpString += ".end(finish);";
+			
+			return httpString;
+			
 		}
 			
 // module exports	
