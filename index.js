@@ -24,46 +24,18 @@
 				// set up mocha suite
 				describe(label, function() {
 				
-					// .beforeAll and .afterAll					
+					// set .beforeAll and .afterAll					
 					if (options && typeof options.beforeAll == 'function') before(options.beforeAll);
 					if (options && typeof options.afterAll == 'function') after(options.afterAll);			
 	
-					// .beforeEach and .afterEach						
+					// set .beforeEach and .afterEach						
 					if (options && typeof options.beforeEach == 'function') beforeEach(options.beforeEach);
 					if (options && typeof options.afterEach == 'function') afterEach(options.afterEach);		
 				
 					// for each testObj
 					for (var key in tests) {
 					
-						testObj = tests[key];
-					
-						// if this is a nested suite
-						if (testObj.label && testObj.tests) test.suite(testObj.label, testObj.tests, options);
-					
-						// else its a test case
-						else {
-						
-							// merge options into the testObj
-							if (options) _.extend(testObj, options);
-							
-							// if pending test case
-							if (testObj.pending || testObj.skip) it(testObj.label);
-	
-							// else execute test case						
-							else {
-						
-								// if http
-								if (testObj.host || testObj.path) test.http(testObj);
-		
-								// if async
-								else if (testObj.assert.length > 0) test.async(testObj);
-								
-								// else sync
-								else test.sync(testObj);
-								
-							}
-							
-						}
+						handleTestObj(tests[key]);
 					
 					}
 				
@@ -74,6 +46,38 @@
 			return this;
 		
 		}
+		
+		function handleTestObj(testObj) {
+					
+			// if this is a nested suite
+			if (testObj.label && testObj.tests) test.suite(testObj.label, testObj.tests, options);
+		
+			// else its a test case
+			else {
+			
+				// merge options into the testObj
+				if (options) _.extend(testObj, options);
+				
+				// if pending test case
+				if (testObj.pending || testObj.skip) it(testObj.label);
+	
+				// else execute test case						
+				else {
+			
+					// if http
+					if (testObj.host || testObj.path) test.http(testObj);
+	
+					// if async
+					else if (testObj.assert.length > 0) test.async(testObj);
+					
+					// else sync
+					else test.sync(testObj);
+					
+				}
+				
+			}					
+		
+		}		
 
 	// sync test case
 	
