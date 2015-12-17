@@ -9,57 +9,63 @@
 		
 		test.suite = function(label, tests, options) {
 		
-			// if no description
+			// if no label
 			if (typeof label == "object") {
 				options = tests;
 				tests = label;
 				label = "Testing suite";
 			}
+			
+			// if this suite is not pending
+			if (!options || (!options.pending && !options.skip)) {
 		
-			describe(label, function() {
-			
-				// .beforeAll and .afterAll					
-				if (options && typeof options.beforeAll == 'function') before(options.beforeAll);
-				if (options && typeof options.afterAll == 'function') after(options.afterAll);			
-
-				// .beforeEach and .afterEach						
-				if (options && typeof options.beforeEach == 'function') beforeEach(options.beforeEach);
-				if (options && typeof options.afterEach == 'function') afterEach(options.afterEach);		
-			
-				// for each test
-				for (var key in tests) {
+				// set up mocha suite
+				describe(label, function() {
 				
-					// if this is a nested suite
-					if (tests[key].label && tests[key].tests) test.suite(tests[key].label, tests[key].tests, options);
-				
-					// else its a test
-					else {
-					
-						// merge options
-						if (options) _.extend(tests[key], options);
-						
-						// if pending test case
-						if (tests[key].pending || tests[key].skip) it(tests[key].label);
-
-						// else execute test case						
-						else {
-					
-							// if http
-							if (tests[key].host || tests[key].path) test.http(tests[key]);
+					// .beforeAll and .afterAll					
+					if (options && typeof options.beforeAll == 'function') before(options.beforeAll);
+					if (options && typeof options.afterAll == 'function') after(options.afterAll);			
 	
-							// if async
-							else if (tests[key].assert.length > 0) test.async(tests[key]);
+					// .beforeEach and .afterEach						
+					if (options && typeof options.beforeEach == 'function') beforeEach(options.beforeEach);
+					if (options && typeof options.afterEach == 'function') afterEach(options.afterEach);		
+				
+					// for each testObj
+					for (var key in tests) {
+					
+						// if this is a nested suite
+						if (tests[key].label && tests[key].tests) test.suite(tests[key].label, tests[key].tests, options);
+					
+						// else its a test case
+						else {
+						
+							// merge options
+							if (options) _.extend(tests[key], options);
 							
-							// else sync
-							else test.sync(tests[key]);
+							// if pending test case
+							if (tests[key].pending || tests[key].skip) it(tests[key].label);
+	
+							// else execute test case						
+							else {
+						
+								// if http
+								if (tests[key].host || tests[key].path) test.http(tests[key]);
+		
+								// if async
+								else if (tests[key].assert.length > 0) test.async(tests[key]);
+								
+								// else sync
+								else test.sync(tests[key]);
+								
+							}
 							
 						}
-						
+					
 					}
 				
-				}
+				});
 			
-			});
+			}
 			
 			return this;
 		

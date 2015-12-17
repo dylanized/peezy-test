@@ -370,6 +370,33 @@
 			}
 		}		
 	]);
+	
+// suite pending and skipping	
+	
+	var suite_pending = false;
+	var suite_skip = false;
+	
+	test.suite("Suite Pending", [
+		{
+			label: "This should never run",
+			assert: function() {
+				test.assert(suite_pending === true);	
+			}
+		}		
+	], {
+		pending: true
+	});	
+	
+	test.suite("Suite Skip", [
+		{
+			label: "This should never run",
+			assert: function() {
+				test.assert(suite_pending === true);
+			}
+		}		
+	], {
+		skip: true
+	});		
 		
 // put and delete
 
