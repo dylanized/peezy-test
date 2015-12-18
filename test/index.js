@@ -182,7 +182,7 @@
 		}
 	});	
 	
-	test.suite("Confirming afterAll", [
+	test.suite("beforeAll and afterAll (sync - cont'd)", [
 		{
 			label: "Confirming afterAll",
 			assert: function() {
