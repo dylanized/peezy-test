@@ -398,57 +398,32 @@
 		skip: true
 	});	
 	
-// TODO: timeouts	
+// timeouts	
 
-	/*var timeout_begin;
-	var timeout_end;
-
-	var timeout2_begin;
-	var timeout2_end;
-	
-	test.suite("Suite Timeout Prep", [
-		{
-			label: "After this there should be a 1 second delay",
-			assert: function() {
-				test.assert(true === true);
-				timeout_begin = Date.now();
-			}
-		}		
-	]);
-	
 	test.suite("Suite Timeout", [
 		{
-			label: "There should have been a 1 second delay",
+			label: "2.5 Second Delay",
 			assert: function() {
-				timeout_end = Date.now();
-								console.log(timeout_begin);
-								console.log(timeout_end);
-								console.log(timeout_end - timeout_begin);
-				test.assert(timeout_end - timeout_begin >= 1000);
+				setTimeout(function() {
+					test.assert(true === true);					
+				}, 2500);
 			}
-		}
-		
+		}		
 	], {
-		timeout: 1000
+		timeout: 3000
 	});
-
-	test.suite("Test Timeout", [
+	
+		test.suite("Test Timeout", [
 		{
-			label: "After this there should be a 1 second delay",
+			label: "2.5 Second Delay",
 			assert: function() {
-				test.assert(true === true);
-				timeout2_begin = Date.now();
-			}			
-		},
-		{
-			label: "There should have been a 1 second delay",
-			assert: function() {
-				timeout2_end = Date.now();
-				test.assert(timeout2_end - timeout2_begin >= 1000);
+				setTimeout(function() {
+					test.assert(true === true);					
+				}, 2500);
 			},
-			timeout: 1000	
-		}	
-	]);*/
+			timeout: 3000
+		}		
+	]);
 			
 // TODO: put and delete
 
