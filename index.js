@@ -25,23 +25,40 @@
 				if (options && options.timeout) this.timeout(options.timeout);
 						
 
+				// if bothAll (before and after)
 				if (options && typeof options.bothAll == 'function') {
 				
 					before(options.bothAll);
 					after(options.bothAll);
 					
-				} else {
+				}
+				
+				// else if beforeAll and/or afterAll
+				else {
 
 					// set .beforeAll and .afterAll					
 					if (options && typeof options.beforeAll == 'function') before(options.beforeAll);
 					if (options && typeof options.afterAll == 'function') after(options.afterAll);			
 					
 				}
+				
+				// if bothEach (before and after)
+				if (options && typeof options.bothEach == 'function') {
+				
+					beforeEach(options.bothEach);
+					afterEach(options.bothEach);
+					
+				}
+				
+				// else if beforeEach and/or afterEach
+				else {
 
-				// set .beforeEach and .afterEach						
-				if (options && typeof options.beforeEach == 'function') beforeEach(options.beforeEach);
-				if (options && typeof options.afterEach == 'function') afterEach(options.afterEach);		
-			
+					// set .beforeEach and .afterEach						
+					if (options && typeof options.beforeEach == 'function') beforeEach(options.beforeEach);
+					if (options && typeof options.afterEach == 'function') afterEach(options.afterEach);			
+					
+				}				
+
 				// for each testObj
 				for (var key in tests) {
 				

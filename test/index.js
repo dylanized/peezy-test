@@ -363,6 +363,44 @@
 		}
 	]);		
 	
+// bothEach	
+
+	var bothEachTest = 0;
+
+	test.suite("bothEach", [
+		{
+			label: "Increment 1",
+			assert: function() {
+				test.assert(bothEachTest == 1);
+			}
+		},
+		{
+			label: "Increment 2",
+			assert: function() {
+				test.assert(bothEachTest == 3);
+			}
+		},
+		{
+			label: "Increment 3",
+			assert: function() {
+				test.assert(bothEachTest == 5);
+			}
+		}						
+	], {
+		bothEach: function() {
+			bothEachTest++;
+		}
+	});
+	
+	test.suite("bothEach (cont'd)", [
+		{
+			label: "Checking bothEach",
+			assert: function() {
+				test.assert(bothEachTest == 6);								
+			}
+		}
+	]);	
+	
 // pending and skipping
 
 	var pending = false;
