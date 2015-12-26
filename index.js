@@ -75,7 +75,15 @@
 		function handleTestObj(testObj, options) {
 					
 			// if this is a nested suite
-			if (testObj.label && testObj.tests) test.suite(testObj.label, testObj.tests, options);
+			if (testObj.label && testObj.tests) {
+				
+					// merge options
+					if (testObj.options) _.extend(options, testObj.options);
+					
+					// fire off child suite
+					test.suite(testObj.label, testObj.tests, options);
+					
+			}
 		
 			// else its a test case
 			else {
