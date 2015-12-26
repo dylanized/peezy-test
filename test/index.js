@@ -14,7 +14,7 @@
 		status: 301
 	};
 	
-// basic suite tests
+// multiple suites with sync, async and http
 
 	var suites = [
 		{
@@ -52,6 +52,8 @@
 			]		
 		}				
 	];
+	
+// nested suites	
 	
 	var unnamed_suite = [
 		{
