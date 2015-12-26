@@ -15,7 +15,7 @@
 			if (typeof label == "object") {
 				options = tests;
 				tests = label;
-				label = "Testing suite";
+				label = "";
 			}
 			
 			// set up mocha suite
