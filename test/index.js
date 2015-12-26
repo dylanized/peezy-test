@@ -375,11 +375,13 @@
 	
 	var suite_pending = false;
 	var suite_skip = false;
+	var suite_count = 0;
 	
 	test.suite("Suite Pending", [
 		{
-			label: "This should never run",
+			label: "This should be skipped",
 			assert: function() {
+				suite_count++;			
 				test.assert(suite_pending === true);	
 			}
 		}		
@@ -389,14 +391,24 @@
 	
 	test.suite("Suite Skip", [
 		{
-			label: "This should never run",
+			label: "This should be skipped",
 			assert: function() {
+				suite_count++;
 				test.assert(suite_pending === true);
 			}
 		}		
 	], {
 		skip: true
 	});	
+	
+	test.suite("Checking skipped", [
+		{
+			label: "Checking skipped",
+			assert: function() {
+				test.assert(suite_count === 0);
+			}
+		}		
+	]);		
 	
 // timeouts	
 

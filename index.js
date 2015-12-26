@@ -18,33 +18,28 @@
 				label = "Testing suite";
 			}
 			
-			// if this suite is not pending
-			if (!options || (!options.pending && !options.skip)) {
-		
-				// set up mocha suite
-				describe(label, function() {
-				
-					// set timeout
-					if (options && options.timeout) this.timeout(options.timeout);
-				
-					// set .beforeAll and .afterAll					
-					if (options && typeof options.beforeAll == 'function') before(options.beforeAll);
-					if (options && typeof options.afterAll == 'function') after(options.afterAll);			
-	
-					// set .beforeEach and .afterEach						
-					if (options && typeof options.beforeEach == 'function') beforeEach(options.beforeEach);
-					if (options && typeof options.afterEach == 'function') afterEach(options.afterEach);		
-				
-					// for each testObj
-					for (var key in tests) {
-					
-						handleTestObj(tests[key], options);
-					
-					}
-				
-				});
+			// set up mocha suite
+			describe(label, function() {
 			
-			}
+				// set timeout
+				if (options && options.timeout) this.timeout(options.timeout);
+			
+				// set .beforeAll and .afterAll					
+				if (options && typeof options.beforeAll == 'function') before(options.beforeAll);
+				if (options && typeof options.afterAll == 'function') after(options.afterAll);			
+
+				// set .beforeEach and .afterEach						
+				if (options && typeof options.beforeEach == 'function') beforeEach(options.beforeEach);
+				if (options && typeof options.afterEach == 'function') afterEach(options.afterEach);		
+			
+				// for each testObj
+				for (var key in tests) {
+				
+					handleTestObj(tests[key], options);
+				
+				}
+			
+			});
 			
 			return this;
 		
