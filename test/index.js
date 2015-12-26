@@ -238,6 +238,32 @@
 			}
 		}
 	]);
+	
+// bothAll	
+
+	var bothTest = 0;
+
+	test.suite("bothAll", [
+		{
+			label: "Checking bothAll before",
+			assert: function() {
+				test.assert(bothTest == 1);
+			}
+		}		
+	], {
+		bothAll: function() {
+			bothTest++;
+		}
+	});
+	
+	test.suite("bothAll (cont'd)", [
+		{
+			label: "Checking bothAll after",
+			assert: function() {
+				test.assert(bothTest == 2);								
+			}
+		}
+	]);
 		
 // beforeEach and afterEach (sync)
 	

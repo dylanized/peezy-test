@@ -23,10 +23,20 @@
 			
 				// set timeout
 				if (options && options.timeout) this.timeout(options.timeout);
-			
-				// set .beforeAll and .afterAll					
-				if (options && typeof options.beforeAll == 'function') before(options.beforeAll);
-				if (options && typeof options.afterAll == 'function') after(options.afterAll);			
+						
+
+				if (options && typeof options.bothAll == 'function') {
+				
+					before(options.bothAll);
+					after(options.bothAll);
+					
+				} else {
+
+					// set .beforeAll and .afterAll					
+					if (options && typeof options.beforeAll == 'function') before(options.beforeAll);
+					if (options && typeof options.afterAll == 'function') after(options.afterAll);			
+					
+				}
 
 				// set .beforeEach and .afterEach						
 				if (options && typeof options.beforeEach == 'function') beforeEach(options.beforeEach);
