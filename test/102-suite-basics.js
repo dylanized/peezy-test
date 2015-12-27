@@ -196,3 +196,40 @@
 			}
 		}
 	]);
+	
+// single test (named)
+
+	var single = 0;
+		
+	test.suite("102.5 Single Test (named)", {
+		label: "Increment",
+		assert: function() {
+			
+			test.assert(single === 0);
+			single++;
+			
+		}
+	});
+
+	// single test (cont'd - unnamed)
+	test.suite({
+		label: "Increment",
+		assert: function() {
+			
+			test.assert(single === 1);
+			single++;
+			
+		}
+	});
+	
+	test.suite("Single Test (cont'd)", [
+		{
+			label: "Checking single",
+			assert: function() {
+				
+				test.assert(single === 2);
+				
+			}
+		}
+	]);	
+	 
