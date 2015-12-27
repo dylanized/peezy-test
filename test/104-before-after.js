@@ -91,7 +91,7 @@
 
 	test.suite("104.3 beforeAll and afterAll (sync)", [
 		{
-			label: "Dummy test",
+			label: "Checking beforeAll increment",
 			assert: function() {
 
 				test.assert(allTest == 1);								
@@ -99,7 +99,7 @@
 			}
 		},
 		{
-			label: "Increment",
+			label: "Incrementing and checking",
 			assert: function() {
 			
 				allTest++;
@@ -333,4 +333,4 @@
 				test.assert(bothEachTest == 6);								
 			}
 		}
-	]);	
+	]);
