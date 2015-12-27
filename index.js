@@ -24,11 +24,11 @@
 				// set timeout
 				if (options && options.timeout) this.timeout(options.timeout);
 						
-				// if bothAll (before and after)
-				if (options && typeof options.bothAll == 'function') {
+				// if wrapAll (before and after)
+				if (options && typeof options.wrapAll == 'function') {
 				
-					before(options.bothAll);
-					after(options.bothAll);
+					before(options.wrapAll);
+					after(options.wrapAll);
 					
 				}
 				
@@ -41,11 +41,11 @@
 					
 				}
 				
-				// if bothEach (before and after)
-				if (options && typeof options.bothEach == 'function') {
+				// if wrapEach (before and after)
+				if (options && typeof options.wrapEach == 'function') {
 				
-					beforeEach(options.bothEach);
-					afterEach(options.bothEach);
+					beforeEach(options.wrapEach);
+					afterEach(options.wrapEach);
 					
 				}
 				

@@ -173,28 +173,28 @@
 		}
 	]);
 	
-// bothAll	
+// wrapAll	
 
-	var bothTest = 0;
+	var wrapTest = 0;
 
-	test.suite("104.5 bothAll", [
+	test.suite("104.5 wrapAll", [
 		{
-			label: "Checking bothAll before",
+			label: "Checking wrapAll before",
 			assert: function() {
-				test.assert(bothTest == 1);
+				test.assert(wrapTest == 1);
 			}
 		}		
 	], {
-		bothAll: function() {
-			bothTest++;
+		wrapAll: function() {
+			wrapTest++;
 		}
 	});
 	
-	test.suite("bothAll (cont'd)", [
+	test.suite("wrapAll (cont'd)", [
 		{
-			label: "Checking bothAll after",
+			label: "Checking wrapAll after",
 			assert: function() {
-				test.assert(bothTest == 2);								
+				test.assert(wrapTest == 2);								
 			}
 		}
 	]);
@@ -297,40 +297,40 @@
 		}
 	]);		
 	
-// bothEach	
+// wrapEach	
 
-	var bothEachTest = 0;
+	var wrapEachTest = 0;
 
-	test.suite("104.8 bothEach", [
+	test.suite("104.8 wrapEach", [
 		{
 			label: "Increment 1",
 			assert: function() {
-				test.assert(bothEachTest == 1);
+				test.assert(wrapEachTest == 1);
 			}
 		},
 		{
 			label: "Increment 2",
 			assert: function() {
-				test.assert(bothEachTest == 3);
+				test.assert(wrapEachTest == 3);
 			}
 		},
 		{
 			label: "Increment 3",
 			assert: function() {
-				test.assert(bothEachTest == 5);
+				test.assert(wrapEachTest == 5);
 			}
 		}						
 	], {
-		bothEach: function() {
-			bothEachTest++;
+		wrapEach: function() {
+			wrapEachTest++;
 		}
 	});
 	
-	test.suite("bothEach (cont'd)", [
+	test.suite("wrapEach (cont'd)", [
 		{
-			label: "Checking bothEach",
+			label: "Checking wrapEach",
 			assert: function() {
-				test.assert(bothEachTest == 6);								
+				test.assert(wrapEachTest == 6);								
 			}
 		}
 	]);
