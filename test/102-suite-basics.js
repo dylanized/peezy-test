@@ -196,33 +196,3 @@
 			}
 		}
 	]);
-	
-// inherit options
-
-/*	var recursive = 0;
-	
-	var recursive_test = {
-		label: "Recursive test"		
-	};
-
-	test.suite("Recursive Options", [
-			{
-				label: "Recursive test"
-			}
-		],
-		{
-			assert: function() {
-				recursive++;
-			}
-		}
-	);
-
-	test.suite("Recursive Options (cont'd)", [
-			{
-				label: "Checking recursive",
-				assert: function() {
-					test.assert(recursive == 1);
-				}
-			}
-		]
-	);*/	
