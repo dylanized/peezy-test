@@ -61,7 +61,7 @@
 				// for each testObj
 				for (var key in tests) {
 				
-					handleTestObj(tests[key], _.clone(options));
+					exports.handleObj(tests[key], _.clone(options));
 				
 				}
 			
@@ -71,56 +71,68 @@
 		
 		}
 		
-		function handleTestObj(testObj, options) {		
+	// handle test or suite object
+		
+		exports.handleObj = function(testObj, options) {		
 					
 			// if this is a suiteObj
-			if (testObj.label && testObj.tests) {
-			
-					// merge options
-					if (testObj.options) options = merge(options, testObj.options);
-					
-					// fire off child suite
-					test.suite(testObj.label, testObj.tests, options);
-					
-			}
+			if (testObj.label && testObj.tests) exports.suiteObj(testObj, options);
 		
 			// else its a testObj
-			else {											
+			else exports.testObj(testObj, options);			
+		
+		}	
+		
+	// handle suiteObj
+	
+		exports.suiteObj = function(suiteObj, options) {
+					
+			// merge options
+			if (suiteObj.options) options = merge(options, suiteObj.options);
 			
-				// merge options into the testObj
-				if (options) testObj = merge(options, testObj);											
+			// fire off child suite
+			test.suite(suiteObj.label, suiteObj.tests, options);		
+		
+		}
+		
+	// handle testObj	
+	
+		exports.testObj = function(testObj, options) {
+		
+			// merge options into the testObj
+			if (options) testObj = merge(options, testObj);											
 
-				// if pending test case
-				if (testObj.pending || testObj.skip) it(testObj.label);
-	
-				// else execute test case						
-				else {
-			
-					// if http
-					if (testObj.host || testObj.path) test.http(testObj);
-	
-					// if async
-					else if (testObj.assert && testObj.assert.length > 0) test.async(testObj);
-					
-					// else sync
-					else test.sync(testObj);
-					
-				}
+			// if pending test case
+			if (testObj.pending || testObj.skip) it(testObj.label);
+
+			// else execute test case						
+			else {
+		
+				// if http
+				if (testObj.host || testObj.path) test.http(testObj);
+
+				// if async
+				else if (testObj.assert && testObj.assert.length > 0) test.async(testObj);
+				
+				// else sync
+				else test.sync(testObj);
 				
 			}
-			
-			function merge(obj1, obj2) {
 				
-				// copy obj2 into obj1
-				for (var key in obj2) {				
-					obj1[key] = obj2[key];				
-				}
-				
-				return obj1;
-			
-			}				
+		}	
 		
-		}		
+	// merge helper		
+		
+		function merge(obj1, obj2) {
+			
+			// copy obj2 into obj1
+			for (var key in obj2) {				
+				obj1[key] = obj2[key];				
+			}
+			
+			return obj1;
+		
+		}			
 
 	// sync test case
 	
