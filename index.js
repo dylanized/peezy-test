@@ -61,7 +61,7 @@
 				// for each testObj
 				for (var key in tests) {
 				
-					exports.handleObj(tests[key], _.clone(options));
+					exports.handleObj(tests[key], options);
 				
 				}
 			
@@ -73,7 +73,10 @@
 		
 	// handle test or suite object
 		
-		exports.handleObj = function(testObj, options) {		
+		exports.handleObj = function(testObj, options) {
+		
+			// clone options
+			options = _.clone(options);		
 					
 			// if this is a suiteObj
 			if (testObj.label && testObj.tests) exports.suiteObj(testObj, options);
