@@ -2,40 +2,6 @@
 
 	var test = require("../index.js");
 	
-// pending and skipping
-
-	var pending = false;
-	var skipping = false;
-
-	test.suite("104.1 Pending and Skipping", [
-		{
-			label: "This should be pending",
-			assert: function() {
-				pending = true;	
-			},
-			pending : true
-		},
-		{
-			label: "Checking pending",
-			assert: function() {
-				test.assert(pending === false);	
-			}
-		},
-		{
-			label: "This should be skipped",
-			assert: function() {
-				skipping = true;	
-			},
-			skip : true
-		},
-		{
-			label: "Checking skipped",
-			assert: function() {
-				test.assert(skipping === false);	
-			}
-		}		
-	]);
-	
 // suite pending and skipping	
 	
 	var suite_pending = false;
