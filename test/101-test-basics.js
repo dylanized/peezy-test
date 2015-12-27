@@ -109,7 +109,7 @@
 				label: "Override pending - this should run",
 				assert: function() {
 				
-					test.assert(override === false);
+					test.assert(override == false);
 					override = true;
 				
 				},
