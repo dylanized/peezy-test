@@ -1,7 +1,6 @@
 // module setup
 
-	var test = require("unit.js"),
-		_ = require("lodash");
+	var test = require("unit.js");
 
 // setup mocha test
 	
@@ -78,18 +77,20 @@
 			if (testObj.label && testObj.tests) {
 				
 					// merge options
-					if (testObj.options) _.extend(options, testObj.options);
+					if (testObj.options) options = merge(options, testObj.options);
 					
 					// fire off child suite
 					test.suite(testObj.label, testObj.tests, options);
 					
 			}
 		
-			// else its a test case
+			// else its a testObj
 			else {
 			
+				var obj = {};
+			
 				// merge options into the testObj
-				if (options) _.extend(testObj, options, testObj);
+				if (options) testObj = merge(options, testObj);
 				
 				// if pending test case
 				if (testObj.pending || testObj.skip) it(testObj.label);
@@ -108,7 +109,18 @@
 					
 				}
 				
-			}					
+			}
+			
+			function merge(obj1, obj2) {
+				
+				// copy obj2 into obj1
+				for (var key in obj2) {				
+					obj1[key] = obj2[key];				
+				}
+				
+				return obj1;
+			
+			}				
 		
 		}		
 
