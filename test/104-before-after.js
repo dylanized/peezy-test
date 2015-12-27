@@ -93,17 +93,15 @@
 		{
 			label: "Dummy test",
 			assert: function() {
-				console.log(allTest);
+
 				test.assert(allTest == 1);								
-				//console.log(allTest);				
+
 			}
 		},
 		{
 			label: "Increment",
 			assert: function() {
 			
-				console.log("Hello");
-				console.log(allTest);
 				allTest++;
 				test.assert(allTest == 2);
 			
