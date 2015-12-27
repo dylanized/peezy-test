@@ -234,7 +234,7 @@
 	
 	test.suite("beforeEach, afterEach (sync - cont'd)", [
 		{
-			label: "confirming afterAll",
+			label: "Confirming afterAll",
 			assert: function() {
 				test.assert(beforeTest == 2);			
 				test.assert(afterTest == 12);									
@@ -289,7 +289,7 @@
 		
 	test.suite("beforeEach, afterEach (async - cont'd)", [
 		{
-			label: "confirming afterAll",
+			label: "Confirming afterAll",
 			assert: function() {
 				test.assert(beforeAsyncTest == 2);			
 				test.assert(afterAsyncTest == 12);									
