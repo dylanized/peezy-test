@@ -6,7 +6,7 @@
 	
 //	simple sync, async and http tests
 
-	test.suite("Test Basics", [
+	test.suite("101.1 Test Basics", [
 			{
 				label: "Sync test",
 				assert: function() {

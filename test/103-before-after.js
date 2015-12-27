@@ -7,7 +7,7 @@
 	var before = false;
 	var after = false;
 
-	test.suite("Before and After Sync Tests", [
+	test.suite("103.1 Before and After Sync Tests", [
 		{
 			label: "Run .before function",
 			assert: function() {
@@ -45,7 +45,7 @@
 	var after_async = false;
 	var after_http = false;
 
-	test.suite("After Async Tests", [
+	test.suite("103.2 After Async Tests", [
 		{
 			label: "Async with .after",
 			assert: function(done) {
@@ -87,7 +87,7 @@
 	
 	var allTest = 0;
 
-	test.suite("beforeAll and afterAll (sync)", [
+	test.suite("103.3 beforeAll and afterAll (sync)", [
 		{
 			label: "Dummy test",
 			assert: function() {
@@ -125,7 +125,7 @@
 	
 	var allAsyncTest = 0;
 
-	test.suite("beforeAll and afterAll (async)", [
+	test.suite("103.4 beforeAll and afterAll (async)", [
 		{
 			label: "Dummy test",
 			assert: function(done) {
@@ -173,7 +173,7 @@
 
 	var bothTest = 0;
 
-	test.suite("bothAll", [
+	test.suite("103.5 bothAll", [
 		{
 			label: "Checking bothAll before",
 			assert: function() {
@@ -200,7 +200,7 @@
 	var beforeTest = 0;
 	var afterTest = 10;
 
-	test.suite("beforeEach, afterEach (sync)", [
+	test.suite("103.6 beforeEach, afterEach (sync)", [
 		{
 			label: "Dummy test",
 			assert: function() {
@@ -243,7 +243,7 @@
 	var beforeAsyncTest = 0;
 	var afterAsyncTest = 10;
 
-	test.suite("beforeEach, afterEach (async)", [
+	test.suite("103.7 beforeEach, afterEach (async)", [
 		{
 			label: "Dummy test",
 			assert: function(done) {
@@ -297,7 +297,7 @@
 
 	var bothEachTest = 0;
 
-	test.suite("bothEach", [
+	test.suite("103.8 bothEach", [
 		{
 			label: "Increment 1",
 			assert: function() {
