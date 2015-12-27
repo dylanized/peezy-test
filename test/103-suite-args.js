@@ -2,6 +2,8 @@
 
 	var test = require("../index.js");
 	
+	//console.log("=== 103 SUITE ARGS ===");
+
 // suite pending and skipping	
 	
 	var suite_pending = false;

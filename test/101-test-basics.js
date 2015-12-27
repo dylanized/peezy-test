@@ -4,6 +4,8 @@
 
 	var data = { secret: "hello world" };
 	
+	//console.log("=== 101 TEST BASICS ===");
+	
 //	simple sync, async and http tests
 
 	test.suite("101.1 Basic Test Types", [

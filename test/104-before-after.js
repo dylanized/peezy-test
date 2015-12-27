@@ -2,6 +2,8 @@
 
 	var test = require("../index.js");
 	
+	//console.log("=== 104 BEFORE & AFTER ===");	
+	
 // before and after (sync)
 
 	var before = false;

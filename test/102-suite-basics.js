@@ -4,6 +4,8 @@
 
 	var data = { secret: "hello world" };
 	
+	//console.log("=== 102 SUITE BASICS ===");
+	
 // nested suites - sample
 
 	var nested_suites_sample = {
@@ -162,7 +164,7 @@
 		}
 	])
 
-	.suite([
+	.suite("Chain (part 2)", [
 		{
 			label: "Increment",
 			assert: function() {
@@ -174,7 +176,7 @@
 		}
 	])
 
-	.suite([
+	.suite("Chain (part 3)", [
 		{
 			label: "Increment",
 			assert: function() {
@@ -186,7 +188,7 @@
 		}
 	]);	
 
-	test.suite("Chained Suite (cont'd)", [
+	test.suite("Chained Suite (checking)", [
 		{
 			label: "Checking chained",
 			assert: function() {

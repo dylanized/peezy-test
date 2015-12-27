@@ -1,5 +1,8 @@
 // TODO: put and delete
 
+//	console.log("=== 105 HTTP METHODS ===");
+
+
 	/*
 	test.suite("Post, Put and Delete", [
 		{
