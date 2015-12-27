@@ -89,7 +89,7 @@
 			else {
 			
 				// merge options into the testObj
-				if (options) _.extend(testObj, options);
+				if (options) testObj = _.extend(options, testObj);
 				
 				// if pending test case
 				if (testObj.pending || testObj.skip) it(testObj.label);
@@ -101,7 +101,7 @@
 					if (testObj.host || testObj.path) test.http(testObj);
 	
 					// if async
-					else if (testObj.assert.length > 0) test.async(testObj);
+					else if (testObj.assert && testObj.assert.length > 0) test.async(testObj);
 					
 					// else sync
 					else test.sync(testObj);
