@@ -6,7 +6,7 @@
 	
 //	simple sync, async and http tests
 
-	test.suite("101.1 Test Basics", [
+	test.suite("101.1 Basic Test Types", [
 			{
 				label: "Sync test",
 				assert: function() {
@@ -39,54 +39,86 @@
 			}
 		]
 	);
-	
-// options override - setup
+		
+// test pending and skipping
 
-	var foo = 0;
-	var bar = false;
+	var pending = false;
+	var skipping = false;
 
-	var options_override_tests = [
+	test.suite("101.2 Test Pending and Skipping", [
 		{
-			label: "Use inherited assert function"
+			label: "This should be pending",
+			assert: function() {
+				pending = true;	
+			},
+			pending : true
 		},
 		{
-			label: "Override inherited assert function",
+			label: "Checking pending",
 			assert: function() {
-			
-				test.assert(bar === false);
-				bar = true;
-					
+				test.assert(pending === false);	
+			}
+		},
+		{
+			label: "This should be skipped",
+			assert: function() {
+				skipping = true;	
+			},
+			skip : true
+		},
+		{
+			label: "Checking skipped",
+			assert: function() {
+				test.assert(skipping === false);	
 			}
 		}		
-	];
+	]);	
 	
-	var options_override_options = {
-		assert: function() {
-			
-			test.assert(foo === 0);
-			foo++;			
-			
-		}
-	};
+// test options - setup
 
-// options override - tests
-
-	test.suite("102.2 Options Override", options_override_tests, options_override_options);
-		
-	test.suite("Options Override (cont'd- checking)", [
+	var inherit = false;
+	var override = false;
+	
+	test.suite("101.3 Test Options", [
+			{
+				label: "Inherit pending - this should not run",
+				assert: function() {
+				
+					test.fail("This should not run");
+					inherit = true;
+				
+				}
+			},
+			{
+				label: "Override pending - this should run",
+				assert: function() {
+				
+					test.assert(override === false);
+					override = true;
+				
+				},
+				pending: false
+			}				
+		],
 		{
-			label: "Checking foo",
+			pending: true
+		}
+	);
+
+	test.suite("Test Options (cont'd - checking)", [
+		{
+			label: "Checking inherit",
 			assert: function() {
 				
-				test.assert(foo === 1);
+				test.assert(inherit === false);
 				
 			}
 		},
 		{
-			label: "Checking bar",
+			label: "Checking override",
 			assert: function() {
 				
-				test.assert(bar === true);
+				test.assert(override === true);
 		
 			}		
 		}		
