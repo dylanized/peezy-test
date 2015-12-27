@@ -74,12 +74,26 @@
 		}		
 	]);	
 	
+// test timeout
+	
+	test.suite("101.3 Test Timeout", [
+		{
+			label: "2.5 Second Delay",
+			assert: function() {
+				setTimeout(function() {
+					test.assert(true === true);					
+				}, 2500);
+			},
+			timeout: 3000
+		}		
+	]);		
+	
 // test options - setup
 
 	var inherit = false;
 	var override = false;
 	
-	test.suite("101.3 Test Options", [
+	test.suite("101.4 Test Options", [
 			{
 				label: "Inherit pending - this should not run",
 				assert: function() {
