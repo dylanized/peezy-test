@@ -1,6 +1,7 @@
 // module setup
 
-	var test = require("unit.js");
+	var test = require("unit.js"),
+		_ = require("lodash");
 
 // setup mocha test
 	
@@ -23,7 +24,6 @@
 				// set timeout
 				if (options && options.timeout) this.timeout(options.timeout);
 						
-
 				// if bothAll (before and after)
 				if (options && typeof options.bothAll == 'function') {
 				
@@ -34,7 +34,7 @@
 				
 				// else if beforeAll and/or afterAll
 				else {
-
+				
 					// set .beforeAll and .afterAll					
 					if (options && typeof options.beforeAll == 'function') before(options.beforeAll);
 					if (options && typeof options.afterAll == 'function') after(options.afterAll);			
@@ -51,7 +51,7 @@
 				
 				// else if beforeEach and/or afterEach
 				else {
-
+				
 					// set .beforeEach and .afterEach						
 					if (options && typeof options.beforeEach == 'function') beforeEach(options.beforeEach);
 					if (options && typeof options.afterEach == 'function') afterEach(options.afterEach);			
@@ -61,7 +61,7 @@
 				// for each testObj
 				for (var key in tests) {
 				
-					handleTestObj(tests[key], options);
+					handleTestObj(tests[key], _.clone(options));
 				
 				}
 			
@@ -75,7 +75,7 @@
 					
 			// if this is a suiteObj
 			if (testObj.label && testObj.tests) {
-				
+			
 					// merge options
 					if (testObj.options) options = merge(options, testObj.options);
 					
@@ -85,13 +85,11 @@
 			}
 		
 			// else its a testObj
-			else {
-			
-				var obj = {};
+			else {											
 			
 				// merge options into the testObj
-				if (options) testObj = merge(options, testObj);
-				
+				if (options) testObj = merge(options, testObj);											
+
 				// if pending test case
 				if (testObj.pending || testObj.skip) it(testObj.label);
 	
