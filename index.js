@@ -32,11 +32,38 @@
 					
 				}
 				
+				// else if wrapThis (before and after - but don't pass into child suites)
+				else if (options && typeof options.wrapThis == 'function') {
+						
+					before(options.wrapThis);
+					after(options.wrapThis);	
+					// delete wrapThis;									
+			
+				}
+								
 				// else if beforeAll and/or afterAll
 				else {
-				
-					// set .beforeAll and .afterAll					
+
+					// if beforeThis				
+					if (options && typeof options.beforeThis == 'function') {
+					
+						before(options.beforeThis);
+						// delete beforeThis;
+						
+					}
+					
+					// else if beforeAll
 					if (options && typeof options.beforeAll == 'function') before(options.beforeAll);
+					
+					// if afterThis
+					if (options && typeof options.afterThis == 'function') {
+					
+						after(options.afterThis);			
+						// delete afterThis;
+						
+					}
+
+					// else if afterAll					
 					if (options && typeof options.afterAll == 'function') after(options.afterAll);			
 					
 				}
