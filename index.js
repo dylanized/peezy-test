@@ -72,9 +72,9 @@
 		
 		}
 		
-		function handleTestObj(testObj, options) {
+		function handleTestObj(testObj, options) {		
 					
-			// if this is a nested suite
+			// if this is a suiteObj
 			if (testObj.label && testObj.tests) {
 				
 					// merge options
@@ -89,7 +89,7 @@
 			else {
 			
 				// merge options into the testObj
-				if (options) testObj = _.extend(options, testObj);
+				if (options) _.extend(testObj, options, testObj);
 				
 				// if pending test case
 				if (testObj.pending || testObj.skip) it(testObj.label);
