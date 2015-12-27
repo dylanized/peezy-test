@@ -79,7 +79,7 @@
 			options = _.clone(options);		
 					
 			// if this is a suiteObj
-			if (testObj.label && testObj.tests) exports.suiteObj(testObj, options);
+			if (testObj.tests) exports.suiteObj(testObj, options);
 		
 			// else its a testObj
 			else exports.testObj(testObj, options);			
