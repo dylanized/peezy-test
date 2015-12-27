@@ -135,7 +135,7 @@
 		}
 	]);
 
-	test.suite("Unnamed Suite (cont'd)", [
+	test.suite("102.3 Unnamed Suite (cont'd)", [
 		{
 			label: "Checking unnamed",
 			assert: function() {
@@ -150,7 +150,7 @@
 
 	var chained = 0;
 		
-	test.suite([
+	test.suite("102.4 Chained Suite", [
 		{
 			label: "Increment",
 			assert: function() {
