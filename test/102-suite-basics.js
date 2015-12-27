@@ -198,7 +198,7 @@
 	]);
 	
 // single test (named)
-
+/*
 	var single = 0;
 		
 	test.suite("102.5 Single Test (named)", {
@@ -233,3 +233,4 @@
 		}
 	]);	
 	 
+*/
