@@ -4,10 +4,10 @@
 
 	var data = { secret: "hello world" };
 	
-// sample suite
+// nested suites - sample
 
-	var sample = {
-		label: "Sample Suite",
+	var nested_suites_sample = {
+		label: "Nested Suites Sample",
 		tests: [
 			{
 				label: "Sync test",
@@ -42,16 +42,16 @@
 		]
 	};
 
-// nested suites
+// nested suites - test
 
 	var count = 0;
 
 	var suites = [
-		sample,
-		sample
+		nested_suites_sample,
+		nested_suites_sample
 	];
 
-	test.suite("Nested Suites", suites);
+	test.suite("102.1 Nested Suites", suites);
 		
 	test.suite("Nested Suites (cont'd- checking)", [
 		{
@@ -63,6 +63,62 @@
 			}
 		}
 	]);
+	
+// nested options - sample
+
+	var inherit_sample = {
+		label: "Inherit Options Sample",
+		tests: [
+			{
+				label: "Inherit pending and do not run",
+				assert: function() {
+	
+					test.fail("This should not run");
+	
+				}
+			}
+		]
+	};
+
+	var override_sample = {
+		label: "Override Options Sample",
+		tests: [
+			{
+				label: "Override pending and do run",
+				assert: function() {
+	
+					test.assert("This should run");
+					foo = true;
+	
+				}
+			}
+		],
+		options: {
+			pending: false
+		}
+	};
+	
+// nested options - test
+
+	var foo = false;
+
+	var nested_options_suites = [
+		inherit_sample,
+		override_sample
+	];
+
+	test.suite("102.2 Nested Options", nested_options_suites, { pending: true });
+		
+	test.suite("Nested Options (cont'd- checking)", [
+		{
+			label: "Checking foo",
+			assert: function() {
+				
+				test.assert(foo === true);
+				
+			}
+		}
+	]);	
 	
 // unnamed suite
 
