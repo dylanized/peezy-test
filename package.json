@@ -9,7 +9,6 @@
   "author": "dylanized",
   "license": "MIT",
   "dependencies": {
-    "lodash": "3.10.1",
     "unit.js": "2.0.0"
   }
 }
