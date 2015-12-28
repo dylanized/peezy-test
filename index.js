@@ -137,7 +137,16 @@
 					if (options && typeof options.beforeEach == 'function') beforeEach(options.beforeEach);
 					if (options && typeof options.afterEach == 'function') afterEach(options.afterEach);			
 					
-				}				
+				}
+
+				// if spacer				
+				if (!options || !options.noSpacer) {
+
+					after(function spacer() {
+						console.log("");
+					});		
+				
+				}
 
 				// for each testObj
 				for (var key in tests) {
