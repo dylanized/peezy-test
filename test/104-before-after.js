@@ -113,7 +113,8 @@
 		},
 		afterAll: function() {
 			allTest++;	
-		}
+		},
+		noSpacer: true
 	});	
 	
 	test.suite("beforeAll and afterAll (sync - cont'd)", [
@@ -161,7 +162,8 @@
 				allAsyncTest++;				
 				done();
 			}, 1500);
-		}
+		},
+		noSpacer: true
 	});
 	
 	test.suite("beforeAll and afterAll (async - cont'd)", [
@@ -187,7 +189,8 @@
 	], {
 		wrapAll: function() {
 			wrapTest++;
-		}
+		},
+		noSpacer: true
 	});
 	
 	test.suite("wrapAll (cont'd)", [
@@ -229,7 +232,8 @@
 		afterAll: function() {
 			test.assert(beforeTest == 2);			
 			test.assert(afterTest == 12);	
-		}
+		},
+		noSpacer: true
 	});
 	
 	test.suite("beforeEach, afterEach (sync - cont'd)", [
@@ -284,7 +288,8 @@
 		afterAll: function() {
 			test.assert(beforeAsyncTest == 2);			
 			test.assert(afterAsyncTest == 12);	
-		}
+		},
+		noSpacer: true
 	});	
 		
 	test.suite("beforeEach, afterEach (async - cont'd)", [
@@ -323,7 +328,8 @@
 	], {
 		wrapEach: function() {
 			wrapEachTest++;
-		}
+		},
+		noSpacer: true
 	});
 	
 	test.suite("wrapEach (cont'd)", [

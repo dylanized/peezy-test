@@ -53,7 +53,7 @@
 		nested_suites_sample
 	];
 
-	test.suite("102.1 Nested Suites", suites);
+	test.suite("102.1 Nested Suites", suites, { noSpacer: true });
 		
 	test.suite("Nested Suites (cont'd- checking)", [
 		{
@@ -109,7 +109,7 @@
 		override_sample
 	];
 
-	test.suite("102.2 Nested Options", nested_options_suites, { pending: true });
+	test.suite("102.2 Nested Options", nested_options_suites, { pending: true, noSpacer: true });
 		
 	test.suite("Nested Options (cont'd- checking)", [
 		{
@@ -135,7 +135,9 @@
 				
 			}
 		}
-	]);
+	], {
+		noSpacer: true
+	});
 
 	test.suite("102.3 Unnamed Suite (cont'd)", [
 		{
@@ -162,7 +164,9 @@
 				
 			}
 		}
-	])
+	], {
+		noSpacer: true
+	})
 
 	.suite("Chain (part 2)", [
 		{
@@ -174,7 +178,9 @@
 				
 			}
 		}
-	])
+	], {
+		noSpacer: true
+	})
 
 	.suite("Chain (part 3)", [
 		{
@@ -186,7 +192,9 @@
 				
 			}
 		}
-	]);	
+	], {
+		noSpacer: true
+	});	
 
 	test.suite("Chained Suite (checking)", [
 		{

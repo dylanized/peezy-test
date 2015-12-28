@@ -31,7 +31,8 @@
 			}
 		}		
 	], {
-		skip: true
+		skip: true,
+		noSpacer: true
 	});	
 	
 	test.suite("Suite Skip (cont'd - checking)", [

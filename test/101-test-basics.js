@@ -117,7 +117,8 @@
 			}				
 		],
 		{
-			pending: true
+			pending: true,
+			noSpacer: true
 		}
 	);
 
