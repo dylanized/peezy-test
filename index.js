@@ -7,15 +7,37 @@
 	
 	// build test suite with array of tests or suites
 		
-		test.suite = function(label, tests, options) {
-		
-			var testObj = {};
-		
-			// if no label
-			if (typeof label == "object") {
-				options = tests;
-				tests = label;
-				label = "";
+		test.suite = function(arg1, arg2, arg3) {
+			
+			var label;
+			var tests = new Array();
+			var options;		
+			
+			// if arg1 is label, parse 3 arg style
+			if (typeof arg1 == "string") {
+			
+				// set label
+				label = arg1;				
+				
+				// parse tests
+				if (Array.isArray(arg2)) tests = arg2;		
+				else if (typeof arg2 == "object") tests.push(arg1);
+				
+				// set options
+				options = arg3;
+
+			}
+						
+			// else parse 2 arg style
+			else {
+
+				// parse tests
+				if (Array.isArray(arg1)) tests = arg1;
+				else if (typeof arg1 == "object") tests.push(arg1);
+			
+				// set options
+				options = arg2;
+				
 			}
 			
 			// set up mocha suite
