@@ -43,6 +43,19 @@
 			// set up mocha suite
 			describe(label, function() {
 			
+				// if title
+				if (options && options.title) {
+						
+					// set before				
+					before(function pageTitle() {
+						console.log(options.title);
+					});
+					
+					// don't pass on
+					delete options['title'];
+				
+				}				
+			
 				// get array of onlys
 				var onlys = _.filter(tests, function(obj) {
 				    if (obj && obj.only) return obj;
@@ -127,7 +140,7 @@
 				// for each testObj
 				for (var key in tests) {
 				
-					exports.handleObj(tests[key], options);
+					test.handleObj(tests[key], options);
 				
 				}
 			
@@ -139,7 +152,7 @@
 		
 	// handle test or suite object
 		
-		exports.handleObj = function(testObj, options) {
+		test.handleObj = function(testObj, options) {
 		
 			// clone options
 			options = _.clone(options);
@@ -152,16 +165,16 @@
 			}
 					
 			// if this is a suiteObj
-			if (testObj.tests) exports.suiteObj(testObj, options);
+			if (testObj.tests) test.suiteObj(testObj, options);
 		
 			// else its a testObj
-			else exports.testObj(testObj, options);			
+			else test.testObj(testObj, options);			
 		
 		}	
 		
 	// handle suiteObj
 	
-		exports.suiteObj = function(suiteObj, options) {
+		test.suiteObj = function(suiteObj, options) {
 					
 			// merge options
 			if (suiteObj.options) options = merge(options, suiteObj.options);
@@ -173,7 +186,7 @@
 		
 	// handle testObj	
 	
-		exports.testObj = function(testObj, options) {
+		test.testObj = function(testObj, options) {
 		
 			// merge options into the testObj
 			if (options) testObj = merge(options, testObj);											
@@ -400,6 +413,26 @@
 			return httpString;
 			
 		}
+		
+// title helper
+
+		test.title = function(title) {
+		
+			var length = title.length;
+			var divider = "";
+			var i;
+			
+			// build divider
+			for (i = 0; i < length; i++) {		
+				divider += "=";				
+			}
+		
+			// build title string
+			title = divider + "\n  " + title + "\n  " + divider + "\n";
+			
+			return title;
+		
+		}		
 			
 // module exports	
 	
