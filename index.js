@@ -21,6 +21,20 @@
 			// set up mocha suite
 			describe(label, function() {
 			
+				// get array of onlys
+				var onlys = _.filter(tests, function(obj) {
+				    if (obj && obj.only) return obj;
+				});			
+						
+				// if any tests have .only
+				if (onlys.length > 0) {
+				
+					// set suite to pending
+					if (typeof options == "undefined") options = {};
+					options.pending = true;
+				
+				}
+			
 				// set timeout
 				if (options && options.timeout) this.timeout(options.timeout);
 						
@@ -136,7 +150,7 @@
 			if (options) testObj = merge(options, testObj);											
 
 			// if pending test case
-			if (testObj.pending || testObj.skip) it(testObj.label);
+			if (!testObj.only && (testObj.pending || testObj.skip)) it(testObj.label);
 
 			// else execute test case						
 			else {
