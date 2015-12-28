@@ -138,5 +138,71 @@
 					}		
 				}		
 			]);
+			
+		// single testObj
+
+			var single = 0;
+				
+			test.suite("101.5 Single testObj", {
+				label: "Increment",
+				assert: function() {
+					
+					test.assert(single === 0);
+					test.assert(this.noSpacer === true);
+					test.assert(this.foo === "bar");	
+					
+					single = this.foo;
+					
+				}
+			},
+			{
+				noSpacer: true,
+				foo: "bar"
+			});
+			
+			test.suite("Single testObj (cont'd - checking)", [
+				{
+					label: "Checking single",
+					assert: function() {
+						
+						test.assert(single === "bar");
+						
+					}
+				}				
+			]);	
+			 
+			
+		// single testObj - no label
+
+			var single2 = 0;
+				
+			test.suite({
+				label: "Increment",
+				assert: function() {
+					
+					test.assert(single2 === 0);
+					test.assert(this.noSpacer === true);
+					test.assert(this.foo === "baz");					
+					
+					single2 = this.foo;
+					
+				}
+			},
+			{
+				noSpacer: true,
+				foo: "baz"
+			});
+			
+			test.suite("101.6 Single testObj - no label (cont'd - checking)", [
+				{
+					label: "Checking single",
+					assert: function() {
+						
+						test.assert(single2 === "baz");
+						
+					}
+				}				
+			]);				 
 	
-	});
+	});	
+			

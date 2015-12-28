@@ -11,17 +11,19 @@
 			
 			var label;
 			var tests = new Array();
-			var options;		
+			var options = {};		
 			
-			// if arg1 is label, parse 3 arg style
+			// if arg1 is label, parse 3-arg style
 			if (typeof arg1 == "string") {
 			
 				// set label
-				label = arg1;				
+				label = arg1;
 				
-				// parse tests
-				if (Array.isArray(arg2)) tests = arg2;		
-				else if (typeof arg2 == "object") tests.push(arg1);
+				// if tests array
+				if (_.isArray(arg2)) tests = arg2;
+				
+				// else if single obj, wrap it in an array
+				else if (typeof arg2 == "object") tests.push(arg2);
 				
 				// set options
 				options = arg3;
@@ -32,13 +34,13 @@
 			else {
 			
 				label = "";
-	
-				// parse tests
-				if (Array.isArray(arg1)) tests = arg1;
-				else if (typeof arg1 == "object") tests.push(arg1);
-			
-				// set options
 				options = arg2;
+	
+				// if tests array
+				if (_.isArray(arg1)) tests = arg1;
+				
+				// else if single obj
+				else if (typeof arg1 == "object") test.handleObj(arg1, options);
 				
 			}
 			
@@ -167,7 +169,7 @@
 			if (testObj.suites) {
 				// move to tests
 				testObj.tests = _.clone(testObj.suites);
-				delete testObj[suites];			
+				delete testObj['suites'];			
 			}
 					
 			// if this is a suiteObj
@@ -214,19 +216,6 @@
 				
 			}
 				
-		}	
-		
-	// merge helper		
-		
-		function merge(obj1, obj2) {
-			
-			// copy obj2 into obj1
-			for (var key in obj2) {				
-				obj1[key] = obj2[key];				
-			}
-			
-			return obj1;
-		
 		}			
 
 // test cases
@@ -423,9 +412,8 @@
 		}
 
 // other
-
 		
-	// page helper
+	// page utility
 	
 		test.page = function(title, tests) {
 		
@@ -434,7 +422,7 @@
 		}
 	
 		
-	// title helper
+	// title utility
 
 		test.title = function(title, indent) {
 		
@@ -455,7 +443,20 @@
 			
 			return title;
 		
-		}		
+		}	
+		
+// helpers
+		
+	function merge(obj1, obj2) {
+		
+		// copy obj2 into obj1
+		for (var key in obj2) {				
+			obj1[key] = obj2[key];				
+		}
+		
+		return obj1;
+	
+	}			
 			
 // module exports	
 	
