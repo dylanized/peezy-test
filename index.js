@@ -142,7 +142,14 @@
 		exports.handleObj = function(testObj, options) {
 		
 			// clone options
-			options = _.clone(options);		
+			options = _.clone(options);
+			
+			// if this has suites attribute
+			if (testObj.suites) {
+				// move to tests
+				testObj.tests = _.clone(testObj.suites);
+				delete testObj[suites];			
+			}
 					
 			// if this is a suiteObj
 			if (testObj.tests) exports.suiteObj(testObj, options);
