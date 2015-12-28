@@ -1,12 +1,12 @@
-// module setup
+// setup
 
 	var test = require("unit.js"),
 		_ = require("lodash");
-
-// setup mocha test
-	
-	// build test suite with array of tests or suites
 		
+// suite and test runners		
+
+	// suite runner
+	
 		test.suite = function(arg1, arg2, arg3) {
 			
 			var label;
@@ -25,14 +25,14 @@
 				
 				// set options
 				options = arg3;
-
+	
 			}
 						
 			// else parse 2 arg style
 			else {
 			
 				label = "";
-
+	
 				// parse tests
 				if (Array.isArray(arg1)) tests = arg1;
 				else if (typeof arg1 == "object") tests.push(arg1);
@@ -90,7 +90,7 @@
 								
 				// else if beforeAll and/or afterAll
 				else {
-
+	
 					// if beforeThis				
 					if (options && typeof options.beforeThis == 'function') {
 					
@@ -111,7 +111,7 @@
 						delete options[afterThis];
 						
 					}
-
+	
 					// else if afterAll					
 					if (options && typeof options.afterAll == 'function') after(options.afterAll);			
 					
@@ -133,16 +133,16 @@
 					if (options && typeof options.afterEach == 'function') afterEach(options.afterEach);			
 					
 				}
-
+	
 				// if spacer				
 				if (!options || !options.noSpacer) {
-
+	
 					after(function spacer() {
 						console.log("");
 					});		
 				
 				}
-
+	
 				// for each testObj
 				for (var key in tests) {
 				
@@ -157,7 +157,7 @@
 		}
 		
 	// handle test or suite object
-		
+			
 		test.handleObj = function(testObj, options) {
 		
 			// clone options
@@ -228,6 +228,8 @@
 			return obj1;
 		
 		}			
+
+// test cases
 
 	// sync test case
 	
@@ -419,8 +421,20 @@
 			return httpString;
 			
 		}
+
+// other
+
 		
-// title helper
+	// page helper
+	
+		test.page = function(title, tests) {
+		
+			describe(test.title(title), tests);
+		
+		}
+	
+		
+	// title helper
 
 		test.title = function(title, indent) {
 		
@@ -434,7 +448,7 @@
 			}
 		
 			// build title string
-			title = divider + "\n  " + title + "\n  " + divider + "\n";
+			title = divider + "\n  " + title.toUpperCase() + "\n  " + divider + "\n";
 			
 			// if prevent indent
 			if (indent) title = "\n  " + title;
