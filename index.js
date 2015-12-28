@@ -35,9 +35,10 @@
 				// else if wrapThis (before and after - but don't pass into child suites)
 				else if (options && typeof options.wrapThis == 'function') {
 						
+					// set and delete						
 					before(options.wrapThis);
 					after(options.wrapThis);	
-					// delete wrapThis;									
+					delete options[wrapThis];						
 			
 				}
 								
@@ -47,8 +48,9 @@
 					// if beforeThis				
 					if (options && typeof options.beforeThis == 'function') {
 					
+						// set and delete
 						before(options.beforeThis);
-						// delete beforeThis;
+						delete options[beforeThis];
 						
 					}
 					
@@ -58,8 +60,9 @@
 					// if afterThis
 					if (options && typeof options.afterThis == 'function') {
 					
+						// set and delete					
 						after(options.afterThis);			
-						// delete afterThis;
+						delete options[afterThis];
 						
 					}
 
