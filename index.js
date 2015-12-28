@@ -42,21 +42,16 @@
 				
 			}
 			
-			// set up mocha suite
-			describe(label, function() {
-			
-				// if title
-				if (options && options.title) {
-						
-					// set before				
-					before(function pageTitle() {
-						console.log(options.title);
-					});
-					
-					// don't pass on
-					delete options['title'];
+			// fancy title
+			if (options && options.title) {
 				
-				}				
+				label = test.title(label, true);
+				delete options['title'];
+				
+			}
+			
+			// set up mocha suite
+			describe(label, function() {			
 			
 				// get array of onlys
 				var onlys = _.filter(tests, function(obj) {
@@ -427,7 +422,7 @@
 		
 // title helper
 
-		test.title = function(title) {
+		test.title = function(title, indent) {
 		
 			var length = title.length;
 			var divider = "";
@@ -440,6 +435,9 @@
 		
 			// build title string
 			title = divider + "\n  " + title + "\n  " + divider + "\n";
+			
+			// if prevent indent
+			if (indent) title = "\n  " + title;
 			
 			return title;
 		
