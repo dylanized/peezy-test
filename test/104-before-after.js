@@ -2,7 +2,7 @@
 
 	var test = require("../index.js");
 	
-	//console.log("=== 104 BEFORE & AFTER ===");	
+	describe(test.title("104 BEFORE & AFTER"), function() {		
 	
 // before and after (sync)
 
@@ -334,3 +334,5 @@
 			}
 		}
 	]);
+	
+	});

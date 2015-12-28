@@ -4,7 +4,7 @@
 
 	var data = { secret: "hello world" };
 	
-	//console.log("=== 101 TEST BASICS ===");
+	describe(test.title("101 TEST BASICS"), function() {	
 	
 //	simple sync, async and http tests
 
@@ -139,3 +139,5 @@
 			}		
 		}		
 	]);	
+
+	});

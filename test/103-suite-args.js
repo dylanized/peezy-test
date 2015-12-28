@@ -2,7 +2,7 @@
 
 	var test = require("../index.js");
 	
-	//console.log("=== 103 SUITE ARGS ===");
+	describe(test.title("103 SUITE ARGS"), function() {	
 
 // suite pending and skipping	
 	
@@ -58,3 +58,4 @@
 		timeout: 3000
 	});
 			
+	});

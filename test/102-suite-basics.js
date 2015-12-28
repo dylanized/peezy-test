@@ -4,7 +4,7 @@
 
 	var data = { secret: "hello world" };
 	
-	//console.log("=== 102 SUITE BASICS ===");
+	describe(test.title("102 SUITE BASICS"), function() {
 	
 // nested suites - sample
 
@@ -236,3 +236,5 @@
 	]);	
 	 
 */
+
+	});
