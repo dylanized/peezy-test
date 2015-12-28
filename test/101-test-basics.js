@@ -12,9 +12,7 @@
 			{
 				label: "Sync test",
 				assert: function() {
-	
-					test.object(data).hasProperty("secret", "hello world");					
-	
+					test.object(data).hasProperty("secret", "hello world");				
 				}
 			},
 			{
@@ -25,7 +23,7 @@
 						test.object(data).hasProperty("secret", "hello world");
 						done();					
 					}, 1000);
-	
+					
 				}	
 			},
 			{
@@ -35,8 +33,8 @@
 				expect: [
 					{ "Content-Type": /html/ }
 				],					
-				assert: function(res) {
-					test.object(res).hasProperty("body");
+				assert: function(res) {				
+					test.object(res).hasProperty("body");					
 				}					
 			}
 		]
@@ -50,28 +48,28 @@
 	test.suite("101.2 Test Pending and Skipping", [
 		{
 			label: "This should be pending",
-			assert: function() {
-				pending = true;	
+			assert: function() {			
+				pending = true;					
 			},
 			pending : true
 		},
 		{
 			label: "Checking pending",
-			assert: function() {
-				test.assert(pending === false);	
+			assert: function() {			
+				test.assert(pending === false);				
 			}
 		},
 		{
 			label: "This should be skipped",
-			assert: function() {
-				skipping = true;	
+			assert: function() {			
+				skipping = true;				
 			},
 			skip : true
 		},
 		{
 			label: "Checking skipped",
-			assert: function() {
-				test.assert(skipping === false);	
+			assert: function() {			
+				test.assert(skipping === false);				
 			}
 		}		
 	]);	
@@ -82,9 +80,11 @@
 		{
 			label: "2.5 Second Delay",
 			assert: function() {
+			
 				setTimeout(function() {
 					test.assert(true === true);					
 				}, 2500);
+			
 			},
 			timeout: 3000
 		}		
@@ -125,18 +125,14 @@
 	test.suite("Test Options (cont'd - checking)", [
 		{
 			label: "Checking inherit",
-			assert: function() {
-				
-				test.assert(inherit === false);
-				
+			assert: function() {			
+				test.assert(inherit === false);				
 			}
 		},
 		{
 			label: "Checking override",
-			assert: function() {
-				
-				test.assert(override === true);
-		
+			assert: function() {				
+				test.assert(override === true);		
 			}		
 		}		
 	]);	
