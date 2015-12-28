@@ -30,6 +30,8 @@
 						
 			// else parse 2 arg style
 			else {
+			
+				label = "";
 
 				// parse tests
 				if (Array.isArray(arg1)) tests = arg1;
