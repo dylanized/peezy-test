@@ -49,16 +49,22 @@
 			}		
 		
 		}
-		
+
 	// handle testObj or testArr
 	
 		test.testObj = function(testObj, options) {
 		
-			var tests;
+			// wrap testObj in array
+			tests = new Array(testObj);
 			
-			// if not an array, wrap it in one
-			if (!_.isArray(testObj)) tests = new Array(testObj);
-			else tests = testObj;
+			// fire off single suite
+			test.suite("", tests, options);
+		
+		}
+				
+	// handle testObj or testArr
+	
+		test.testArr = function(tests, options) {
 			
 			// fire off single suite
 			test.suite("", tests, options);
