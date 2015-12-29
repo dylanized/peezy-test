@@ -46,9 +46,9 @@
 				}
 			};
 			
-			test.suite(suiteObj, { foo: "bar" });
+			//test.suiteObj(suiteObj, { foo: "bar" });
 			
-			test.suite("Suite Object 1 (cont'd - checking)", [
+			/*test.suite("Suite Object 1 (cont'd - checking)", [
 				{
 					label: "Checking suite count",
 					assert: function() {			
@@ -61,7 +61,7 @@
 						test.assert(suite_keyword1 == "bar");				
 					}
 				}						
-			]);
+			]);*/
 				
 				
 		// suite object 2 - with suites array
@@ -101,7 +101,7 @@
 				}
 			};
 			
-			test.suite(suiteObj, { foo: "baz" });
+			/*test.suiteObj(suiteObj, { foo: "baz" });
 			
 			test.suite("Suite Object 2 (cont'd - checking)", [
 				{
@@ -116,7 +116,7 @@
 						test.assert(suite_keyword2 == "baz");				
 					}
 				}			
-			]);	
+			]);	*/
 
 		// nested suites - sample
 		
@@ -126,11 +126,10 @@
 					{
 						label: "Sync test",
 						assert: function() {
-			
 							count++;				
 			
 						}
-					},
+					},					
 					{
 						label: "Async test",
 						assert: function(done) {
@@ -238,7 +237,7 @@
 		
 			var unnamed = 0;
 				
-			test.suite([
+			test.testObj([
 				{
 					label: "Increment",
 					assert: function() {

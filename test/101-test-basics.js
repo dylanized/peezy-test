@@ -143,7 +143,7 @@
 
 			var single = 0;
 				
-			test.suite("101.5 Single testObj", {
+			test.single("101.5 Single testObj", {
 				label: "Increment",
 				assert: function() {
 					
@@ -176,7 +176,7 @@
 
 			var single2 = 0;
 				
-			test.suite({
+			test.testObj({
 				label: "Increment",
 				assert: function() {
 					
@@ -193,7 +193,7 @@
 				foo: "baz"
 			});
 			
-			test.suite("101.6 Single testObj - no label (cont'd - checking)", [
+			test.suite("101.6 Single - no label (cont'd - checking)", [
 				{
 					label: "Checking single",
 					assert: function() {
