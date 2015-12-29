@@ -1,7 +1,7 @@
 {
   "name": "suite-tooth",
-  "version": "0.5.1",
-  "description": "A wrapper for Unit.js and Mocha that allows you to write your tests declaratively",
+  "version": "0.6.0",
+  "description": "Declarative, functional unit testing",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec"
@@ -9,7 +9,8 @@
   "author": "dylanized",
   "license": "MIT",
   "dependencies": {
-    "unit.js": "2.0.0"
+    "lodash": "^3.10.1",
+    "unit.js": "^2.0.0"
   },
   "devDependencies": {
     "lodash": "^3.10.1"
