@@ -37,7 +37,7 @@
 				noSpacer: true
 			});	
 			
-			test.suite("Suite Skip (cont'd - checking)", [
+			test.suite("Suite Skip (checking)", [
 				{
 					label: "Checking skipped",
 					assert: function() {

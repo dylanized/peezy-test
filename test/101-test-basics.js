@@ -124,7 +124,7 @@
 				}
 			);
 		
-			test.suite("Test Options (cont'd - checking)", [
+			test.suite("Test Options (checking)", [
 				{
 					label: "Checking inherit",
 					assert: function() {			
@@ -173,7 +173,7 @@
 				}
 			);	
 			
-			test.suite("Only (cont'd - checking)", [
+			test.suite("Only (checking)", [
 				{
 					label: "Checking fired",
 					assert: function() {			

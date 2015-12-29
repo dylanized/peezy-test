@@ -29,7 +29,7 @@
 				foo: "bar"
 			});
 			
-			test.suite("single (cont'd - checking)", [
+			test.suite("single (checking)", [
 				{
 					label: "Checking single",
 					assert: function() {
@@ -62,7 +62,7 @@
 				foo: "baz"
 			});
 			
-			test.suite("102.2 testObj (cont'd - checking)", [
+			test.suite("102.2 testObj (checking)", [
 				{
 					label: "Checking testObj",
 					assert: function() {
@@ -97,7 +97,7 @@
 				foo: "bop"
 			});
 			
-			test.suite("102.3 testArr (cont'd - checking)", [
+			test.suite("102.3 testArr (checking)", [
 				{
 					label: "Checking testArr",
 					assert: function() {
@@ -148,7 +148,7 @@
 			
 			test.suiteObj(suiteObj1, { foo: "bar" });
 			
-			test.suite("suiteObj - with .tests (cont'd - checking)", [
+			test.suite("suiteObj - with .tests (checking)", [
 				{
 					label: "Checking suite count",
 					assert: function() {			
@@ -203,7 +203,7 @@
 			
 			test.suiteObj(suiteObj2, { foo: "baz" });
 			
-			test.suite("suiteObj - with .suites (cont'd - checking)", [
+			test.suite("suiteObj - with .suites (checking)", [
 				{
 					label: "Checking suite count",
 					assert: function() {			
