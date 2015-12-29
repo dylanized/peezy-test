@@ -92,7 +92,7 @@
 				}		
 			]);		
 			
-		// test options - setup
+		// test options
 		
 			var inherit = false;
 			var override = false;
@@ -137,7 +137,50 @@
 						test.assert(override === true);		
 					}		
 				}		
-			]);			 
+			]);	
+			
+		// only
+		
+			var fired = 0;
+		
+			test.suite("101.5 Only", [
+					{
+						label: "Normal test",
+						assert: function() {						
+							fired = false;
+							test.fail("This should never run");		
+						}
+					},
+					{
+						label: ".only test",
+						assert: function() {
+							test.assert(fired === 0);
+							fired = true;
+										
+						},
+						only: true
+					},
+					{
+						label: "Normal test",
+						assert: function() {
+							fired = false;		
+							test.fail("This should never run");								
+						}
+					}
+				],
+				{
+					noSpacer: true
+				}
+			);	
+			
+			test.suite("Only (cont'd - checking)", [
+				{
+					label: "Checking fired",
+					assert: function() {			
+						test.assert(fired === true);				
+					}
+				}		
+			]);								 
 	
 	});	
 			
