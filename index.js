@@ -444,7 +444,8 @@
 			}
 		
 			// build title string
-			title = divider + "\n    " + title.toUpperCase() + "\n  " + divider + "\n";
+			//title = divider + "\n    " + title.toUpperCase() + "\n  " + divider + "\n";
+			title = "= " + title.toUpperCase() + " =\n";
 			
 			// if prevent indent
 			if (indent) title = "\n  " + title;
