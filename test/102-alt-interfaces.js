@@ -85,7 +85,7 @@
 						
 						test.assert(single3 === 0);
 						test.assert(this.noSpacer === true);
-						test.assert(this.foo === "baz");					
+						test.assert(this.foo === "bop");					
 						
 						single3 = this.foo;
 						
@@ -113,8 +113,8 @@
 			var suite_count1 = 0;
 			var suite_keyword1 = false;
 		
-			var suiteObj = {
-				label: "102.1 suiteObj - with .tests",
+			var suiteObj1 = {
+				label: "102.4 suiteObj - with .tests",
 				tests: [
 					{
 						label: "Increment",
@@ -146,7 +146,7 @@
 				}
 			};
 			
-			test.suiteObj(suiteObj, { foo: "bar" });
+			test.suiteObj(suiteObj1, { foo: "bar" });
 			
 			test.suite("suiteObj - with .tests (cont'd - checking)", [
 				{
@@ -168,8 +168,8 @@
 		
 			var suite_count2 = 0;
 		
-			var suiteObj = {
-				label: "102.2 suiteObj - with .suites",
+			var suiteObj2 = {
+				label: "102.5 suiteObj - with .suites",
 				suites: [
 					{
 						label: "Increment",
@@ -201,7 +201,7 @@
 				}
 			};
 			
-			test.suiteObj(suiteObj, { foo: "baz" });
+			test.suiteObj(suiteObj2, { foo: "baz" });
 			
 			test.suite("suiteObj - with .suites (cont'd - checking)", [
 				{
@@ -220,7 +220,102 @@
 			
 		// suiteArr
 		
-			// TODO					 
+			var arr_count = 0;
+		
+			var suiteObj3 = {
+				label: "suiteArr suite 1",
+				tests: [
+					{
+						label: "Increment",
+						assert: function() {
+							test.assert(arr_count == 0);	
+							arr_count++;			
+						}
+					},	
+					{
+						label: "Check this.options",
+						assert: function() {
+							test.assert(this.noSpacer == true);
+							test.assert(arr_count == 1);	
+							arr_count++;		
+						}
+					},
+					{
+						label: "Check passed options",
+						assert: function() {
+							test.assert(this.foo == "hello");
+							test.assert(arr_count == 2);	
+							arr_count++;				
+							arr_keyword1 = this.foo;								
+						}
+					}					
+				],
+				options: {
+					noSpacer: true	
+				}
+			};
+			
+			var suiteObj4 = {
+				label: "suiteArr suite 1",
+				suites: [
+					{
+						label: "Increment",
+						assert: function() {
+							test.assert(arr_count == 3);	
+							arr_count++;			
+						}
+					},	
+					{
+						label: "Check this.options",
+						assert: function() {
+							test.assert(this.noSpacer == true);
+							test.assert(arr_count == 4);	
+							arr_count++;		
+						}
+					},
+					{
+						label: "Check passed options",
+						assert: function() {
+							test.assert(this.foo == "hello");
+							test.assert(arr_count == 5);	
+							arr_count++;				
+							arr_keyword2 = this.foo;								
+						}
+					}					
+				],
+				options: {
+					noSpacer: true	
+				}
+			};	
+				
+			test.suiteArr([
+				suiteObj3,
+				suiteObj4
+			],
+			{
+				noSpacer: true,
+				foo: "hello"
+			});
+		
+			test.suite("102.6 suiteArr (checking)", [
+				{
+					label: "Checking unnamed",
+					assert: function() {
+						
+						test.assert(arr_count == 6);
+						
+					}
+				},
+				{
+					label: "Checking foo",
+					assert: function() {
+						
+						test.assert(arr_keyword1 === "hello");
+						test.assert(arr_keyword2 === "hello");
+						
+					}
+				}				
+			]);				 
 	
 	});	
 			

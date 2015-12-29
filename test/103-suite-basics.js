@@ -122,39 +122,11 @@
 				}
 			]);	
 			
-		// unnamed suite
-		
-			var unnamed = 0;
-				
-			test.testObj([
-				{
-					label: "Increment",
-					assert: function() {
-						
-						unnamed++;
-						
-					}
-				}
-			], {
-				noSpacer: true
-			});
-		
-			test.suite("103.3 Unnamed Suite (cont'd)", [
-				{
-					label: "Checking unnamed",
-					assert: function() {
-						
-						test.assert(unnamed == 1);
-						
-					}
-				}
-			]);
-			
 		// chained suites
 		
 			var chained = 0;
 				
-			test.suite("103.4 Chained Suite", [
+			test.suite("103.3 Chained Suite", [
 				{
 					label: "Increment",
 					assert: function() {
