@@ -238,7 +238,7 @@
 				noSpacer: true
 			});
 			
-			test.suite("beforeEach, afterEach (sync - cont'd)", [
+			test.suite("beforeEach, afterEach (sync - checking)", [
 				{
 					label: "Confirming afterAll",
 					assert: function() {
@@ -294,7 +294,7 @@
 				noSpacer: true
 			});	
 				
-			test.suite("beforeEach, afterEach (async - cont'd)", [
+			test.suite("beforeEach, afterEach (async - checking)", [
 				{
 					label: "Confirming afterAll",
 					assert: function() {
@@ -334,7 +334,7 @@
 				noSpacer: true
 			});
 			
-			test.suite("wrapEach (cont'd)", [
+			test.suite("wrapEach (checking)", [
 				{
 					label: "Checking wrapEach",
 					assert: function() {
@@ -342,5 +342,103 @@
 					}
 				}
 			]);
+			
+		// beforeThis
+		
+			var beforeThisFlag = false;
+			var afterThisFlag = false;
+			
+			var beforeThisFunc = false;
+			var afterThisFunc = false;
+					
+			test.suite("105.9 beforeThis, afterThis",
+				[
+					{
+						label: "Check .beforeThis function",
+						assert: function() {
+						
+							beforeThisFunc = typeof this.beforeThis;							
+							test.assert(beforeThisFunc == "undefined");
+							test.assert(this.foo == "bar");							
+								
+						}
+					},
+					{
+						label: "Check .afterThis function",
+						assert: function() {
+						
+							afterThisFunc = typeof this.afterThis;	
+							test.assert(afterThisFunc == "undefined");
+							test.assert(this.noSpacer === true);									
+							
+						}
+					}
+				],
+				{
+					beforeThis: function() {
+						beforeThisFlag = true;
+					},
+					afterThis: function() {
+						afterThisFlag = true;
+					},
+					noSpacer: true,
+					foo: "bar"					
+				}
+			);	
+			
+			test.suite("beforeThis, afterThis (checking)", [
+				{
+					label: "Checking beforeThis",
+					assert: function() {
+						test.assert(beforeThisFlag === true);
+						test.assert(beforeThisFunc == "undefined");									
+					}
+				},
+				{
+					label: "Checking afterThis",
+					assert: function() {
+						test.assert(afterThisFlag === true);	
+						test.assert(afterThisFunc == "undefined");													
+					}
+				}				
+			]);	
+			
+		// wrapThis
+		
+			var wrapThisCount = 0;			
+			var wrapThisFunc = false;
+					
+			test.suite("105.10 wrapThis",
+				[
+					{
+						label: "Check .wrapThis function",
+						assert: function() {
+						
+							test.assert(wrapThisCount == 1);	
+							wrapThisFunc = typeof this.wrapThis;							
+							test.assert(wrapThisFunc == "undefined");
+							test.assert(this.foo == "bar");							
+								
+						}
+					}
+				],
+				{
+					wrapThis: function() {
+						wrapThisCount++;
+					},
+					noSpacer: true,
+					foo: "bar"
+				}
+			);	
+			
+			test.suite("wrapThis (checking)", [
+				{
+					label: "Checking wrapThis",
+					assert: function() {
+						test.assert(wrapThisCount === 2);
+						test.assert(beforeThisFunc == "undefined");									
+					}
+				}				
+			]);						
 	
 	});

@@ -142,7 +142,7 @@
 				// set and delete						
 				before(options.wrapThis);
 				after(options.wrapThis);	
-				delete options[wrapThis];						
+				delete options['wrapThis'];						
 		
 			}
 							
@@ -154,7 +154,7 @@
 				
 					// set and delete
 					before(options.beforeThis);
-					delete options[beforeThis];
+					delete options['beforeThis'];
 					
 				}
 				
@@ -166,7 +166,7 @@
 				
 					// set and delete					
 					after(options.afterThis);			
-					delete options[afterThis];
+					delete options['afterThis'];
 					
 				}
 
