@@ -180,7 +180,33 @@
 						test.assert(fired === true);				
 					}
 				}		
-			]);								 
+			]);	
+			
+		// title
+		
+			test.suite("101.6 This should be a title", [
+					{
+						label: "This should not be a title",
+						assert: function() {			
+							test.assert(this.title == true);			
+						}
+					}		
+				],
+				{
+					title: true
+				}
+			);	
+			
+			test.suite("This should not be a title", [
+					{
+						label: "This should be a title",
+						assert: function() {			
+							test.assert(this.title == true);			
+						},
+						title: true
+					}		
+				]
+			);										 
 	
 	});	
 			

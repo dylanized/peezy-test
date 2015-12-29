@@ -88,6 +88,9 @@
 	// build suite
 	
 		test.suite = function(label, tests, options) {
+		
+			// title filter
+			if (options && options.title && options.title === true) label = test.title(label);
 			
 			// set up mocha suite
 			describe(label, function() {
@@ -211,6 +214,9 @@
 	// build test
 	
 		test.buildTest = function(testObj, options) {
+		
+			// title filter
+			if (testObj.title && testObj.title === true && testObj.label) testObj.label = test.title(testObj.label);		
 		
 			// merge options into the testObj
 			if (options) testObj = merge(options, testObj);											
