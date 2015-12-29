@@ -3,154 +3,94 @@
 	var test = require("unit.js"),
 		_ = require("lodash");
 		
-// suite and test runners		
+// alt suite interfaces	
 
-	// suite runner
+	// handle test or suite object
+			
+		test.handleObj = function(obj, options) {
+		
+			// clone options
+			options = _.clone(options);
+					
+			// if this is a suiteObj
+			if (obj.tests || obj.suites) test.suiteObj(obj, options);
+
+			// else its a testObj
+			else test.testObj(obj, options); 
+			
+		}	
+		
+	// handle suiteObj
 	
-		test.suite = function(arg1, arg2, arg3) {
+		test.suiteObj = function(suiteObj, options) {
+		
+			// merge options
+			if (suiteObj.options) options = merge(options, suiteObj.options);
 			
-			var label;
-			var tests = new Array();
-			var options = {};		
+			// default label
+			if (!suiteObj.label) suiteObj.label = "";
 			
-			// if arg1 is label, parse 3-arg style
-			if (typeof arg1 == "string") {
+			if (suiteObj.suites) tests = suiteObj.suites;
+			else tests = suiteObj.tests;			
 			
-				// set label
-				label = arg1;
-				
-				// if tests array
-				if (_.isArray(arg2)) tests = arg2;
-				
-				// else if single obj, wrap it in an array
-				else if (typeof arg2 == "object") tests.push(arg2);
-				
-				// set options
-				options = arg3;
+			// fire off suite
+			test.suite(suiteObj.label, tests, options);		
+		
+		}
+		
+	// handle suiteArr
 	
-			}
-						
-			// else parse 2 arg style
-			else {
+		test.suiteArr = function(suiteArr, options) {
+		
+			for (var key in suiteArr) {
 			
-				label = "";
-				options = arg2;
+				test.suiteObj(suiteArr[key], options);
+			
+			}		
+		
+		}
+		
+	// handle testObj or testArr
 	
-				// if tests array
-				if (_.isArray(arg1)) tests = arg1;
-				
-				// else if single obj
-				else if (typeof arg1 == "object") test.handleObj(arg1, options);
-				
-			}
+		test.testObj = function(testObj, options) {
+		
+			var tests;
 			
-			// fancy title
-			if (options && options.title) {
-				
-				label = test.title(label, true);
-				delete options['title'];
-				
-			}
+			// if not an array, wrap it in one
+			if (!_.isArray(testObj)) tests = new Array(testObj);
+			else tests = testObj;
+			
+			// fire off single suite
+			test.suite("", tests, options);
+		
+		}
+		
+	// single test launcher
+	
+		test.single = function(label, testObj, options) {
+		
+			// wrap in array
+			var tests = new Array(testObj);
+			
+			// fire off single suite
+			test.suite(label, tests, options);
+		
+		}			
+
+// main functions
+
+	// build suite
+	
+		test.suite = function(label, tests, options) {
 			
 			// set up mocha suite
-			describe(label, function() {			
+			describe(label, function() {
 			
-				// get array of onlys
-				var onlys = _.filter(tests, function(obj) {
-				    if (obj && obj.only) return obj;
-				});			
-						
-				// if any tests have .only
-				if (onlys.length > 0) {
-				
-					// set suite to pending
-					if (typeof options == "undefined") options = {};
-					options.pending = true;
-				
-				}
-			
-				// set timeout
-				if (options && options.timeout) this.timeout(options.timeout);
-						
-				// if wrapAll (before and after)
-				if (options && typeof options.wrapAll == 'function') {
-				
-					before(options.wrapAll);
-					after(options.wrapAll);
-					
-				}
-				
-				// else if wrapThis (before and after - but don't pass into child suites)
-				else if (options && typeof options.wrapThis == 'function') {
-						
-					// set and delete						
-					before(options.wrapThis);
-					after(options.wrapThis);	
-					delete options[wrapThis];						
-			
-				}
-								
-				// else if beforeAll and/or afterAll
-				else {
-	
-					// if beforeThis				
-					if (options && typeof options.beforeThis == 'function') {
-					
-						// set and delete
-						before(options.beforeThis);
-						delete options[beforeThis];
-						
-					}
-					
-					// else if beforeAll
-					if (options && typeof options.beforeAll == 'function') before(options.beforeAll);
-					
-					// if afterThis
-					if (options && typeof options.afterThis == 'function') {
-					
-						// set and delete					
-						after(options.afterThis);			
-						delete options[afterThis];
-						
-					}
-	
-					// else if afterAll					
-					if (options && typeof options.afterAll == 'function') after(options.afterAll);			
-					
-				}
-				
-				// if wrapEach (before and after)
-				if (options && typeof options.wrapEach == 'function') {
-				
-					beforeEach(options.wrapEach);
-					afterEach(options.wrapEach);
-					
-				}
-				
-				// else if beforeEach and/or afterEach
-				else {
-				
-					// set .beforeEach and .afterEach						
-					if (options && typeof options.beforeEach == 'function') beforeEach(options.beforeEach);
-					if (options && typeof options.afterEach == 'function') afterEach(options.afterEach);			
-					
-				}
-	
-				// if spacer				
-				if (!options || !options.noSpacer) {
-	
-					after(function spacer() {
-						console.log("");
-					});		
-				
-				}
-	
-				// for each testObj
-				for (var key in tests) {
-				
-					test.handleObj(tests[key], options);
-				
-				}
+				// if this is a suite of suites, handle suiteArr
+				if ( (tests[0] && tests[0].tests) || (tests[0] && tests[0].suites) ) test.suiteArr(tests, options);
+
+				// else build single suite of tests
+				else test.buildSuite(tests, options, this);
 			
 			});
 			
@@ -158,48 +98,118 @@
 		
 		}
 		
-	// handle test or suite object
+	// build suite
+	
+		test.buildSuite = function(tests, options, describeObj) {
+
+			// get array of onlys
+			var onlys = _.filter(tests, function(obj) {
+			    if (obj && obj.only) return obj;
+			});			
+					
+			// if any tests have .only
+			if (onlys.length > 0) {
 			
-		test.handleObj = function(testObj, options) {
-		
-			// clone options
-			options = _.clone(options);
+				// set suite to pending
+				if (typeof options == "undefined") options = {};
+				options.pending = true;
 			
-			// if this has suites attribute
-			if (testObj.suites) {
-				// move to tests
-				testObj.tests = _.clone(testObj.suites);
-				delete testObj['suites'];			
 			}
+		
+			// set timeout
+			if (options && options.timeout) describeObj.timeout(options.timeout);
 					
-			// if this is a suiteObj
-			if (testObj.tests) test.suiteObj(testObj, options);
-		
-			// else its a testObj
-			else test.testObj(testObj, options);			
-		
-		}	
-		
-	// handle suiteObj
-	
-		test.suiteObj = function(suiteObj, options) {
-					
-			// merge options
-			if (suiteObj.options) options = merge(options, suiteObj.options);
+			// if wrapAll (before and after)
+			if (options && typeof options.wrapAll == 'function') {
 			
-			// fire off child suite
-			test.suite(suiteObj.label, suiteObj.tests, options);		
+				before(options.wrapAll);
+				after(options.wrapAll);
+				
+			}
+			
+			// else if wrapThis (before and after - but don't pass into child suites)
+			else if (options && typeof options.wrapThis == 'function') {
+					
+				// set and delete						
+				before(options.wrapThis);
+				after(options.wrapThis);	
+				delete options[wrapThis];						
 		
+			}
+							
+			// else if beforeAll and/or afterAll
+			else {
+
+				// if beforeThis				
+				if (options && typeof options.beforeThis == 'function') {
+				
+					// set and delete
+					before(options.beforeThis);
+					delete options[beforeThis];
+					
+				}
+				
+				// else if beforeAll
+				if (options && typeof options.beforeAll == 'function') before(options.beforeAll);
+				
+				// if afterThis
+				if (options && typeof options.afterThis == 'function') {
+				
+					// set and delete					
+					after(options.afterThis);			
+					delete options[afterThis];
+					
+				}
+
+				// else if afterAll					
+				if (options && typeof options.afterAll == 'function') after(options.afterAll);			
+				
+			}
+			
+			// if wrapEach (before and after)
+			if (options && typeof options.wrapEach == 'function') {
+			
+				beforeEach(options.wrapEach);
+				afterEach(options.wrapEach);
+				
+			}
+			
+			// else if beforeEach and/or afterEach
+			else {
+			
+				// set .beforeEach and .afterEach						
+				if (options && typeof options.beforeEach == 'function') beforeEach(options.beforeEach);
+				if (options && typeof options.afterEach == 'function') afterEach(options.afterEach);			
+				
+			}
+
+			// if spacer				
+			if (!options || !options.noSpacer) {
+
+				after(function spacer() {
+					console.log("");
+				});		
+			
+			}
+
+			// for each testObj
+			for (var key in tests) {
+			
+				// build test				
+				test.buildTest(tests[key], options);
+			
+			}
+			
 		}
-		
-	// handle testObj	
 	
-		test.testObj = function(testObj, options) {
+	// build test
+	
+		test.buildTest = function(testObj, options) {
 		
 			// merge options into the testObj
 			if (options) testObj = merge(options, testObj);											
 
-			// if pending test case
+			// if pending test case, build it
 			if (!testObj.only && (testObj.pending || testObj.skip)) it(testObj.label);
 
 			// else execute test case						
@@ -208,7 +218,7 @@
 				// if http
 				if (testObj.host || testObj.path) test.http(testObj);
 
-				// if async
+				// else if async
 				else if (testObj.assert && testObj.assert.length > 0) test.async(testObj);
 				
 				// else sync
@@ -216,9 +226,7 @@
 				
 			}
 				
-		}			
-
-// test cases
+		}
 
 	// sync test case
 	
@@ -247,7 +255,7 @@
 	// async test case
 	
 		test.async = function(testObj) {
-
+		
 			it(testObj.label, function(done) {
 			
 				// set timeout
@@ -411,7 +419,7 @@
 			
 		}
 
-// other
+// other utilities
 		
 	// page utility
 	
@@ -426,7 +434,7 @@
 
 		test.title = function(title, indent) {
 		
-			var length = title.length;
+			var length = title.length + 4;
 			var divider = "";
 			var i;
 			
@@ -436,7 +444,7 @@
 			}
 		
 			// build title string
-			title = divider + "\n  " + title.toUpperCase() + "\n  " + divider + "\n";
+			title = divider + "\n    " + title.toUpperCase() + "\n  " + divider + "\n";
 			
 			// if prevent indent
 			if (indent) title = "\n  " + title;
@@ -445,16 +453,18 @@
 		
 		}	
 		
-// helpers
+// internal helpers
 		
 	function merge(obj1, obj2) {
+	
+		var output = _.clone(obj1);
 		
 		// copy obj2 into obj1
 		for (var key in obj2) {				
-			obj1[key] = obj2[key];				
+			output[key] = obj2[key];				
 		}
 		
-		return obj1;
+		return output;
 	
 	}			
 			
