@@ -4,7 +4,7 @@
 
 // tests
 
-	test.page("103 Suite Args", function() {	
+	test.page("104 Suite Args", function() {	
 	
 		// suite pending and skipping	
 			
@@ -12,7 +12,7 @@
 			var suite_skip = false;
 			var suite_count = 0;
 			
-			test.suite("103.1 Suite Pending", [
+			test.suite("104.1 Suite Pending", [
 				{
 					label: "This should be skipped",
 					assert: function() {
@@ -24,7 +24,7 @@
 				pending: true
 			});	
 			
-			test.suite("103.2 Suite Skip", [
+			test.suite("104.2 Suite Skip", [
 				{
 					label: "This should be skipped",
 					assert: function() {
@@ -48,7 +48,7 @@
 			
 		// timeout
 		
-			test.suite("103.3 Suite Timeout", [
+			test.suite("104.3 Suite Timeout", [
 				{
 					label: "2.5 Second Delay",
 					assert: function() {

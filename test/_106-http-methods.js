@@ -4,11 +4,11 @@
 	
 // tests	
 	
-	test.page("105 HTTP Methods", function() {
+	test.page("106 HTTP Methods", function() {
 
 		// http methods
 	
-			test.suite("105.1 Post, Put and Delete",
+			test.suite("106.1 Post, Put and Delete",
 				[
 					{
 						label: "Post with .verb",

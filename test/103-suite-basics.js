@@ -6,117 +6,7 @@
 	
 // tests	
 	
-	test.page("102 Suite Basics", function() {
-				
-		// suite object 1 - with tests array
-		
-			var suite_count1 = 0;
-			var suite_keyword1 = false;
-		
-			var suiteObj = {
-				label: "102.1 Suite Object #1 - with tests array",
-				tests: [
-					{
-						label: "Increment",
-						assert: function() {
-							test.assert(suite_count1 == 0);	
-							suite_count1++;			
-						}
-					},	
-					{
-						label: "Check this.options",
-						assert: function() {
-							test.assert(this.noSpacer == true);
-							test.assert(suite_count1 == 1);	
-							suite_count1++;								
-						}
-					},
-					{
-						label: "Check passed options",
-						assert: function() {
-							test.assert(this.foo == "bar");
-							test.assert(suite_count1 == 2);	
-							suite_count1++;				
-							suite_keyword1 = this.foo;				
-						}
-					}									
-				],
-				options: {
-					noSpacer: true	
-				}
-			};
-			
-			//test.suiteObj(suiteObj, { foo: "bar" });
-			
-			/*test.suite("Suite Object 1 (cont'd - checking)", [
-				{
-					label: "Checking suite count",
-					assert: function() {			
-						test.assert(suite_count1 == 3);				
-					}
-				},
-				{
-					label: "Checking suite keyword",
-					assert: function() {			
-						test.assert(suite_keyword1 == "bar");				
-					}
-				}						
-			]);*/
-				
-				
-		// suite object 2 - with suites array
-		
-			var suite_count2 = 0;
-		
-			var suiteObj = {
-				label: "102.2 Suite Object #2 - with suites array",
-				suites: [
-					{
-						label: "Increment",
-						assert: function() {
-							test.assert(suite_count2 == 0);	
-							suite_count2++;			
-						}
-					},	
-					{
-						label: "Check this.options",
-						assert: function() {
-							test.assert(this.noSpacer == true);
-							test.assert(suite_count2 == 1);	
-							suite_count2++;		
-						}
-					},
-					{
-						label: "Check passed options",
-						assert: function() {
-							test.assert(this.foo == "baz");
-							test.assert(suite_count2 == 2);	
-							suite_count2++;				
-							suite_keyword2 = this.foo;								
-						}
-					}					
-				],
-				options: {
-					noSpacer: true	
-				}
-			};
-			
-			/*test.suiteObj(suiteObj, { foo: "baz" });
-			
-			test.suite("Suite Object 2 (cont'd - checking)", [
-				{
-					label: "Checking suite count",
-					assert: function() {			
-						test.assert(suite_count2 == 3);				
-					}
-				},
-				{
-					label: "Checking suite keyword",
-					assert: function() {			
-						test.assert(suite_keyword2 == "baz");				
-					}
-				}			
-			]);	*/
+	test.page("103 Suite Basics", function() {
 
 		// nested suites - sample
 		
@@ -163,7 +53,7 @@
 				nested_suites_sample
 			];
 		
-			test.suite("102.3 Nested Suites", suites, { noSpacer: true });
+			test.suite("103.1 Nested Suites", suites, { noSpacer: true });
 				
 			test.suite("Nested Suites (cont'd- checking)", [
 				{
@@ -219,7 +109,7 @@
 				override_sample
 			];
 		
-			test.suite("102.4 Nested Options", nested_options_suites, { pending: true, noSpacer: true });
+			test.suite("103.2 Nested Options", nested_options_suites, { pending: true, noSpacer: true });
 				
 			test.suite("Nested Options (cont'd- checking)", [
 				{
@@ -249,7 +139,7 @@
 				noSpacer: true
 			});
 		
-			test.suite("102.5 Unnamed Suite (cont'd)", [
+			test.suite("103.3 Unnamed Suite (cont'd)", [
 				{
 					label: "Checking unnamed",
 					assert: function() {
@@ -264,7 +154,7 @@
 		
 			var chained = 0;
 				
-			test.suite("102.6 Chained Suite", [
+			test.suite("103.4 Chained Suite", [
 				{
 					label: "Increment",
 					assert: function() {
