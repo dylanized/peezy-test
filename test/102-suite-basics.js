@@ -126,9 +126,7 @@
 					{
 						label: "Sync test",
 						assert: function() {
-							count++;
-							test.fail("whatever");				
-			
+							count++;			
 						}
 					},					
 					{
