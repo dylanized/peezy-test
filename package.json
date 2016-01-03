@@ -1,6 +1,6 @@
 {
   "name": "suite-tooth",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Declarative, functional unit testing",
   "main": "index.js",
   "scripts": {
