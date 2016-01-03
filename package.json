@@ -4,7 +4,8 @@
   "description": "Declarative, functional unit testing",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "mocha test/[^_]*.js --bail",
+    "mocha": "mocha"
   },
   "author": "dylanized",
   "license": "MIT",
