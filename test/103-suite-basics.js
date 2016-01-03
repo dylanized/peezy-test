@@ -53,7 +53,7 @@
 				nested_suites_sample
 			];
 		
-			test.suite("103.1 Nested Suites", suites, { noSpacer: true });
+			test.suite("103.1 Nested Suites", suites);
 				
 			test.suite("Nested Suites (cont'd- checking)", [
 				{

@@ -24,8 +24,13 @@
 	
 		test.suiteObj = function(suiteObj, options) {
 		
-			// merge options
-			if (suiteObj.options) options = merge(options, suiteObj.options);
+			// if obj options
+			if (suiteObj.options) {
+				// if passed options is blank, instantiate it
+				if (typeof options == "undefined") options = {};
+				// merge objs
+				options = merge(options, suiteObj.options);
+			}
 			
 			// default label
 			if (!suiteObj.label) suiteObj.label = "";
