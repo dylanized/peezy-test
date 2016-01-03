@@ -89,13 +89,17 @@
 	
 		test.suite = function(label, tests, options) {
 		
-			// title filter
-			if (options && options.title && options.title === true) label = test.title(label);
+			// if title is set
+			if (options && options.title && options.title === true) {			
+				// add formatting to label and delete prop
+				label = test.title(label);
+				delete options.title;				
+			}
 			
 			// set up mocha suite
 			describe(label, function() {
 			
-				// if this is a suite of suites, handle suiteArr
+				// if this is a suite of suites
 				if ( (tests[0] && tests[0].tests) || (tests[0] && tests[0].suites) ) test.suiteArr(tests, options);
 
 				// else build single suite of tests
