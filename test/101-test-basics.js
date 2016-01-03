@@ -188,7 +188,7 @@
 					{
 						label: "This should not be a title",
 						assert: function() {			
-							test.assert(this.title == true);			
+							test.assert(typeof this.title == "undefined");			
 						}
 					}		
 				],
