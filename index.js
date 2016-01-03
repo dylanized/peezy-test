@@ -94,21 +94,24 @@
 	
 		test.suite = function(label, tests, options) {
 		
+			// clone options
+			var opt = _.clone(options);
+		
 			// if title is set
-			if (options && options.title && options.title === true) {			
+			if (opt && opt.title && opt.title === true) {			
 				// add formatting to label and delete prop
 				label = test.title(label);
-				delete options.title;				
+				delete opt.title;				
 			}
 			
 			// set up mocha suite
 			describe(label, function() {
 			
 				// if this is a suite of suites
-				if ( (tests[0] && tests[0].tests) || (tests[0] && tests[0].suites) ) test.suiteArr(tests, options);
+				if ( (tests[0] && tests[0].tests) || (tests[0] && tests[0].suites) ) test.suiteArr(tests, opt);
 
 				// else build single suite of tests
-				else test.buildSuite(tests, options, this);
+				else test.buildSuite(tests, opt, this);
 			
 			});
 			
