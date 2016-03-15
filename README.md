@@ -1,9 +1,8 @@
 # suite-tooth
-A declarative testing framework
 
-Suite Tooth is a declarative testing framework built on top of [Unit.js](http://unitjs.com) and [Mocha](https://mochajs.org). It allows you to delcare a test as a JavaScript "test object", with values for the name (and other configuration values), and a function to run as an assertation.
+Suite Tooth is a declarative testing framework built on top of [Unit.js](http://unitjs.com) and [Mocha](https://mochajs.org). It allows you to delcare a test as a JavaScript "test object" with configration properties and an assertion function.
 
-Then you can build a "suite" of tests by creating an array of these test objects, and you can configure the suite (and all the included tests) by passing in a configuration object. Suite Tooth also supports some extras like HTTP tests, before & after functions, and more.
+Then a "suite" of tests can be built by creating an array of test objects, and can be configured by a suite-wide configuration object. Other features include support HTTP tests, before & after functions, and more.
 
 ## Syncronous Tests
 
@@ -115,3 +114,64 @@ Run an HTTP test using the Supertest library like this:
 ```
 
 ... to be continued
+
+
+
+
+
+
+
+
+## Test Suites
+
+A collection of tests is called a "test suite". Create a simple suite like this:
+
+```
+SIMPLE SUITE EXAMPLE
+```
+
+The tests will be run in sequential order. Individual tests can be skipped, or have unqiue properties.
+
+#### Suite Properties
+
+Pass the suite properties like this:
+
+```
+SUITE WITH PROPERTIES EXAMPLE
+```
+
+Suite-tooth will look for any properties that apply to the suite, then pass on the config object to all the tests contained in the suite.
+
+Here are properties that apply to the suite:
+
+#### beforeAll, afterAll, wrapAll
+
+These are functions that wrap the entire suite:
+
+- beforeAll - run before the suite
+- afterAll - run after the suite
+- wrapAll - run before and after the suite
+
+These functions can be sync or async. These functions get passed on to any nested suites (see below).
+
+#### beforeThis, afterThis, wrapThis
+
+These are functions that wrap the entire suite, but do NOT get passed on to any nested suites. They only apply to "this" suite.
+
+These functions can be sync or async. 
+
+#### beforeEach, afterEach, wrapEach
+
+These are functions that run wrap each test inside a suite:
+
+- beforeEach - run before each test in the suite
+- afterEach - run after each test
+- wrapEach - run before and after each test
+
+These functions get passed on to nested suites, but only apply to tests - not to suites.
+
+These functions can be sync or async.
+
+#### Nested Suites
+
+A suite can contain suites, in fact they can be nested indefinitely. The config object gets passed down, with the exception of the beforeThis/afterThis/wrapThis functions.
