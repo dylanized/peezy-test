@@ -22,7 +22,9 @@ test.suite("My first suite", [
 ]);
 ```
 
-In this example, Suite-tooth instantiates a test suite which contains one test. The test has a label of "My first test" and it runs a syncronous assertion function. In this case, the assertion method used is from Unit.js, but other libraries can be used as well (like `should` or `assert`).
+In this example, Suite-tooth instantiates a test suite which contains one test. The test has a label of "My first test" and it runs a syncronous assertion function.
+
+In this case, the `.object` helper used is from Unit.js, but other assertion libraries can be used as well (like `should` or `assert`).
 
 #### Skipping Tests
 
@@ -104,7 +106,12 @@ test.suite("This is a suite", [
 ]);
 ```
 
-## HTTP Tests
+
+
+
+
+
+## HTTP Tests (TODO)
 
 Run an HTTP test using the Supertest library like this:
 
@@ -112,6 +119,15 @@ Run an HTTP test using the Supertest library like this:
 
 
 ```
+
+HTTP tests support the following properties:
+
+host
+status
+expect
+
+before/after
+
 
 ... to be continued
 
@@ -127,32 +143,112 @@ Run an HTTP test using the Supertest library like this:
 A collection of tests is called a "test suite". Create a simple suite like this:
 
 ```
-SIMPLE SUITE EXAMPLE
+test.suite("A Simple Test Suite", [
+	{
+		label: "Sync test",
+		assert: function() {
+			var data = doSomething(); // do something
+			test.object(data).hasProperty("secret", "hello world");				
+		}
+	},
+	{
+		label: "Async test",
+		assert: function(done) {
+
+			setTimeout(function() {
+				var data = doSomething(); // do something				
+				test.object(data).hasProperty("secret", "hello world");
+				done();					
+			}, 1000);
+			
+		},
+		skip: false	
+	},
+	{
+		label: "HTTP test",
+		host: "http://google.com",
+		status: 301,
+		expect: [
+			{ "Content-Type": /html/ }
+		],					
+		assert: function(res) {				
+			test.object(res).hasProperty("body");					
+		},
+		skip: true					
+	}
+]);
+
 ```
 
-The tests will be run in sequential order. Individual tests can be skipped, or have unqiue properties.
+In this example, Suite-tooth is given a suite sith 3 tests. The tests will be run in series, even though the second and third tests take longer than the first. Individual tests can be skipped, or have other unqiue properties.
 
 #### Suite Properties
 
 Pass the suite properties like this:
 
 ```
-SUITE WITH PROPERTIES EXAMPLE
+test.suite("A Suite with Config Properties",
+	[
+		{
+			label: "Sync test",
+			assert: function() {
+				var data = doSomething(); // do something
+				test.object(data).hasProperty("secret", "hello world");				
+			}
+		},
+		{
+			label: "Async test",
+			assert: function(done) {
+	
+				setTimeout(function() {
+					var data = doSomething(); // do something				
+					test.object(data).hasProperty("secret", "hello world");
+					done();					
+				}, 1000);
+				
+			},
+			skip: false
+		},
+		{
+			label: "HTTP test",
+			host: "http://google.com",
+			status: 301,
+			expect: [
+				{ "Content-Type": /html/ }
+			],					
+			assert: function(res) {				
+				test.object(res).hasProperty("body");					
+			}					
+		}
+	],
+	{
+		skip: true,
+		timeout: 5000
+	}
+);
 ```
 
-Suite-tooth will look for any properties that apply to the suite, then pass on the config object to all the tests contained in the suite.
-
-Here are properties that apply to the suite:
+In this example, the suite is passed a config object with the `skip` and `timeout` properties set. Both these properties are passed on to all the tests within the suite. On the second test, the local version of `skip` takes precedence, so the test is NOT skipped.
 
 #### beforeAll, afterAll, wrapAll
 
-These are functions that wrap the entire suite:
+These functions can be hooked into the suite config object, and then wrap the entire suite:
 
 - beforeAll - run before the suite
 - afterAll - run after the suite
 - wrapAll - run before and after the suite
 
-These functions can be sync or async. These functions get passed on to any nested suites (see below).
+These functions can be sync or async. These get passed on to any nested suites (see below).
+
+Example:
+
+```
+BeforeAll AfterAll example
+```
+
+```
+wrapAll example
+```
 
 #### beforeThis, afterThis, wrapThis
 
@@ -172,6 +268,21 @@ These functions get passed on to nested suites, but only apply to tests - not to
 
 These functions can be sync or async.
 
-#### Nested Suites
+## Nested Suites
 
-A suite can contain suites, in fact they can be nested indefinitely. The config object gets passed down, with the exception of the beforeThis/afterThis/wrapThis functions.
+A suite can contain suites, in fact they can be nested indefinitely. Set up nested suites like this:
+
+## Bonus Features
+
+Single interface
+
+Title?
+
+nospacer
+
+page
+
+Dynamically generating tests and suites
+
+
+
