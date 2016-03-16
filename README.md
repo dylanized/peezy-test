@@ -454,7 +454,7 @@ var waterfowl = [
 	}
 ];
 
-function buildSuiteArr(list, timeout) {
+function buildTests(list, timeout) {
 
 	var tests = new Array();
 
@@ -490,18 +490,18 @@ function buildSuiteArr(list, timeout) {
 	
 }
 
-test.suite("Checking waterfowl", buildSuiteArr(waterfowl, 5000));
+test.suite("Checking waterfowl", buildTests(waterfowl, 5000));
 
 ```
 
 In this example, we take a list of data and use it to dynamically construct a suiteArray, then pass that into Suite-tooth.
 
-Inside the buildTests function, we construct the test objects by dynamically constructing the label and assert function, passing the timeout, and adding a common before function. In the assert function, we use `this` to access properties of the test object.
+Inside the `buildTests` function, we construct the test objects by dynamically constructing the label and assert function, passing the timeout, and adding a common before function. In the assert function, we use `this` to access properties of the test object.
 
-For even greater simplicity/flexibility, buildSuiteArr could be refactored into this:
+For even greater simplicity/flexibility, the example of `buildTests` could be refactored into this:
 
 ```
-function buildSuiteArr(list, timeout) {
+function buildTests(list, timeout) {
 
 	var tests = new Array();
 
