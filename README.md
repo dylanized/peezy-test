@@ -8,7 +8,7 @@ A test object looks like this:
 {
 	label: "I am a test",
 	assert: function() {
-		test.object(foo).hasProperty("bar"); // check something here
+		test.object(foo).hasProperty("bar"); // checking something here
 	}
 }
 ```
@@ -20,19 +20,19 @@ It also allows the creation of a "suite" of tests by building an array of test o
 	{
 		label: "First test",
 		assert: function() {
-			test.object(foo).hasProperty("bar"); // check something here
+			test.object(foo).hasProperty("bar"); // checking something here
 		}
 	},
 	{
 		label: "Second test",
 		assert: function() {
-			test.object(foo).hasProperty("baz"); // check something else here
+			test.object(foo).hasProperty("baz"); // checking something else here
 		}
 	},
 	{
 		label: "Third test",
 		assert: function() {
-			test.object(foo).hasProperty("buz"); // check something else here
+			test.object(foo).hasProperty("buz"); // checking something else here
 		}
 	}
 ]
@@ -45,13 +45,13 @@ These tests and suites can be built dynamically, and reusable functions can be p
 The main feautures of Suite Tooth fall into these categories:
 
 - [Single Tests](#single-tests)
--- [Syncronous Tests](#syncronous-tests)
--- [Asyncronous Tests](#asyncronous-tests)
--- [HTTP Tests](#http-tests)
--- [Dynamically Generated Tests](#dynamically-generated-tests)
+  - [Syncronous Tests](#syncronous-tests)
+  - [Asyncronous Tests](#asyncronous-tests)
+  - [HTTP Tests](#http-tests)
+  - [Dynamically Generated Tests](#dynamically-generated-tests)
 - [Test Suites](#test-suites)
--- [Suite Before/After Functions](#suite-before-&-after-functions)
--- [Dynamically Generated Suites](#dynamically-generated-suites)
+  - [Suite Before/After Functions](#suite-before-&-after-functions)
+  - [Dynamically Generated Suites](#dynamically-generated-suites)
 
 TODO:
 - [Nested Suites](#nested-suites)
