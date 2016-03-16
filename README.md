@@ -1,4 +1,4 @@
-# suite-tooth
+# Suite Tooth
 
 Suite Tooth is a declarative, functional testing framework built on top of [Unit.js](http://unitjs.com) and [Mocha](https://mochajs.org). It allows you to create a test via a JavaScript "test object" with configration properties and an assertion function.
 
@@ -402,4 +402,4 @@ In this example, the async `beforeEach` is run first, then Test #1, then `afterE
 
 ## Credits
 
-This is a work in progress. Send any feedback to me, [@dylanized](http://twitter.com/dylanized)
+This is a work in progress. Send feedback to [@dylanized](http://twitter.com/dylanized)!
