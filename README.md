@@ -42,6 +42,8 @@ Other features include HTTP testing, before & after functions, and more.
 
 These tests and suites can be built dynamically, and reusable functions can be passed in for assert or before/after behavior. This allows code reuse and code clarity in the construction of large testing scenarios.
 
+#### Table of Contents
+
 The main feautures of Suite Tooth fall into these categories:
 
 - [Single Tests](#single-tests)
@@ -58,7 +60,6 @@ TODO:
 - [Other Details](#other-details)
 
 # Single Tests
----
 
 ## Syncronous Tests
 
