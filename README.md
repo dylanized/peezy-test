@@ -54,7 +54,7 @@ test.suite("This suite will run", [
 ]);
 ```
 
-#### Before & After Functions
+#### Before & After Functions (for Tests)
 
 Run a function before or after the test like this:
 
@@ -249,13 +249,23 @@ test.suite("A Suite with Config Properties",
 
 In this example, the suite is passed a config object with the `skip` and `timeout` properties set. Both these properties are passed on to all the tests within the suite. On the second test, the local version of `skip` takes precedence, so the test is NOT skipped.
 
+## Before & After Functions (for Suites)
+
+There are 3 varieties of before & after functions that can be passed to a suite:
+
+| `beforeAll` | run before/after the entire suite, gets passed on to children suites |
+| `beforeThis` | run before/after the entire suite, doesn't get passed on to children |
+| `beforeEach` | run before & after each test in the suite |
+
+Here is how these work in more detail:
+
 #### beforeAll, afterAll, wrapAll
 
 These functions can be hooked into the suite config object, and then wrap the entire suite:
 
-- beforeAll - run before the suite
-- afterAll - run after the suite
-- wrapAll - run before and after the suite
+| `beforeAll` | run before the suite |
+| `afterAll` | run after the suite |
+| `wrapAll` | run before and after the suite |
 
 These functions can be sync or async. See example:
 
@@ -341,9 +351,9 @@ To run a before/afters on a suite WITHOUT passing it on to children, use `before
 
 These are functions that run wrap each test inside a suite:
 
-- beforeEach - run before each test in the suite
-- afterEach - run after each test
-- wrapEach - run before and after each test
+| `beforeEach` | run before each test in the suite |
+| `afterEach` | run after each test |
+| `wrapEach` | run before and after each test |
 
 These functions get passed on to nested suites, but they only apply to tests -- not to suites.
 
