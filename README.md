@@ -106,37 +106,45 @@ test.suite("This is a suite", [
 ]);
 ```
 
-
-
-
-
-
-## HTTP Tests (TODO)
+## HTTP Tests
 
 Run an HTTP test using the Supertest library like this:
 
 ```
-
-
+test.suite("This is a suite", [
+	{
+		label: "HTTP test",
+		host: "http://google.com",
+		status: 301,
+		expect: [
+			{ "Content-Type": /html/ }
+		],					
+		assert: function(res) {
+			test.object(res.body);
+		}					
+	}
+]);
 ```
 
-HTTP tests support the following properties:
+In this example, Suite-tooth is fed a single test. Because it has a host property set, Suite-tooth knows to treat this as an HTTP test. 
 
-host
-status
-expect
+#### HTTP Properties
 
-before/after
+For HTTP tests, Suite-tooth parses these properties:
 
+| property  | notes |
+| --------- | --- |
+| host      | The base URL the HTTP test is pointed at. This can be an external URL, or an object referencing a web server in your application.|
+| path      | The path the HTTP test is pointed at. Default is `/`. |
+| status    | The HTTP status code that is expected. Default is `200`. |
+| expect    | An array of header key/value pairs that will be expected. |
+| assert    | This works similar to an async assert function, except the argument passed in is the response object. Usually the object will a body child and other descendents to test against. Sometimes, the response object can be an error message. |
 
-... to be continued
+#### HTTP Testing Notes
 
+The HTTP testing is completed using [Supertest](https://github.com/visionmedia/supertest), via Unit.js.
 
-
-
-
-
-
+Note: behind the scenes, Suite-tooth executes the HTTP tests via a JavaScript `eval` statement. This is not ideal and probably needs to be rebuilt in a future version using a different HTTP testing library or approach.
 
 ## Test Suites
 
@@ -238,23 +246,85 @@ These functions can be hooked into the suite config object, and then wrap the en
 - afterAll - run after the suite
 - wrapAll - run before and after the suite
 
-These functions can be sync or async. These get passed on to any nested suites (see below).
-
-Example:
+These functions can be sync or async. See example:
 
 ```
-BeforeAll AfterAll example
+test.suite("beforeAll and afterAll Examples",
+	[
+		{
+			label: "Test #1",
+			assert: function() {
+				// test something
+			}
+		},
+		{
+			label: "Test #2",
+			assert: function(done) {
+				
+				setTimeout(function() {
+					// test something	
+					done();		
+				}, 1500);
+			
+			}
+		}		
+	],
+	{
+		beforeAll: function(done) {
+			setTimeout(function() {
+				// do something	
+				done();		
+			}, 1500);
+
+		},
+		afterAll: function() {
+			// do something
+		}
+	}
+);
+```
+In this example, the async `beforeAll` is run first, then Test #1, then the async Test #2, and finally the `afterAll`.
+
+Here's a similar example but with wrapAll:
+
+```
+test.suite("wrapAll Example",
+	[
+		{
+			label: "Test #1",
+			assert: function() {
+				// test something
+			}
+		},
+		{
+			label: "Test #2",
+			assert: function(done) {
+				
+				setTimeout(function() {
+					// test something	
+					done();		
+				}, 1500);
+			
+			}
+		}		
+	],
+	{
+		wrapAll: function(done) {
+			setTimeout(function() {
+				// do something	
+				done();		
+			}, 1500);
+
+		}
+	}
+);
 ```
 
-```
-wrapAll example
-```
+In this example, the async `wrapAll` is run first, then Test #1, then the async Test #2, and finally the `wrapAll` is run again.
 
-#### beforeThis, afterThis, wrapThis
+If Suite-tooth is given a suite of suites, it will pass on `beforeAll`, `afterAll` and `wrapAll` to the children suites.
 
-These are functions that wrap the entire suite, but do NOT get passed on to any nested suites. They only apply to "this" suite.
-
-These functions can be sync or async. 
+To run a before/afters on a suite WITHOUT passing it on to children, use `beforeThis`, `afterThis` and `wrapThis`.
 
 #### beforeEach, afterEach, wrapEach
 
@@ -264,25 +334,51 @@ These are functions that run wrap each test inside a suite:
 - afterEach - run after each test
 - wrapEach - run before and after each test
 
-These functions get passed on to nested suites, but only apply to tests - not to suites.
+These functions get passed on to nested suites, but they only apply to tests - not to suites.
 
 These functions can be sync or async.
 
-## Nested Suites
+Here's an example:
 
-A suite can contain suites, in fact they can be nested indefinitely. Set up nested suites like this:
+```
+test.suite("beforeEach and afterEach Examples",
+	[
+		{
+			label: "Test #1",
+			assert: function() {
+				// test something
+			}
+		},
+		{
+			label: "Test #2",
+			assert: function(done) {
+				
+				setTimeout(function() {
+					// test something	
+					done();		
+				}, 1500);
+			
+			}
+		}		
+	],
+	{
+		beforeEach: function(done) {
+			setTimeout(function() {
+				// do something	
+				done();		
+			}, 1500);
 
-## Bonus Features
+		},
+		afterEach: function() {
+			// do something
+		}
+	}
+);
+```
+In this example, the async `beforeEach` is run first, then Test #1, then `afterEach`, then `beforeEach` (again), then Test #2, and finally `afterEach` (again).
 
-Single interface
+`wrapEach` works similarly, but it runs before AND after EVERY test.
 
-Title?
+#### Credits
 
-nospacer
-
-page
-
-Dynamically generating tests and suites
-
-
-
+This is a work in progress. Send any feedback to me, [@dylanized](http://twitter.com/dylanized)
