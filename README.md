@@ -1,8 +1,19 @@
 # suite-tooth
 
-Suite Tooth is a declarative testing framework built on top of [Unit.js](http://unitjs.com) and [Mocha](https://mochajs.org). It allows you to delcare a test as a JavaScript "test object" with configration properties and an assertion function.
+Suite Tooth is a declarative, functional testing framework built on top of [Unit.js](http://unitjs.com) and [Mocha](https://mochajs.org). It allows you to create a test via a JavaScript "test object" with configration properties and an assertion function.
 
 Then a "suite" of tests can be built by creating an array of test objects, and can be configured by a suite-wide configuration object. Other features include support HTTP tests, before & after functions, and more.
+
+These tests and suites can be built dynamically, and reusable functions can be passed in for use assert or before/after behavior. This can provide a great productivity boost when building large testing setups.
+
+The main feautures of Suite Tooth fall into these categories:
+
+- Syncronous Tests
+- Asyncronous Tests
+- HTTP Tests
+- Test Suites
+- Advanced Usage
+- Other Details?
 
 ## Syncronous Tests
 
@@ -334,7 +345,7 @@ These are functions that run wrap each test inside a suite:
 - afterEach - run after each test
 - wrapEach - run before and after each test
 
-These functions get passed on to nested suites, but they only apply to tests - not to suites.
+These functions get passed on to nested suites, but they only apply to tests -- not to suites.
 
 These functions can be sync or async.
 
@@ -379,6 +390,6 @@ In this example, the async `beforeEach` is run first, then Test #1, then `afterE
 
 `wrapEach` works similarly, but it runs before AND after EVERY test.
 
-#### Credits
+## Credits
 
 This is a work in progress. Send any feedback to me, [@dylanized](http://twitter.com/dylanized)
