@@ -11,9 +11,15 @@ The main feautures of Suite Tooth fall into these categories:
 - Syncronous Tests
 - Asyncronous Tests
 - HTTP Tests
+- Dynamic Tests
 - Test Suites
 - Suite Before/After Functions
-- Advanced Usage
+- Dynamic Suites
+
+(TODO - list links?)
+
+TODO:
+- Advanced Usage?
 - Other Details?
 
 ## Syncronous Tests
@@ -55,7 +61,7 @@ test.suite("This suite will run", [
 ]);
 ```
 
-#### Test Before/After Functions
+#### Test Before & After Functions
 
 Run a function before or after the test like this:
 
@@ -158,7 +164,7 @@ The HTTP testing is completed using [Supertest](https://github.com/visionmedia/s
 
 Note: behind the scenes, Suite-tooth executes the HTTP tests via a JavaScript `eval` statement. This is not ideal and probably needs to be rebuilt in a future version using a different HTTP testing library or approach.
 
-## Dynamic Tests
+## Dynamically Generated Tests
 
 One of the most powerful ways to use Suite-tooth is to create tests dynamically or programatically. 
 
@@ -275,7 +281,7 @@ test.suite("A Suite with Config Properties",
 
 In this example, the suite is passed a config object with the `skip` and `timeout` properties set. Both these properties are passed on to all the tests within the suite. On the second test, the local version of `skip` takes precedence, so the test is NOT skipped.
 
-## Before & After Functions (for Suites)
+## Suite Before & After Functions
 
 There are 3 varieties of before & after functions that can be passed to a suite:
 
@@ -332,7 +338,7 @@ test.suite("beforeAll and afterAll Examples",
 ```
 In this example, the async `beforeAll` is run first, then Test #1, then the async Test #2, and finally the `afterAll`.
 
-Here's a similar example but with wrapAll:
+Here's a similar example using wrapAll:
 
 ```
 test.suite("wrapAll Example",
@@ -426,16 +432,118 @@ In this example, the async `beforeEach` is run first, then Test #1, then `afterE
 
 `wrapEach` works similarly, but it runs before AND after EVERY test.
 
-## Dynamic Suites
+## Dynamically Generated Suites
 
-The power of Suite-tooth really comes out when creating tests dynamically.
+Suites can also be created dynamically or programatically. This gets crazy powerful.
 
-Here is an example of a function that creates a test on the fly based on properties passed in:
+Here is an example:
 
 ```
-TODO: Dynamic Test
+var waterfowl = [
+	{
+		name: "Huey",
+		age: 11
+	},
+	{
+		name: "Dewie",
+		age: 11
+	},
+	{
+		name: "Louie",
+		age: 11
+	}
+];
+
+function buildSuiteArr(list, timeout) {
+
+	var tests = new Array();
+
+	list.forEach(function(testObj) {
+	
+		// set the label
+		testObj.label = "Checking " + testObj.name;
+	
+		// set the timeout dynamically
+		testObj.timeout = timeout;
+		
+		// add a common before function
+		testObj.before = function() {
+			// do something
+		};	
+		
+		// build the assert function
+		testObj.assert = function() {
+			
+			// check the testObj for an extra property
+			test.object(this).hasProperty("age");
+			
+			// do some other checking
+			if (!walksLikeDuck(this.name)) test.fail("Not a duck");			
+			
+		}	
+	
+		tests.push(testObj);
+	
+	});
+	
+	return tests;
+	
+}
+
+test.suite("Checking waterfowl", buildSuiteArr(waterfowl, 5000));
+
 ```
 
+In this example, we take a list of data and use it to dynamically construct a suiteArray, then pass that into Suite-tooth.
+
+Inside the buildTests function, we construct the test objects by dynamically constructing the label and assert function, passing the timeout, and adding a common before function. In the assert function, we use `this` to access properties of the test object.
+
+For even greater simplicity/flexibility, buildSuiteArr could be refactored into this:
+
+```
+function buildSuiteArr(list, timeout) {
+
+	var tests = new Array();
+
+	list.forEach(function(listObj) {
+	
+		tests.push(buildTest(listObj));
+	
+	});
+	
+	return tests;
+	
+}
+
+function buildTest(testObj) {
+	
+	// set the label
+	testObj.label = "Checking " + testObj.name;
+	
+	// set the timeout dynamically
+	testObj.timeout = timeout;
+	
+	// add a common before function
+	testObj.before = function() {
+		// do something
+	};	
+	
+	// build the assert function
+	testObj.assert = function() {
+		
+		// check the testObj for an extra property
+		test.object(this).hasProperty("age");
+		
+		// do some other checking
+		if (!walksLikeDuck(this.name)) test.fail("Not a duck");			
+		
+	}	
+	
+	return testObj;
+
+}
+
+```
 
 
 ## Credits
