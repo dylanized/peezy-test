@@ -2,25 +2,63 @@
 
 Suite Tooth is a declarative, functional testing framework built on [Unit.js](http://unitjs.com) and [Mocha](https://mochajs.org). It allows the creation of a test via a JavaScript "test object", which contains configration properties and an assertion function.
 
-It also allows a "suite" of tests to be created by building an array of test objects, which can be configured by a suite-wide configuration object. Other features include HTTP testing, before & after functions, and more.
+A test object looks like this:
 
-These tests and suites can be built dynamically, and reusable functions can be passed in for assertion or before/after behavior. This provides a huge productivity boost when building large test setups.
+```
+{
+	label: "I am a test",
+	assert: function() {
+		test.object(foo).hasProperty("bar"); // check something here
+	}
+}
+```
+
+It also allows the creation of a "suite" of tests by building an array of test objects (the "tests array"), which can be configured by a suite-wide parameters. A tests array looks like this:
+
+```
+[
+	{
+		label: "First test",
+		assert: function() {
+			test.object(foo).hasProperty("bar"); // check something here
+		}
+	},
+	{
+		label: "Second test",
+		assert: function() {
+			test.object(foo).hasProperty("baz"); // check something else here
+		}
+	},
+	{
+		label: "Third test",
+		assert: function() {
+			test.object(foo).hasProperty("buz"); // check something else here
+		}
+	}
+]
+```
+
+Other features include HTTP testing, before & after functions, and more.
+
+These tests and suites can be built dynamically, and reusable functions can be passed in for assert or before/after behavior. This allows code reuse and code clarity in the construction of large testing scenarios.
 
 The main feautures of Suite Tooth fall into these categories:
 
-- Syncronous Tests
-- Asyncronous Tests
-- HTTP Tests
-- Dynamic Tests
-- Test Suites
-- Suite Before/After Functions
-- Dynamic Suites
-
-(TODO - list links?)
+- [Single Tests](#single-tests)
+-- [Syncronous Tests](#syncronous-tests)
+-- [Asyncronous Tests](#asyncronous-tests)
+-- [HTTP Tests](#http-tests)
+-- [Dynamically Generated Tests](#dynamically-generated-tests)
+- [Test Suites](#test-suites)
+-- [Suite Before/After Functions](#suite-before-&-after-functions)
+-- [Dynamically Generated Suites](#dynamically-generated-suites)
 
 TODO:
-- Advanced Usage?
-- Other Details?
+- [Nested Suites](#nested-suites)
+- [Other Details](#other-details)
+
+# Single Tests
+---
 
 ## Syncronous Tests
 
@@ -42,7 +80,7 @@ test.suite("My first suite", [
 
 In this example, Suite-tooth instantiates a test suite which contains one test. The test has a label of "My first test" and it runs a syncronous assertion function.
 
-In this case, the `.object` helper used is from Unit.js, but other assertion libraries can be used as well (like `should` or `assert`).
+In this case, the `.object` and `hasProperty` helpers from [Unit.js](http://unitjs.com/guide/quickstart.html) are used, but other [assertion](http://chaijs.com/) [libraries](https://shouldjs.github.io/) can be used as well.
 
 #### Skipping Tests
 
@@ -51,10 +89,9 @@ Disable a test by setting the `skip` or `pending` property:
 ```
 test.suite("This suite will run", [
 	{
-		label: "This test will be skipped",
+		label: "But this test will be skipped",
 		assert: function() {
-			var data = { foo: "bar" }; // do something here
-			test.object(data).hasProperty("foo", "bar");				
+			// check something				
 		},
 		skip: true
 	}
@@ -71,34 +108,37 @@ data.foo = false;
 
 test.suite("Example suite", [
 	{
-		label: "This test will be run after the before function",
+		label: "This is a test with its own before and after functions",
 		assert: function() {
+			// this function will be run second
 			test.object(data).hasProperty("foo", true);				
 		},
 		before: function() {
+			// this function will be run first
 			data.foo = true;
 		},
 		after: function() {
+			// this function will be run third
 			data.foo = false;
 		}
 	}
 ]);
 ```
 
-Note: before and after functions work on sync and async tests, but the before and after functions themselves must be syncronous.
+Note: these test-specific before & after functions work on sync and async tests, but the functions themselves must be syncronous.
 
 ## Asyncronous Tests
 
 By adding the `done` argument to the assert function, Suite-tooth knows to run a test asyncronously:
 
 ```
-test.suite("My second suite", [
+test.suite("Example suite", [
 	{
 		label: "My async test",
 		assert: function(done) {
 			setTimeout(function() {
-				var data = { foo: "bar" }; // do something here
-				test.object(data).hasProperty("foo", "bar");			
+				// check something
+				done();			
 			}, 1000);
 		}
 	}
@@ -110,13 +150,12 @@ test.suite("My second suite", [
 Set a custom timeout value to allow asyncronous tests more time to run:
 
 ```
-test.suite("This is a suite", [
+test.suite("Example suite", [
 	{
 		label: "This async test might take awhile",
 		assert: function(done) {
 			setTimeout(function() {
-				var data = { foo: "bar" }; // do something here
-				test.object(data).hasProperty("foo", "bar");			
+				// check something			
 			}, 5000);
 		},
 		timeout: 6000
@@ -129,7 +168,7 @@ test.suite("This is a suite", [
 Run an HTTP test using the Supertest library like this:
 
 ```
-test.suite("This is a suite", [
+test.suite("Example suite", [
 	{
 		label: "HTTP test",
 		host: "http://google.com",
@@ -144,7 +183,7 @@ test.suite("This is a suite", [
 ]);
 ```
 
-In this example, Suite-tooth is fed a single test. Because it has a host property set, Suite-tooth knows to treat this as an HTTP test. 
+Because the test object has a `host` property set, Suite-tooth knows to handle this as an HTTP test. 
 
 #### HTTP Properties
 
@@ -152,17 +191,40 @@ For HTTP tests, Suite-tooth parses these properties:
 
 | property  | notes |
 | --------- | --- |
-| host      | The base URL the HTTP test is pointed at. This can be an external URL, or an object referencing a web server in your application.|
+| host      | The base URL or server object that the HTTP test is pointed at. |
 | path      | The path the HTTP test is pointed at. Default is `/`. |
 | status    | The HTTP status code that is expected. Default is `200`. |
 | expect    | An array of header key/value pairs that will be expected. |
-| assert    | This works similar to an async assert function, except the argument passed in is the response object. Usually the object will a body child and other descendents to test against. Sometimes, the response object can be an error message. |
+| assert    | This HTTP assert function will have a `res` argument |
 
-#### HTTP Testing Notes
+#### Server Object
 
-The HTTP testing is completed using [Supertest](https://github.com/visionmedia/supertest), via Unit.js.
+If you are testing a local application, pass Suite Tooth the app object instead of a URL, like this:
 
-Note: behind the scenes, Suite-tooth executes the HTTP tests via a JavaScript `eval` statement. This is not ideal and probably needs to be rebuilt in a future version using a different HTTP testing library or approach.
+```
+var process = require("process");
+
+var app = require(process.cwd() + '/app');
+
+test.suite("Example suite", [
+	{
+		label: "Testing a local app",
+		host: app,
+		status: 200,
+		assert: function(res) {
+			test.object(res.body);
+		}					
+	}
+]);
+```
+
+(TODO - confirm the process syntax)
+
+#### Other HTTP Notes
+
+- The HTTP testing is completed using [Supertest](https://github.com/visionmedia/supertest), via Unit.js.
+- Usually the `res` object will contain a `body` property with other descendents; or an error message; or anything, depending on how the API is constructed.
+- Behind the scenes, Suite-tooth executes the HTTP tests via a JavaScript `eval` statement. This is not ideal and probably needs to be rebuilt eventually.
 
 ## Dynamically Generated Tests
 
@@ -171,6 +233,7 @@ One of the most powerful ways to use Suite-tooth is to create tests dynamically 
 Here is an example:
 
 ```
+
 function runTest(title, testObj, timeout) {
 
 	testObj.before = function() {
@@ -187,19 +250,18 @@ function runTest(title, testObj, timeout) {
 
 ```
 
-In this example, `runTest` builds a test using the `testObj` and `timeout` value provided, then adds a common `before` function to that test, then executes the test. This is one example, but there are many other ways to utilize this capability.
+In this example, `runTest` builds a test using the `testObj` & `timeout` provided, then adds a common `before` function to the test, then executes it. This is a simple example, but there are many other ways to utilize this capability.
 
 ## Test Suites
 
-A collection of tests is called a "test suite". Create a simple suite like this:
+A collection of tests is called a test suite. Create a simple suite like this:
 
 ```
 test.suite("A Simple Test Suite", [
 	{
 		label: "Sync test",
 		assert: function() {
-			var data = doSomething(); // do something
-			test.object(data).hasProperty("secret", "hello world");				
+			// check something			
 		}
 	},
 	{
@@ -207,8 +269,7 @@ test.suite("A Simple Test Suite", [
 		assert: function(done) {
 
 			setTimeout(function() {
-				var data = doSomething(); // do something				
-				test.object(data).hasProperty("secret", "hello world");
+				// check something
 				done();					
 			}, 1000);
 			
@@ -218,12 +279,8 @@ test.suite("A Simple Test Suite", [
 	{
 		label: "HTTP test",
 		host: "http://google.com",
-		status: 301,
-		expect: [
-			{ "Content-Type": /html/ }
-		],					
 		assert: function(res) {				
-			test.object(res).hasProperty("body");					
+			// check res
 		},
 		skip: true					
 	}
@@ -233,9 +290,9 @@ test.suite("A Simple Test Suite", [
 
 In this example, Suite-tooth is given a suite sith 3 tests. The tests will be run in series, even though the second and third tests take longer than the first. Individual tests can be skipped, or have other unqiue properties.
 
-#### Suite Properties
+#### Suite Config
 
-Pass the suite properties like this:
+Pass the suite configuration parameters like this:
 
 ```
 test.suite("A Suite with Config Properties",
@@ -243,8 +300,7 @@ test.suite("A Suite with Config Properties",
 		{
 			label: "Sync test",
 			assert: function() {
-				var data = doSomething(); // do something
-				test.object(data).hasProperty("secret", "hello world");				
+				// check something				
 			}
 		},
 		{
@@ -252,8 +308,7 @@ test.suite("A Suite with Config Properties",
 			assert: function(done) {
 	
 				setTimeout(function() {
-					var data = doSomething(); // do something				
-					test.object(data).hasProperty("secret", "hello world");
+					// check something
 					done();					
 				}, 1000);
 				
@@ -263,12 +318,8 @@ test.suite("A Suite with Config Properties",
 		{
 			label: "HTTP test",
 			host: "http://google.com",
-			status: 301,
-			expect: [
-				{ "Content-Type": /html/ }
-			],					
 			assert: function(res) {				
-				test.object(res).hasProperty("body");					
+				// check res
 			}					
 		}
 	],
