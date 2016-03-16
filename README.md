@@ -52,7 +52,7 @@ The main feautures of Suite Tooth fall into these categories:
   - [HTTP Tests](#http-tests)
   - [Dynamically Generated Tests](#dynamically-generated-tests)
 - [Test Suites](#test-suites)
-  - [Suite Before/After Functions](#suite-before-&-after-functions)
+  - [Suite Before/After Functions](#suite-before--after-functions)
   - [Dynamically Generated Suites](#dynamically-generated-suites)
 
 TODO:
