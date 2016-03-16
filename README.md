@@ -1,10 +1,10 @@
 # Suite Tooth
 
-Suite Tooth is a declarative, functional testing framework built on top of [Unit.js](http://unitjs.com) and [Mocha](https://mochajs.org). It allows you to create a test via a JavaScript "test object" with configration properties and an assertion function.
+Suite Tooth is a declarative, functional testing framework built on [Unit.js](http://unitjs.com) and [Mocha](https://mochajs.org). It allows the creation of a test via a JavaScript "test object", which contains configration properties and an assertion function.
 
-Then a "suite" of tests can be built by creating an array of test objects, and can be configured by a suite-wide configuration object. Other features include support HTTP tests, before & after functions, and more.
+It also allows a "suite" of tests to be created by building an array of test objects, which can be configured by a suite-wide configuration object. Other features include HTTP testing, before & after functions, and more.
 
-These tests and suites can be built dynamically, and reusable functions can be passed in for use assert or before/after behavior. This can provide a great productivity boost when building large testing setups.
+These tests and suites can be built dynamically, and reusable functions can be passed in for assertion or before/after behavior. This provides a huge productivity boost when building large test setups.
 
 The main feautures of Suite Tooth fall into these categories:
 
@@ -12,6 +12,7 @@ The main feautures of Suite Tooth fall into these categories:
 - Asyncronous Tests
 - HTTP Tests
 - Test Suites
+- Suite Before/After
 - Advanced Usage
 - Other Details?
 
