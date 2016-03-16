@@ -12,7 +12,7 @@ The main feautures of Suite Tooth fall into these categories:
 - Asyncronous Tests
 - HTTP Tests
 - Test Suites
-- Suite Before/After
+- Suite Before/After Functions
 - Advanced Usage
 - Other Details?
 
@@ -55,7 +55,7 @@ test.suite("This suite will run", [
 ]);
 ```
 
-#### Before & After Functions (for Tests)
+#### Test Before/After Functions
 
 Run a function before or after the test like this:
 
@@ -157,6 +157,31 @@ For HTTP tests, Suite-tooth parses these properties:
 The HTTP testing is completed using [Supertest](https://github.com/visionmedia/supertest), via Unit.js.
 
 Note: behind the scenes, Suite-tooth executes the HTTP tests via a JavaScript `eval` statement. This is not ideal and probably needs to be rebuilt in a future version using a different HTTP testing library or approach.
+
+## Dynamic Tests
+
+One of the most powerful ways to use Suite-tooth is to create tests dynamically or programatically. 
+
+Here is an example:
+
+```
+function runTest(title, testObj, timeout) {
+
+	testObj.before = function() {
+		// do something
+	};
+
+	testObj.timeout = timeout;
+
+  	test.suite(title, [
+  		testObj
+  	]);
+
+}
+
+```
+
+In this example, `runTest` builds a test using the `testObj` and `timeout` value provided, then adds a common `before` function to that test, then executes the test. This is one example, but there are many other ways to utilize this capability.
 
 ## Test Suites
 
@@ -401,6 +426,18 @@ In this example, the async `beforeEach` is run first, then Test #1, then `afterE
 
 `wrapEach` works similarly, but it runs before AND after EVERY test.
 
+## Dynamic Suites
+
+The power of Suite-tooth really comes out when creating tests dynamically.
+
+Here is an example of a function that creates a test on the fly based on properties passed in:
+
+```
+TODO: Dynamic Test
+```
+
+
+
 ## Credits
 
-This is a work in progress. Send feedback to [@dylanized](http://twitter.com/dylanized)!
+This is a work in progress. Send feedback to [@dylanized](http://twitter.com/dylanized)
