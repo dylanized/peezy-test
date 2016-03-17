@@ -253,7 +253,9 @@ function runTest(title, testObj, timeout) {
 
 In this example, `runTest` builds a test using the `testObj` & `timeout` provided, then adds a common `before` function to the test, then executes it. This is a simple example, but there are many other ways to utilize this capability.
 
-## Test Suites
+# Test Suites
+
+## Intro to Suites
 
 A collection of tests is called a test suite. Create a simple suite like this:
 
@@ -291,7 +293,7 @@ test.suite("A Simple Test Suite", [
 
 In this example, Suite-tooth is given a suite sith 3 tests. The tests will be run in series, even though the second and third tests take longer than the first. Individual tests can be skipped, or have other unqiue properties.
 
-#### Suite Config
+## Suite Config
 
 Pass the suite configuration parameters like this:
 
@@ -546,11 +548,11 @@ test.suite("Checking waterfowl", buildTests(waterfowl, 5000));
 
 ```
 
-In this example, we take a list of data and use it to dynamically construct a suiteArray, then pass that into Suite-tooth.
+In this example, we take a list of data and use it to dynamically construct a `tests` array, then pass that into Suite-tooth.
 
-Inside the `buildTests` function, we construct the test objects by dynamically constructing the label and assert function, passing the timeout, and adding a common before function. In the assert function, we use `this` to access properties of the test object.
+Inside the `buildTests` function, we create the test objects by dynamically constructing the `label` and `assert`, passing in the `timeout`, and adding a common `before` function. In the `assert` function, we use `this` to access properties of the test object.
 
-For even greater simplicity/flexibility, the example of `buildTests` could be refactored into this:
+For even greater flexibility, `buildTests` could be refactored into this:
 
 ```
 function buildTests(list, timeout) {
@@ -596,7 +598,6 @@ function buildTest(testObj) {
 }
 
 ```
-
 
 ## Credits
 
