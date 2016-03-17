@@ -291,11 +291,11 @@ test.suite("A Simple Test Suite", [
 
 ```
 
-In this example, Suite-tooth is given a suite sith 3 tests. The tests will be run in series, even though the second and third tests take longer than the first. Individual tests can be skipped, or have other unqiue properties.
+In this example, Suite-tooth is given a list of 3 tests. The tests will be run in series, even though the second and third tests take longer than the first. Individual tests can be skipped, or have other unique properties.
 
 ## Suite Config
 
-Pass the suite configuration parameters like this:
+Pass in configuration parameters like this:
 
 ```
 test.suite("A Suite with Config Properties",
@@ -392,7 +392,7 @@ test.suite("beforeAll and afterAll Examples",
 ```
 In this example, the async `beforeAll` is run first, then Test #1, then the async Test #2, and finally the `afterAll`.
 
-Here's a similar example using wrapAll:
+Here's a similar example using `wrapAll`:
 
 ```
 test.suite("wrapAll Example",
@@ -427,21 +427,15 @@ test.suite("wrapAll Example",
 );
 ```
 
-In this example, the async `wrapAll` is run first, then Test #1, then the async Test #2, and finally the `wrapAll` is run again.
-
-If Suite-tooth is given a suite of suites, it will pass on `beforeAll`, `afterAll` and `wrapAll` to the children suites.
-
-To run a before/afters on a suite WITHOUT passing it on to children, use `beforeThis`, `afterThis` and `wrapThis`.
+In this example, the async `wrapAll` is run first, then Test #1, then the async Test #2, and finally `wrapAll` is run again.
 
 #### beforeEach, afterEach, wrapEach
 
-These are functions that run wrap each test inside a suite:
+These are functions that wrap each test inside a suite:
 
 | `beforeEach` | run before each test in the suite |
 | `afterEach` | run after each test |
 | `wrapEach` | run before and after each test |
-
-These functions get passed on to nested suites, but they only apply to tests -- not to suites.
 
 These functions can be sync or async.
 
@@ -484,7 +478,7 @@ test.suite("beforeEach and afterEach Examples",
 ```
 In this example, the async `beforeEach` is run first, then Test #1, then `afterEach`, then `beforeEach` (again), then Test #2, and finally `afterEach` (again).
 
-`wrapEach` works similarly, but it runs before AND after EVERY test.
+`wrapEach` works similarly, but it runs before AND after every test.
 
 ## Dynamically Generated Suites
 
@@ -533,6 +527,8 @@ function buildTests(list, timeout) {
 			
 			// do some other checking
 			if (!walksLikeDuck(this.name)) test.fail("Not a duck");			
+			if (!talksLikeDuck(this.name)) test.fail("Not a duck");			
+			if (!actsLikeDuck(this.name)) test.fail("Not a duck");			
 			
 		}	
 	
@@ -589,15 +585,26 @@ function buildTest(testObj) {
 		test.object(this).hasProperty("age");
 		
 		// do some other checking
-		if (!walksLikeDuck(this.name)) test.fail("Not a duck");			
-		
+		if (!isDuck(this)) test.fail("Not a duck");			
+
 	}	
 	
 	return testObj;
 
 }
 
+function isDuck(animal) {
+
+	if (walksLikeDuck(animal) && talksLikeDuck(animal) && actsLikeDuck(animal)) return true;
+	else return false;
+
+}
+
 ```
+
+In this refactoring, we're breaking out the building of an individual test into its own `buildTest` helper, and consolidating the walks/talks/acts conditionals. Improvements like this allow for liberal code reuse.
+
+(TODO - can assert be broken out and `this` still be used?)
 
 ## Credits
 
