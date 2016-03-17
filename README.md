@@ -226,6 +226,64 @@ test.suite("Example suite", [
 - The HTTP testing is completed using [Supertest](https://github.com/visionmedia/supertest), via Unit.js.
 - Usually the `res` object will contain a `body` property with other descendents; or an error message; or anything, depending on how the API is constructed.
 - Behind the scenes, Suite-tooth executes the HTTP tests via a JavaScript `eval` statement. This is not ideal and probably needs to be rebuilt eventually.
+- Because of this, you cannot access other test object properties from within the assert of an HTTP test
+
+## Advanced Techniques
+
+Now that we've covered the basics, here's some more advanced tricks available when building individual tests:
+
+#### Building the Test Object Externally
+
+Sometimes it is cleaner to build the test object outside of Suite-tooth, and pass it in:
+
+```
+var testObj = {
+	label: "Example test",
+	assert: function() {
+		// check something
+	}
+};
+
+test.suite("Example suite", [testObj]);
+```
+
+#### Accessing Test Properties
+
+For sync and async tests, you can also access other properties of the test object from within your assert function:
+
+```
+test.suite("Example suite", [
+	{
+		label: "Checking height",
+		height: 68,
+		assert: function() {
+			if (this.height < 48) test.fail("Not tall enough to ride this ride");
+		}
+	}
+]);
+```
+#### External Assert Functions
+
+For more code reuse, you can break out the assert function and reuse it:
+
+```
+test.suite("Example suite", [
+	{
+		label: "Checking height",
+		height: 68,
+		assert: isTallEnough
+	}
+]);
+
+function isTallEnough() {
+	if (this.height < 48) test.fail("Not tall enough to ride this ride");
+}
+```
+
+Other Details:
+
+- Even though the assert is built externally, you can still access `this` and all it properties. (TODO - confirm this)
+- For an async or an HTTP test, the `done` or `res` argument is automatically passed in.
 
 ## Dynamically Generated Tests
 
@@ -234,7 +292,6 @@ One of the most powerful ways to use Suite-tooth is to create tests dynamically 
 Here is an example:
 
 ```
-
 function runTest(title, testObj, timeout) {
 
 	testObj.before = function() {
@@ -248,7 +305,6 @@ function runTest(title, testObj, timeout) {
   	]);
 
 }
-
 ```
 
 In this example, `runTest` builds a test using the `testObj` & `timeout` provided, then adds a common `before` function to the test, then executes it. This is a simple example, but there are many other ways to utilize this capability.
