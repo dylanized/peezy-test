@@ -54,10 +54,7 @@ The main feautures of Suite Tooth fall into these categories:
 - [Test Suites](#test-suites)
   - [Suite Before/After Functions](#suite-before--after-functions)
   - [Dynamically Generated Suites](#dynamically-generated-suites)
-
-TODO:
-- [Nested Suites](#nested-suites)
-- [Other Details](#other-details)
+  - [Nested Suites](#nested-suites)
 
 # Single Tests
 
@@ -221,8 +218,6 @@ test.suite("Example suite", [
 	}
 ]);
 ```
-
-(TODO - confirm the process syntax)
 
 #### Other HTTP Notes
 
@@ -721,6 +716,12 @@ function buildOptions(host, timeout) {
 ```
 
 In this example, we use the same set of endpoint paths to build tests against a local app and a remote instance.
+
+#### Nested Suites
+
+Suite-tooth can also handles suites of suites, aka "nested suites". You can even dynamically generate suites, which dynamically generate tests - the possibilities are endless!
+
+If Suite-tooth is processing a suite of suites, it will pass on `beforeAll`, `afterAll` and `wrapAll` to the children suites. To run a before/afters on a suite WITHOUT passing it on to children, use `beforeThis`, `afterThis` and `wrapThis`.
 
 ## Credits
 
