@@ -50,7 +50,7 @@ The main feautures of Suite Tooth fall into these categories:
   - [Syncronous Tests](#syncronous-tests)
   - [Asyncronous Tests](#asyncronous-tests)
   - [HTTP Tests](#http-tests)
-  - [Dynamically Generated Tests](#dynamically-generated-tests)
+  - [Advanced Techniques](#advanced-techniques)
 - [Test Suites](#test-suites)
   - [Suite Before/After Functions](#suite-before--after-functions)
   - [Dynamically Generated Suites](#dynamically-generated-suites)
