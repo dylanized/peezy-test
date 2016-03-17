@@ -285,7 +285,7 @@ Other Details:
 - Even though the assert is built externally, you can still access `this` and all it properties. (TODO - confirm this)
 - For an async or an HTTP test, the `done` or `res` argument is automatically passed in.
 
-## Dynamically Generated Tests
+#### Dynamically Generated Tests
 
 One of the most powerful ways to use Suite-tooth is to create tests dynamically or programatically. 
 
