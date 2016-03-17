@@ -368,12 +368,12 @@ test.suite("A Simple Test Suite", [
 
 In this example, Suite-tooth is given a list of 3 tests. The tests will be run in series, even though the second and third tests take longer than the first. Individual tests can be skipped, or have other unique properties.
 
-## Suite Config
+## Suite Options
 
-Pass in configuration parameters like this:
+Pass in configuration options like this:
 
 ```
-test.suite("A Suite with Config Properties",
+test.suite("A Suite with Options",
 	[
 		{
 			label: "Sync test",
@@ -601,9 +601,7 @@ function buildTests(list, timeout) {
 			test.object(this).hasProperty("age");
 			
 			// do some other checking
-			if (!walksLikeDuck(this.name)) test.fail("Not a duck");			
-			if (!talksLikeDuck(this.name)) test.fail("Not a duck");			
-			if (!actsLikeDuck(this.name)) test.fail("Not a duck");			
+			if (!walksLikeDuck(this)) test.fail("Not a duck");			
 			
 		}	
 	
@@ -651,7 +649,12 @@ function buildTest(testObj) {
 	// add a common before function
 	testObj.before = function() {
 		// do something
-	};	
+	};
+	
+	// assert helper
+	testObj.isDuck = function() {
+	
+	}
 	
 	// build the assert function
 	testObj.assert = function() {
@@ -660,7 +663,7 @@ function buildTest(testObj) {
 		test.object(this).hasProperty("age");
 		
 		// do some other checking
-		if (!isDuck(this)) test.fail("Not a duck");			
+		if (!walksLikeDuck(this)) test.fail("Not a duck");		
 
 	}	
 	
@@ -668,18 +671,52 @@ function buildTest(testObj) {
 
 }
 
-function isDuck(animal) {
+```
 
-	if (walksLikeDuck(animal) && talksLikeDuck(animal) && actsLikeDuck(animal)) return true;
-	else return false;
+In this refactoring, we're breaking out the building of an individual test into its own `buildTest` helper. Improvements like this allow for more code reuse.
 
+#### Dynamically Generated Options
+
+Similarly, the options object can be dynamically generated. Here's an example:
+
+```
+var endpoints = [
+	{
+		"path": "/api/search/1",
+	},
+	{
+		"path": "/api/search/2",
+	},
+	{
+		"path": "api/search/3",
+	}
+];
+
+// check local app
+test.suite("Checking API Endpoints", endpoints, buildOptions(app, 1000));
+
+// check remote app
+test.suite("Checking API Endpoints", endpoints, buildOptions(url, 5000));
+
+function buildOptions(host, timeout) {
+
+	var options = {
+		host: host,
+		timeout: timeout,
+		before: function() {
+		
+			// do something
+		
+		}
+	};
+
+	return options;
+	
 }
 
 ```
 
-In this refactoring, we're breaking out the building of an individual test into its own `buildTest` helper, and consolidating the walks/talks/acts conditionals. Improvements like this allow for liberal code reuse.
-
-(TODO - can assert be broken out and `this` still be used?)
+In this example, we use the same set of endpoint paths to build tests against a local app and a remote instance.
 
 ## Credits
 
