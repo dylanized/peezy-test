@@ -402,13 +402,17 @@ test.suite("A Suite with Options",
 		}
 	],
 	{
+		title: "THIS IS A SECTION HEADER",
 		skip: true,
-		timeout: 5000
+		timeout: 5000,
+		noSpacer: true
 	}
 );
 ```
 
 In this example, the suite is passed a config object with the `skip` and `timeout` properties set. Both these properties are passed on to all the tests within the suite. On the second test, the local version of `skip` takes precedence, so the test is NOT skipped.
+
+The `title` property prints out a bold section header above the test suite. Normally Suite-tooth outputs a line break after a suite, `noSpacer` cancels this.
 
 ## Suite Before & After Functions
 
