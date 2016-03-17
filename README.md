@@ -1,8 +1,8 @@
 # Suite Tooth
 
-Suite Tooth is a declarative, functional testing framework built on [Unit.js](http://unitjs.com) and [Mocha](https://mochajs.org). It allows the creation of a test via a JavaScript "test object", which contains configration properties and an assertion function.
+Suite Tooth is a declarative, functional testing framework built on [Unit.js](http://unitjs.com) and [Mocha](https://mochajs.org). It allows the creation of a test via a JavaScript object that contains configuration properties and an assertion function.
 
-A test object looks like this:
+A simple "test object" looks like this:
 
 ```
 {
@@ -40,7 +40,7 @@ It also allows the creation of a "suite" of tests by building an array of test o
 
 Other features include HTTP testing, before & after functions, and more.
 
-These tests and suites can be built dynamically, and reusable functions can be passed in for assert or before/after behavior. This allows code reuse and code clarity in the construction of large testing scenarios.
+These tests and suites can be built dynamically, and external functions can be passed in. These features can be combined in a variety of ways to reduce boilerplate code and simplify complex testing scenarios.
 
 #### Table of Contents
 
@@ -230,7 +230,7 @@ test.suite("Example suite", [
 
 ## Advanced Techniques
 
-Now that we've covered the basics, here's some more advanced tricks available when building individual tests:
+Now that we've covered the basics, here's some more advanced tricks available to individual tests:
 
 #### Building the Test Object Externally
 
@@ -267,22 +267,38 @@ test.suite("Example suite", [
 For more code reuse, you can break out the assert function and reuse it:
 
 ```
+var height = getHeight();
+
 test.suite("Example suite", [
 	{
 		label: "Checking height",
-		height: 68,
 		assert: isTallEnough
 	}
 ]);
 
 function isTallEnough() {
-	if (this.height < 48) test.fail("Not tall enough to ride this ride");
+	if (height < 48) test.fail("Not tall enough to ride this ride");
 }
+```
+
+In this example, the data being checked is set as a global variable, available to the `isTallEnough` assertion helper.
+
+Alternatively, the assert helper could be part of an external library, like this:
+
+```
+var helper = require("helper");
+
+test.suite("Example suite", [
+	{
+		label: "Checking that database is cleared",
+		assert: helper.isDBCleared
+	}
+]);
 ```
 
 Other Details:
 
-- Even though the assert is built externally, you can still access `this` and all it properties. (TODO - confirm this)
+- If the the assert is built externally, you cannot access `this` or any of its properties.
 - For an async or an HTTP test, the `done` or `res` argument is automatically passed in.
 
 #### Dynamically Generated Tests
