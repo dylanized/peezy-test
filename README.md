@@ -729,5 +729,3 @@ If Suite-tooth is processing a suite of suites, it will pass on `beforeAll`, `af
 - [Revolution Messaging](http://revmsg.com)
 
 This is a work in progress! Send feedback to [@dylanized](http://twitter.com/dylanized)
-
-Thank you to Revolution Messaging
