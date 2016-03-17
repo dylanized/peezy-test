@@ -196,7 +196,10 @@ For HTTP tests, Suite-tooth parses these properties:
 | path      | The path the HTTP test is pointed at. Default is `/`. |
 | status    | The HTTP status code that is expected. Default is `200`. |
 | expect    | An array of header key/value pairs that will be expected. |
+| contentType | a header with key of `Content-Type` |
 | assert    | This HTTP assert function will have a `res` argument |
+
+To use regex to search within an `expect` value, use slashes instead of quotes: `contentType: /html/`
 
 #### Server Object
 
