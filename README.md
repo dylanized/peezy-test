@@ -720,4 +720,9 @@ In this example, we use the same set of endpoint paths to build tests against a 
 
 ## Credits
 
-This is a work in progress. Send feedback to [@dylanized](http://twitter.com/dylanized)
+- [Dylan Hassinger](http://dylanhassinger.com)
+- [Revolution Messaging](http://revmsg.com)
+
+This is a work in progress! Send feedback to [@dylanized](http://twitter.com/dylanized)
+
+Thank you to Revolution Messaging
