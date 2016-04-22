@@ -1,7 +1,8 @@
 // setup
 
 	var test = require("unit.js"),
-		_ = require("lodash");
+		_ = require("lodash"),
+		npmRun = require("npm-run");
 		
 // alt suite interfaces	
 
@@ -408,7 +409,7 @@
 			}
 			
 			// send
-			if (send) httpString += ".send(" + send + ")";
+			if (send) httpString += ".send(" + JSON.stringify(send) + ")";
 			
 			// accept
 			if (testObj.accept) httpString += ".set('Accept', testObj.accept)";		
@@ -442,7 +443,150 @@
 			return httpString;
 			
 		}
+		
+// npm run utilities
+	
+	test.run = function(task, done) {
+		
+		npmRun.exec(task, {cwd: __dirname}, function(err, stdout, stderr) {
+		
+			// if error
+			if (err) console.log(err);
+			
+			done();
+		 
+		});			
+		
+	}	
+	
+	// all	
+		
+		test.beforeAllRun = function(task) {
+		
+			test.beforeAll(function(done) {
+			
+				test.run(task, done);
+			
+			});
+		
+		}
 
+		test.afterAllRun = function(task) {
+		
+			test.afterAll(function(done) {
+			
+				test.run(task, done);
+			
+			});			
+		
+		}
+		
+		test.wrapAllRun = function(task) {
+		
+			test.wrapAll(function(done) {
+			
+				test.run(task, done);
+			
+			});			
+		
+		}
+	
+	// each
+
+		test.beforeEachRun = function(task) {
+		
+			test.beforeEach(function(done) {
+			
+				test.run(task, done);
+			
+			});			
+		
+		}
+
+		test.afterEachRun = function(task) {
+		
+			test.afterEach(function(done) {
+			
+				test.run(task, done);
+			
+			});			
+		
+		}
+		
+		test.wrapEachRun = function(task) {
+		
+			test.wrapEach(function(done) {
+			
+				test.run(task, done);
+			
+			});			
+		
+		}
+	
+	// this
+		
+		test.beforeThisRun = function(task) {
+		
+			test.beforeThis(function(done) {
+			
+				test.run(task, done);
+			
+			});			
+		
+		}
+
+		test.afterThisRun = function(task) {
+		
+			test.afterThis(function(done) {
+			
+				test.run(task, done);
+			
+			});			
+		
+		}
+		
+		test.wrapThisRun = function(task) {
+		
+			test.wrapThis(function(done) {
+			
+				test.run(task, done);
+			
+			});			
+		
+		}
+		
+	// individual test
+		
+		test.beforeRun = function(task) {
+		
+			test.before(function(done) {
+			
+				test.run(task, done);
+			
+			});			
+		
+		}
+
+		test.afterRun = function(task) {
+		
+			test.after(function(done) {
+			
+				test.run(task, done);
+			
+			});			
+		
+		}
+		
+		test.wrapRun = function(task) {
+		
+			test.wrap(function(done) {
+			
+				test.run(task, done);
+			
+			});			
+		
+		}
+								
 // other utilities
 		
 	// page utility
@@ -476,7 +620,7 @@
 			
 			return title;
 		
-		}	
+		}
 		
 // internal helpers
 		
