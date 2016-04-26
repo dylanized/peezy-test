@@ -1,6 +1,6 @@
 {
   "name": "suite-tooth",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Declarative, functional unit testing",
   "main": "index.js",
   "scripts": {
@@ -12,8 +12,5 @@
   "dependencies": {
     "lodash": "^3.10.1",
     "unit.js": "^2.0.0"
-  },
-  "devDependencies": {
-    "lodash": "^3.10.1"
   }
 }

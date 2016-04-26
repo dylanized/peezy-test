@@ -1,8 +1,7 @@
 // setup
 
 	var test = require("unit.js"),
-		_ = require("lodash"),
-		npmRun = require("npm-run");
+		_ = require("lodash");
 		
 // alt suite interfaces	
 
