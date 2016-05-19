@@ -316,7 +316,7 @@
 			path: "/api/path/",
 			user: "email@domain.com",
 			pass: "123456",
-			headers: [
+			set: [
 				{ "": "" }
 			],
 			status: 200,
@@ -400,10 +400,13 @@
 			// auth
 			if (testObj.user && testObj.pass) httpString += ".auth(testObj.user, testObj.pass)";
 			
-			// headers
-			if (testObj.headers && testObj.headers.length > 0) {
+			// headers			
+			if (testObj.set) testObj.headers = testObj.set;
+			
+			if (testObj.headers) {
 				for (var key in testObj.headers) {
-					httpString += ".set(testObj.set[" + key + "])";
+					// .set('some_key', testObj.headers['some_key'])
+					httpString += ".set('" + key + "', testObj.headers['" + key + "'])";
 				}
 			}
 			
