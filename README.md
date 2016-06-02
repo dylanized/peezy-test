@@ -413,6 +413,8 @@ The `title` property prints out a bold section header above the test suite. Norm
 
 There are 3 varieties of before & after functions that can be passed to a suite:
 
+| Name | Description |
+| ---- | --- |
 | `beforeAll` | run before/after the entire suite, gets passed on to children suites |
 | `beforeThis` | run before/after the entire suite, doesn't get passed on to children |
 | `beforeEach` | run before & after each test in the suite |
@@ -423,6 +425,8 @@ Here is how these work in more detail:
 
 These functions can be hooked into the suite config object, and then wrap the entire suite:
 
+| Name | Description |
+| ---- | --- |
 | `beforeAll` | run before the suite |
 | `afterAll` | run after the suite |
 | `wrapAll` | run before and after the suite |
@@ -507,6 +511,8 @@ In this example, the async `wrapAll` is run first, then Test #1, then the async 
 
 These are functions that wrap each test inside a suite:
 
+| Name | Description |
+| ---- | --- |
 | `beforeEach` | run before each test in the suite |
 | `afterEach` | run after each test |
 | `wrapEach` | run before and after each test |
@@ -680,15 +686,9 @@ Similarly, the options object can be dynamically generated. Here's an example:
 
 ```
 var endpoints = [
-	{
-		"path": "/api/search/1",
-	},
-	{
-		"path": "/api/search/2",
-	},
-	{
-		"path": "api/search/3",
-	}
+	{ "path": "/api/search/1" },
+	{ "path": "/api/search/2" },
+	{ "path": "api/search/3" }
 ];
 
 // check local app
