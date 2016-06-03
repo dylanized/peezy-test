@@ -3,6 +3,8 @@
 	var test = require("unit.js"),
 		_ = require("lodash");
 		
+		var npm = require("./util/npm-runner.js");
+		
 // alt suite interfaces	
 
 	// handle test or suite object
@@ -444,6 +446,136 @@
 			
 			return httpString;
 			
+		}
+		
+// npm run helpers
+	
+	// all	
+		
+		test.beforeAllRun = function(task) {
+		
+			test.beforeAll(function(done) {
+			
+				npm.run(task, done);
+			
+			});
+		
+		}
+
+		test.afterAllRun = function(task) {
+		
+			test.afterAll(function(done) {
+			
+				npm.run(task, done);
+			
+			});			
+		
+		}
+		
+		test.wrapAllRun = function(task) {
+		
+			test.wrapAll(function(done) {
+			
+				npm.run(task, done);
+			
+			});			
+		
+		}
+	
+	// each
+
+		test.beforeEachRun = function(task) {
+		
+			test.beforeEach(function(done) {
+			
+				npm.run(task, done);
+			
+			});			
+		
+		}
+
+		test.afterEachRun = function(task) {
+		
+			test.afterEach(function(done) {
+			
+				npm.run(task, done);
+			
+			});			
+		
+		}
+		
+		test.wrapEachRun = function(task) {
+		
+			test.wrapEach(function(done) {
+			
+				npm.run(task, done);
+			
+			});			
+		
+		}
+	
+	// this
+		
+		test.beforeThisRun = function(task) {
+		
+			test.beforeThis(function(done) {
+			
+				npm.run(task, done);
+			
+			});			
+		
+		}
+
+		test.afterThisRun = function(task) {
+		
+			test.afterThis(function(done) {
+			
+				npm.run(task, done);
+			
+			});			
+		
+		}
+		
+		test.wrapThisRun = function(task) {
+		
+			test.wrapThis(function(done) {
+			
+				npm.run(task, done);
+			
+			});			
+		
+		}
+		
+	// individual test
+		
+		test.beforeRun = function(task) {
+		
+			test.before(function(done) {
+			
+				npm.run(task, done);
+			
+			});			
+		
+		}
+
+		test.afterRun = function(task) {
+		
+			test.after(function(done) {
+			
+				npm.run(task, done);
+			
+			});			
+		
+		}
+		
+		test.wrapRun = function(task) {
+		
+			test.wrap(function(done) {
+			
+				npm.run(task, done);
+			
+			});			
+		
 		}
 								
 // other utilities
