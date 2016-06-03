@@ -3,7 +3,7 @@
 	var test = require("unit.js"),
 		_ = require("lodash");
 		
-		var npm = require("./util/npm-runner.js");
+		var npmRun = require("./util/npm-runner.js");
 		
 // alt suite interfaces	
 
@@ -240,6 +240,13 @@
 
 			// else execute test case						
 			else {
+			
+				// wrap assertRun
+				if (testObj.assertRun) testObj.assert = function(done) {
+				
+					npmRun(testObj.assertRun, done);
+				
+				};
 		
 				// if http
 				if (testObj.host || testObj.path) test.http(testObj);
@@ -456,7 +463,7 @@
 		
 			test.beforeAll(function(done) {
 			
-				npm.run(task, done);
+				npmRun(task, done);
 			
 			});
 		
@@ -466,7 +473,7 @@
 		
 			test.afterAll(function(done) {
 			
-				npm.run(task, done);
+				npmRun(task, done);
 			
 			});			
 		
@@ -476,7 +483,7 @@
 		
 			test.wrapAll(function(done) {
 			
-				npm.run(task, done);
+				npmRun(task, done);
 			
 			});			
 		
@@ -488,7 +495,7 @@
 		
 			test.beforeEach(function(done) {
 			
-				npm.run(task, done);
+				npmRun(task, done);
 			
 			});			
 		
@@ -498,7 +505,7 @@
 		
 			test.afterEach(function(done) {
 			
-				npm.run(task, done);
+				npmRun(task, done);
 			
 			});			
 		
@@ -508,7 +515,7 @@
 		
 			test.wrapEach(function(done) {
 			
-				npm.run(task, done);
+				npmRun(task, done);
 			
 			});			
 		
@@ -520,7 +527,7 @@
 		
 			test.beforeThis(function(done) {
 			
-				npm.run(task, done);
+				npmRun(task, done);
 			
 			});			
 		
@@ -530,7 +537,7 @@
 		
 			test.afterThis(function(done) {
 			
-				npm.run(task, done);
+				npmRun(task, done);
 			
 			});			
 		
@@ -540,7 +547,7 @@
 		
 			test.wrapThis(function(done) {
 			
-				npm.run(task, done);
+				npmRun(task, done);
 			
 			});			
 		
@@ -552,7 +559,7 @@
 		
 			test.before(function(done) {
 			
-				npm.run(task, done);
+				npmRun(task, done);
 			
 			});			
 		
@@ -562,7 +569,7 @@
 		
 			test.after(function(done) {
 			
-				npm.run(task, done);
+				npmRun(task, done);
 			
 			});			
 		
@@ -572,7 +579,7 @@
 		
 			test.wrap(function(done) {
 			
-				npm.run(task, done);
+				npmRun(task, done);
 			
 			});			
 		
