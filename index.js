@@ -138,21 +138,21 @@
 		
 			// wrap ALLs
 			
-			if (options.beforeAllRun) options.before = npmRunFunc(options.beforeAllRun);
-			if (options.afterAllRun) options.before = npmRunFunc(options.afterAllRun);
-			if (options.wrapAllRun) options.before = npmRunFunc(options.wrapAllRun);
+			if (options && options.beforeAllRun) options.before = npmRunFunc(options.beforeAllRun);
+			if (options && options.afterAllRun) options.before = npmRunFunc(options.afterAllRun);
+			if (options && options.wrapAllRun) options.before = npmRunFunc(options.wrapAllRun);
 			
 			// wrap EACHs
 
-			if (options.beforeEachRun) options.before = npmRunFunc(options.beforeEachRun);
-			if (options.afterEachRun) options.before = npmRunFunc(options.afterEachRun);
-			if (options.wrapEachRun) options.before = npmRunFunc(options.wrapEachRun);
+			if (options && options.beforeEachRun) options.before = npmRunFunc(options.beforeEachRun);
+			if (options && options.afterEachRun) options.before = npmRunFunc(options.afterEachRun);
+			if (options && options.wrapEachRun) options.before = npmRunFunc(options.wrapEachRun);
 			
 			// wrap THIS
 
-			if (options.beforeThisRun) options.before = npmRunFunc(options.beforeThisRun);
-			if (options.afterThisRun) options.before = npmRunFunc(options.afterThisRun);
-			if (options.wrapThisRun) options.before = npmRunFunc(options.wrapThisRun);
+			if (options && options.beforeThisRun) options.before = npmRunFunc(options.beforeThisRun);
+			if (options && options.afterThisRun) options.before = npmRunFunc(options.afterThisRun);
+			if (options && options.wrapThisRun) options.before = npmRunFunc(options.wrapThisRun);
 
 			// get array of onlys
 			var onlys = _.filter(tests, function(obj) {
